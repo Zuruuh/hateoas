@@ -6,5 +6,5 @@ namespace Zuruuh\Hateoas\Configuration\Metadata;
 
 interface ConfigurationExtensionInterface
 {
-    public function decorate(ClassMetadataInterface $classMetadata): void;
+    public function decorate(ValueWithRelations $classMetadata): void;
 }

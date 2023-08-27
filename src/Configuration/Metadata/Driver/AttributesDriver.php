@@ -4,82 +4,54 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Configuration\Metadata\Driver;
 
-use Doctrine\Common\Annotations\Reader as AnnotationsReader;
+use Symfony\Component\Serializer\Mapping\ClassMetadataInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Zuruuh\Hateoas\Configuration\Annotation;
 use Zuruuh\Hateoas\Configuration\Embedded;
 use Zuruuh\Hateoas\Configuration\Exclusion;
-use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
+use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadataWithRelations;
 use Zuruuh\Hateoas\Configuration\Provider\RelationProviderInterface;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Configuration\RelationProvider;
 use Zuruuh\Hateoas\Configuration\Route;
-use JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface;
-use JMS\Serializer\Expression\Expression;
-use JMS\Serializer\Type\ParserInterface;
-use Metadata\ClassMetadata as JMSClassMetadata;
-use Metadata\Driver\DriverInterface;
+use Zuruuh\Hateoas\Resolver\ExpressionLanguageResolver;
 
-class AnnotationDriver implements DriverInterface
+final class AttributesDriver implements ClassMetadataFactoryInterface
 {
-    use CheckExpressionTrait;
-
-    /**
-     * @var AnnotationsReader
-     */
-    private $reader;
-
-    /**
-     * @var RelationProviderInterface
-     */
-    private $relationProvider;
-
-    /**
-     * @var ParserInterface
-     */
-    private $typeParser;
-
     public function __construct(
-        AnnotationsReader $reader,
-        CompilableExpressionEvaluatorInterface $expressionLanguage,
-        RelationProviderInterface $relationProvider,
-        ParserInterface $typeParser
-    ) {
-        $this->reader = $reader;
-        $this->relationProvider = $relationProvider;
-        $this->expressionLanguage = $expressionLanguage;
-        $this->typeParser = $typeParser;
-    }
+        private RelationProviderInterface $relationProvider,
+        private ExpressionLanguageResolver $expressionLanguageResolver,
+        private ClassMetadataFactoryInterface $classMetadataFactory,
+    ) {}
 
-    public function loadMetadataForClass(\ReflectionClass $class): ?JMSClassMetadata
+    public function getMetadataFor(string|object $value): ClassMetadataInterface
     {
-        $annotations = $this->reader->getClassAnnotations($class);
+        $classMetadata = new ClassMetadataWithRelations($this->classMetadataFactory->getMetadataFor($value));
+        $attributes = $classMetadata->getReflectionClass()->getAttributes();
 
-        if (0 === count($annotations)) {
-            return null;
+        if (count($attributes) === 0) {
+            return $classMetadata;
         }
 
-        $classMetadata = new ClassMetadata($class->getName());
-        $classMetadata->fileResources[] = $class->getFilename();
-
-        foreach ($annotations as $annotation) {
-            if ($annotation instanceof Annotation\Relation) {
+        foreach ($attributes as $attribute) {
+            if ($attribute instanceof Annotation\Relation) {
                 $classMetadata->addRelation(new Relation(
-                    $annotation->name,
-                    $this->createHref($annotation->href),
-                    $this->createEmbedded($annotation->embedded),
-                    $this->checkExpressionArray($annotation->attributes) ?: [],
-                    $this->createExclusion($annotation->exclusion)
+                    $attribute->name,
+                    $this->createHref($attribute->href),
+                    $this->createEmbedded($attribute->embedded),
+                    [],
+                    // TODO: Find a workaround
+                    // $this->checkExpressionArray($attribute->attributes) ?: [],
+                    $this->createExclusion($attribute->exclusion)
                 ));
-            } elseif ($annotation instanceof Annotation\RelationProvider) {
-                $relations = $this->relationProvider->getRelations(new RelationProvider($annotation->name), $class->getName());
-                foreach ($relations as $relation) {
-                    $classMetadata->addRelation($relation);
-                }
+            } elseif ($attribute instanceof Annotation\RelationProvider) {
+                $classMetadata->addRelation(
+                    $this->relationProvider->getRelations(
+                        new RelationProvider($attribute->name),
+                        $classMetadata->getName(),
+                    )
+                );
             }
-        }
-
-        if (0 === count($classMetadata->getRelations())) {
-            return null;
         }
 
         return $classMetadata;
@@ -147,5 +119,9 @@ class AnnotationDriver implements DriverInterface
         }
 
         return $exclusion;
+    }
+
+    public function hasMetadataFor(mixed $value): bool
+    {
     }
 }

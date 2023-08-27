@@ -7,7 +7,7 @@ namespace Zuruuh\Hateoas;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\FileCacheReader;
 use Zuruuh\Hateoas\Configuration\Metadata\ConfigurationExtensionInterface;
-use Zuruuh\Hateoas\Configuration\Metadata\Driver\AnnotationDriver;
+use Zuruuh\Hateoas\Configuration\Metadata\Driver\AttributesDriver;
 use Zuruuh\Hateoas\Configuration\Metadata\Driver\ExtensionDriver;
 use Zuruuh\Hateoas\Configuration\Metadata\Driver\XmlDriver;
 use Zuruuh\Hateoas\Configuration\Metadata\Driver\YamlDriver;
@@ -409,10 +409,10 @@ class HateoasBuilder
             $metadataDriver = new DriverChain([
                 new YamlDriver($fileLocator, $expressionEvaluator, $this->chainProvider, $typeParser),
                 new XmlDriver($fileLocator, $expressionEvaluator, $this->chainProvider, $typeParser),
-                new AnnotationDriver($annotationReader, $expressionEvaluator, $this->chainProvider, $typeParser),
+                new AttributesDriver($annotationReader, $expressionEvaluator, $this->chainProvider, $typeParser),
             ]);
         } else {
-            $metadataDriver = new AnnotationDriver($annotationReader, $expressionEvaluator, $this->chainProvider, $typeParser);
+            $metadataDriver = new AttributesDriver($annotationReader, $expressionEvaluator, $this->chainProvider, $typeParser);
         }
 
         $metadataDriver  = new ExtensionDriver($metadataDriver, $this->configurationExtensions);

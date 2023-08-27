@@ -4,65 +4,26 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Configuration;
 
-use JMS\Serializer\Expression\Expression;
+use Zuruuh\Hateoas\Expression\Expression;
 
 class Embedded
 {
-    /**
-     * @var string|mixed
-     */
-    private $content;
+    private string $content;
+
+    private string|Expression|null $xmlElementName;
+
+    private ?Exclusion $exclusion;
+
+    /
+    private array $type;
 
     /**
-     * @var string|Expression|null
+     * @param array<array-key, mixed> $type
      */
-    private $xmlElementName;
-
-    /**
-     * @var Exclusion|null
-     */
-    private $exclusion;
-
-    /**
-     * @var array
-     */
-    private $type;
-
-    /**
-     * @param string|mixed $content
-     * @param string|Expression|null  $xmlElementName
-     */
-    public function __construct($content, $xmlElementName = null, ?Exclusion $exclusion = null, ?array $type = null)
-    {
-        $this->content        = $content;
-        $this->xmlElementName = $xmlElementName;
-        $this->exclusion      = $exclusion;
-        $this->type = $type;
-    }
-
-    public function getType(): ?array
-    {
-        return $this->type;
-    }
-
-    /**
-     * @return mixed|string
-     */
-    public function getContent()
-    {
-        return $this->content;
-    }
-
-    /**
-     * @return Expression|string|null
-     */
-    public function getXmlElementName()
-    {
-        return $this->xmlElementName;
-    }
-
-    public function getExclusion(): ?Exclusion
-    {
-        return $this->exclusion;
-    }
+    public function __construct(
+        public readonly string $content,
+        public readonly string|Expression|null $xmlElementName = null,
+        public readonly ?Exclusion $exclusion = null,
+        public readonly ?array $type = null
+    ) {}
 }

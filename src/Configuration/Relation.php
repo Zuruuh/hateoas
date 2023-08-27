@@ -4,88 +4,31 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Configuration;
 
-use JMS\Serializer\Expression\Expression;
+use Zuruuh\Hateoas\Expression\Expression;
 
 class Relation
 {
     /**
-     * The link "rel" attribute
+     * @param $name The link "rel" attribute
+     * @param $href
+     * @param $embedded
+     * @param list<string|Expression> $attributes
      *
-     * @var string
+     * @throws InvalidArgumentException
      */
-    private $name;
-
-    /**
-     * @var string|Route|Expression|null
-     */
-    private $href;
-
-    /**
-     * @var string[]|Expression[]
-     */
-    private $attributes;
-
-    /**
-     * @var Embedded|null
-     */
-    private $embedded;
-
-    /**
-     * @var Exclusion|null
-     */
-    private $exclusion;
-
-    /**
-     * @param string|Expression $name
-     * @param string|Route          $href
-     * @param Embedded|string|mixed $embedded
-     * @param array                 $attributes
-     */
-    public function __construct(string $name, $href = null, $embedded = null, array $attributes = [], ?Exclusion $exclusion = null)
-    {
-        if (null !== $embedded && !$embedded instanceof Embedded) {
-            $embedded = new Embedded($embedded);
+    public function __construct(
+        public readonly string|Expression $name,
+        public readonly string|Route|null $href = null,
+        public readonly Embedded|string|null $embedded = null,
+        public readonly array $attributes = [],
+        public readonly ?Exclusion $exclusion = null,
+    ) {
+        if (null !== $this->embedded && !$this->embedded instanceof Embedded) {
+            $this->embedded = new Embedded($this->embedded);
         }
 
         if (null === !$href && null === $embedded) {
             throw new \InvalidArgumentException('$href and $embedded cannot be both null.');
         }
-
-        $this->name       = $name;
-        $this->href       = $href;
-        $this->embedded   = $embedded;
-        $this->attributes = $attributes;
-        $this->exclusion  = $exclusion;
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return Route|string|null
-     */
-    public function getHref()
-    {
-        return $this->href;
-    }
-
-    /**
-     * @return array
-     */
-    public function getAttributes(): array
-    {
-        return $this->attributes;
-    }
-
-    public function getEmbedded(): ?Embedded
-    {
-        return $this->embedded;
-    }
-
-    public function getExclusion(): ?Exclusion
-    {
-        return $this->exclusion;
     }
 }
