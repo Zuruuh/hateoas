@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Serializer;
+namespace Zuruuh\Hateoas\Serializer;
 
-use Hateoas\Model\Embedded;
-use Hateoas\Model\Link;
-use Hateoas\Util\ClassUtils;
+use Zuruuh\Hateoas\Model\Embedded;
+use Zuruuh\Hateoas\Model\Link;
+use Zuruuh\Hateoas\Util\ClassUtils;
 use JMS\Serializer\Exception\NotAcceptableException;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;

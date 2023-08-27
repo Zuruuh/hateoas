@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Configuration\Metadata;
+namespace Zuruuh\Hateoas\Configuration\Metadata;
 
-use Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Configuration\Relation;
 
 interface ClassMetadataInterface
 {

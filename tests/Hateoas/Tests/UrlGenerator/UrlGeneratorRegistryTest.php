@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\UrlGenerator;
+namespace Zuruuh\Hateoas\Tests\UrlGenerator;
 
-use Hateoas\Tests\TestCase;
-use Hateoas\UrlGenerator\UrlGeneratorRegistry;
+use Zuruuh\Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry;
 use Prophecy\PhpUnit\ProphecyTrait;
 
 class UrlGeneratorRegistryTest extends TestCase

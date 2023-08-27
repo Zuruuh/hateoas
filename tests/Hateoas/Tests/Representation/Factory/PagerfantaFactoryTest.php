@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Representation\Factory;
+namespace Zuruuh\Hateoas\Tests\Representation\Factory;
 
-use Hateoas\Configuration\Route;
-use Hateoas\Representation\CollectionRepresentation;
-use Hateoas\Representation\Factory\PagerfantaFactory;
-use Hateoas\Tests\Representation\RepresentationTestCase;
+use Zuruuh\Hateoas\Configuration\Route;
+use Zuruuh\Hateoas\Representation\CollectionRepresentation;
+use Zuruuh\Hateoas\Representation\Factory\PagerfantaFactory;
+use Zuruuh\Hateoas\Tests\Representation\RepresentationTestCase;
 use Pagerfanta\Adapter\ArrayAdapter;
 use Pagerfanta\Pagerfanta;
 use Prophecy\PhpUnit\ProphecyTrait;

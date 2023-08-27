@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Serializer;
+namespace Zuruuh\Hateoas\Tests\Serializer;
 
-use Hateoas\Serializer\AddRelationsListener;
-use Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\Serializer\AddRelationsListener;
+use Zuruuh\Hateoas\Tests\TestCase;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;

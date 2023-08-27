@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Twig\Extension;
+namespace Zuruuh\Hateoas\Tests\Twig\Extension;
 
-use Hateoas\HateoasBuilder;
-use Hateoas\Twig\Extension\LinkExtension;
-use Hateoas\UrlGenerator\CallableUrlGenerator;
+use Zuruuh\Hateoas\HateoasBuilder;
+use Zuruuh\Hateoas\Twig\Extension\LinkExtension;
+use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 use Twig\Test\IntegrationTestCase;
 
 class LinkExtensionIntegrationTest extends IntegrationTestCase

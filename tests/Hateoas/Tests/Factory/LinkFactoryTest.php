@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Factory;
+namespace Zuruuh\Hateoas\Tests\Factory;
 
-use Hateoas\Configuration\Relation;
-use Hateoas\Configuration\Route;
-use Hateoas\Factory\LinkFactory;
-use Hateoas\Tests\TestCase;
-use Hateoas\UrlGenerator\CallableUrlGenerator;
-use Hateoas\UrlGenerator\UrlGeneratorRegistry;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Configuration\Route;
+use Zuruuh\Hateoas\Factory\LinkFactory;
+use Zuruuh\Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
+use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry;
 use JMS\Serializer\Expression\ExpressionEvaluator;
 use JMS\Serializer\SerializationContext;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;

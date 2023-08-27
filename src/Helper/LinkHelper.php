@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Helper;
+namespace Zuruuh\Hateoas\Helper;
 
-use Hateoas\Configuration\Relation;
-use Hateoas\Configuration\Route;
-use Hateoas\Factory\LinkFactory;
-use Hateoas\Util\ClassUtils;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Configuration\Route;
+use Zuruuh\Hateoas\Factory\LinkFactory;
+use Zuruuh\Hateoas\Util\ClassUtils;
 use JMS\Serializer\SerializationContext;
 use Metadata\MetadataFactoryInterface;
 

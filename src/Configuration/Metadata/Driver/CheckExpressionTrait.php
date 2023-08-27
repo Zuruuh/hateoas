@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Configuration\Metadata\Driver;
+namespace Zuruuh\Hateoas\Configuration\Metadata\Driver;
 
 use JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface;
 use JMS\Serializer\Expression\Expression;

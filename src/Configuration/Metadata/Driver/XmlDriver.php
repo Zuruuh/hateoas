@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Configuration\Metadata\Driver;
+namespace Zuruuh\Hateoas\Configuration\Metadata\Driver;
 
-use Hateoas\Configuration\Embedded;
-use Hateoas\Configuration\Exclusion;
-use Hateoas\Configuration\Metadata\ClassMetadata;
-use Hateoas\Configuration\Provider\RelationProviderInterface;
-use Hateoas\Configuration\Relation;
-use Hateoas\Configuration\RelationProvider;
-use Hateoas\Configuration\Route;
+use Zuruuh\Hateoas\Configuration\Embedded;
+use Zuruuh\Hateoas\Configuration\Exclusion;
+use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
+use Zuruuh\Hateoas\Configuration\Provider\RelationProviderInterface;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Configuration\RelationProvider;
+use Zuruuh\Hateoas\Configuration\Route;
 use JMS\Serializer\Exception\XmlErrorException;
 use JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface;
 use JMS\Serializer\Type\ParserInterface;

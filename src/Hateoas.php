@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hateoas;
+namespace Zuruuh\Hateoas;
 
-use Hateoas\Helper\LinkHelper;
+use Zuruuh\Hateoas\Helper\LinkHelper;
 use JMS\Serializer\DeserializationContext;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;

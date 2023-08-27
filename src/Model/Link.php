@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Model;
+namespace Zuruuh\Hateoas\Model;
 
 class Link
 {

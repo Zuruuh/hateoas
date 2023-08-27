@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Configuration\Provider;
+namespace Zuruuh\Hateoas\Tests\Configuration\Provider;
 
-use Hateoas\Configuration\Provider\ExpressionEvaluatorProvider;
-use Hateoas\Configuration\RelationProvider as RelationProviderConfiguration;
-use Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\Configuration\Provider\ExpressionEvaluatorProvider;
+use Zuruuh\Hateoas\Configuration\RelationProvider as RelationProviderConfiguration;
+use Zuruuh\Hateoas\Tests\TestCase;
 use JMS\Serializer\Expression\ExpressionEvaluatorInterface;
 use Prophecy\PhpUnit\ProphecyTrait;
 

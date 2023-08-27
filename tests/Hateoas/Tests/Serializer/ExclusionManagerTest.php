@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Serializer;
+namespace Zuruuh\Hateoas\Tests\Serializer;
 
-use Hateoas\Configuration\Exclusion;
-use Hateoas\Configuration\Relation;
-use Hateoas\Serializer\ExclusionManager;
-use Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\Configuration\Exclusion;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Serializer\ExclusionManager;
+use Zuruuh\Hateoas\Tests\TestCase;
 use JMS\Serializer\Exclusion\ExpressionLanguageExclusionStrategy;
 use JMS\Serializer\Expression\ExpressionEvaluator;
 use JMS\Serializer\Expression\ExpressionEvaluatorInterface;

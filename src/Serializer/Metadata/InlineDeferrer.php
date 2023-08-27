@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Serializer\Metadata;
+namespace Zuruuh\Hateoas\Serializer\Metadata;
 
 use JMS\Serializer\SerializationContext;
 

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Representation;
+namespace Zuruuh\Hateoas\Tests\Representation;
 
-use Hateoas\Representation\VndErrorRepresentation;
+use Zuruuh\Hateoas\Representation\VndErrorRepresentation;
 
 class VndErrorRepresentationTest extends RepresentationTestCase
 {

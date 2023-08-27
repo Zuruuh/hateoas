@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Configuration\Metadata\Driver;
+namespace Zuruuh\Hateoas\Tests\Configuration\Metadata\Driver;
 
-use Hateoas\Configuration\Provider\ChainProvider;
-use Hateoas\Configuration\Provider\FunctionProvider;
-use Hateoas\Configuration\Provider\RelationProviderInterface;
-use Hateoas\Configuration\Provider\StaticMethodProvider;
-use Hateoas\Configuration\Relation;
-use Hateoas\Configuration\RelationProvider;
-use Hateoas\Expression\LinkExpressionFunction;
-use Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\Configuration\Provider\ChainProvider;
+use Zuruuh\Hateoas\Configuration\Provider\FunctionProvider;
+use Zuruuh\Hateoas\Configuration\Provider\RelationProviderInterface;
+use Zuruuh\Hateoas\Configuration\Provider\StaticMethodProvider;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Configuration\RelationProvider;
+use Zuruuh\Hateoas\Expression\LinkExpressionFunction;
+use Zuruuh\Hateoas\Tests\TestCase;
 use JMS\Serializer\Expression\ExpressionEvaluator;
 use JMS\Serializer\Type\Parser;
 use JMS\Serializer\Type\ParserInterface;

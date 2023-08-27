@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Configuration;
+namespace Zuruuh\Hateoas\Configuration;
 
 use JMS\Serializer\Expression\Expression;
 

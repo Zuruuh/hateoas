@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Serializer;
+namespace Zuruuh\Hateoas\Serializer;
 
-use Hateoas\Factory\EmbeddedsFactory;
-use Hateoas\Factory\LinksFactory;
-use Hateoas\Serializer\Metadata\InlineDeferrer;
+use Zuruuh\Hateoas\Factory\EmbeddedsFactory;
+use Zuruuh\Hateoas\Factory\LinksFactory;
+use Zuruuh\Hateoas\Serializer\Metadata\InlineDeferrer;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 
 class AddRelationsListener

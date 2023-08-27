@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests;
+namespace Zuruuh\Hateoas\Tests;
 
 use PHPUnit\Framework\TestCase as BaseTestCase;
 

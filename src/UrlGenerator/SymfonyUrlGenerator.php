@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\UrlGenerator;
+namespace Zuruuh\Hateoas\UrlGenerator;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface as SymfonyUrlGeneratorInterface;
 

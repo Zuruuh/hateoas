@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Serializer\Metadata;
+namespace Zuruuh\Hateoas\Serializer\Metadata;
 
-use Hateoas\Configuration\Exclusion;
-use Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Configuration\Exclusion;
+use Zuruuh\Hateoas\Configuration\Relation;
 use JMS\Serializer\Expression\Expression;
 use JMS\Serializer\Metadata\VirtualPropertyMetadata;
 

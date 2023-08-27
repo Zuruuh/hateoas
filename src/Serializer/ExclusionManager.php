@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Serializer;
+namespace Zuruuh\Hateoas\Serializer;
 
-use Hateoas\Configuration\Exclusion;
-use Hateoas\Configuration\Relation;
-use Hateoas\Serializer\Metadata\RelationPropertyMetadata;
+use Zuruuh\Hateoas\Configuration\Exclusion;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
 use JMS\Serializer\Exclusion\ExpressionLanguageExclusionStrategy;
 use JMS\Serializer\SerializationContext;
 

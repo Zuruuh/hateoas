@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests;
+namespace Zuruuh\Hateoas\Tests;
 
-use Hateoas\HateoasBuilder;
-use Hateoas\Tests\Fixtures\Will;
-use Hateoas\UrlGenerator\CallableUrlGenerator;
+use Zuruuh\Hateoas\HateoasBuilder;
+use Zuruuh\Hateoas\Tests\Fixtures\Will;
+use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 
 class HateoasTest extends TestCase
 {

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Factory;
+namespace Zuruuh\Hateoas\Tests\Factory;
 
-use Hateoas\Configuration\Embedded;
-use Hateoas\Configuration\Metadata\ClassMetadata;
-use Hateoas\Configuration\Relation;
-use Hateoas\Factory\EmbeddedsFactory;
-use Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\Configuration\Embedded;
+use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Factory\EmbeddedsFactory;
+use Zuruuh\Hateoas\Tests\TestCase;
 use JMS\Serializer\Expression\ExpressionEvaluator;
 use JMS\Serializer\Expression\ExpressionEvaluatorInterface;
 use JMS\Serializer\SerializationContext;

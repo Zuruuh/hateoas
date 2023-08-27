@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Fixtures;
+namespace Zuruuh\Hateoas\Tests\Fixtures;
 
 class NoAnnotations
 {

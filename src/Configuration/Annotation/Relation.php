@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Configuration\Annotation;
+namespace Zuruuh\Hateoas\Configuration\Annotation;
 
 /**
  * @Annotation

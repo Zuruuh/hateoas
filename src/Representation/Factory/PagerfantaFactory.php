@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Representation\Factory;
+namespace Zuruuh\Hateoas\Representation\Factory;
 
-use Hateoas\Configuration\Route;
-use Hateoas\Representation\CollectionRepresentation;
-use Hateoas\Representation\PaginatedRepresentation;
+use Zuruuh\Hateoas\Configuration\Route;
+use Zuruuh\Hateoas\Representation\CollectionRepresentation;
+use Zuruuh\Hateoas\Representation\PaginatedRepresentation;
 use Pagerfanta\Pagerfanta;
 
 class PagerfantaFactory

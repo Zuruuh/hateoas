@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Representation;
+namespace Zuruuh\Hateoas\Representation;
 
 use JMS\Serializer\Annotation as Serializer;
 

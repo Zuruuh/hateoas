@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Representation;
+namespace Zuruuh\Hateoas\Tests\Representation;
 
-use Hateoas\Representation\CollectionRepresentation;
-use Hateoas\Representation\PaginatedRepresentation;
-use Hateoas\Tests\Fixtures\UsersRepresentation;
+use Zuruuh\Hateoas\Representation\CollectionRepresentation;
+use Zuruuh\Hateoas\Representation\PaginatedRepresentation;
+use Zuruuh\Hateoas\Tests\Fixtures\UsersRepresentation;
 
 class PaginatedRepresentationTest extends RepresentationTestCase
 {

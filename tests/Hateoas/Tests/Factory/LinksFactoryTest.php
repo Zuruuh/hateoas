@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Factory;
+namespace Zuruuh\Hateoas\Tests\Factory;
 
-use Hateoas\Configuration\Metadata\ClassMetadata;
-use Hateoas\Configuration\Relation;
-use Hateoas\Factory\LinksFactory;
-use Hateoas\Model\Link;
-use Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Factory\LinksFactory;
+use Zuruuh\Hateoas\Model\Link;
+use Zuruuh\Hateoas\Tests\TestCase;
 use JMS\Serializer\SerializationContext;
 use Metadata\MetadataFactoryInterface;
 use Prophecy\PhpUnit\ProphecyTrait;

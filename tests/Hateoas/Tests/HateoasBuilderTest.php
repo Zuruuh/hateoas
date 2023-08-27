@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests;
+namespace Zuruuh\Hateoas\Tests;
 
-use Hateoas\HateoasBuilder;
-use Hateoas\Tests\Fixtures\AdrienBrault;
-use Hateoas\Tests\Fixtures\CircularReference1;
-use Hateoas\Tests\Fixtures\CircularReference2;
-use Hateoas\Tests\Fixtures\NoAnnotations;
-use Hateoas\Tests\Fixtures\WithAlternativeRouter;
-use Hateoas\UrlGenerator\CallableUrlGenerator;
+use Zuruuh\Hateoas\HateoasBuilder;
+use Zuruuh\Hateoas\Tests\Fixtures\AdrienBrault;
+use Zuruuh\Hateoas\Tests\Fixtures\CircularReference1;
+use Zuruuh\Hateoas\Tests\Fixtures\CircularReference2;
+use Zuruuh\Hateoas\Tests\Fixtures\NoAnnotations;
+use Zuruuh\Hateoas\Tests\Fixtures\WithAlternativeRouter;
+use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\SerializerInterface;
 

@@ -2,21 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Serializer;
+namespace Zuruuh\Hateoas\Tests\Serializer;
 
-use Hateoas\HateoasBuilder;
-use Hateoas\Model\Embedded;
-use Hateoas\Model\Link;
-use Hateoas\Representation\CollectionRepresentation;
-use Hateoas\Serializer\JsonHalSerializer;
-use Hateoas\Serializer\Metadata\RelationPropertyMetadata;
-use Hateoas\Tests\Fixtures\AdrienBrault;
-use Hateoas\Tests\Fixtures\Foo1;
-use Hateoas\Tests\Fixtures\Foo2;
-use Hateoas\Tests\Fixtures\Foo3;
-use Hateoas\Tests\Fixtures\Gh236Foo;
-use Hateoas\Tests\Fixtures\LinkAttributes;
-use Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\HateoasBuilder;
+use Zuruuh\Hateoas\Model\Embedded;
+use Zuruuh\Hateoas\Model\Link;
+use Zuruuh\Hateoas\Representation\CollectionRepresentation;
+use Zuruuh\Hateoas\Serializer\JsonHalSerializer;
+use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
+use Zuruuh\Hateoas\Tests\Fixtures\AdrienBrault;
+use Zuruuh\Hateoas\Tests\Fixtures\Foo1;
+use Zuruuh\Hateoas\Tests\Fixtures\Foo2;
+use Zuruuh\Hateoas\Tests\Fixtures\Foo3;
+use Zuruuh\Hateoas\Tests\Fixtures\Gh236Foo;
+use Zuruuh\Hateoas\Tests\Fixtures\LinkAttributes;
+use Zuruuh\Hateoas\Tests\TestCase;
 use JMS\Serializer\Metadata\StaticPropertyMetadata;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Representation;
+namespace Zuruuh\Hateoas\Tests\Representation;
 
-use Hateoas\Hateoas;
-use Hateoas\HateoasBuilder;
-use Hateoas\Serializer\XmlHalSerializer;
-use Hateoas\Tests\TestCase;
-use Hateoas\UrlGenerator\CallableUrlGenerator;
+use Zuruuh\Hateoas\Hateoas;
+use Zuruuh\Hateoas\HateoasBuilder;
+use Zuruuh\Hateoas\Serializer\XmlHalSerializer;
+use Zuruuh\Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 
 abstract class RepresentationTestCase extends TestCase
 {

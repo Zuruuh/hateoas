@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Factory;
+namespace Zuruuh\Hateoas\Factory;
 
-use Hateoas\Model\Embedded;
-use Hateoas\Serializer\ExclusionManager;
-use Hateoas\Serializer\Metadata\RelationPropertyMetadata;
+use Zuruuh\Hateoas\Model\Embedded;
+use Zuruuh\Hateoas\Serializer\ExclusionManager;
+use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
 use JMS\Serializer\Expression\Expression;
 use JMS\Serializer\Expression\ExpressionEvaluatorInterface;
 use JMS\Serializer\SerializationContext;

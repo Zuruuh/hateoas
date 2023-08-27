@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Serializer;
+namespace Zuruuh\Hateoas\Serializer;
 
-use Hateoas\Model\Embedded;
+use Zuruuh\Hateoas\Model\Embedded;
 use JMS\Serializer\Exception\NotAcceptableException;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;

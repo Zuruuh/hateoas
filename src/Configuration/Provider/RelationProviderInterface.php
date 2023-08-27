@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Configuration\Provider;
+namespace Zuruuh\Hateoas\Configuration\Provider;
 
-use Hateoas\Configuration\Relation;
-use Hateoas\Configuration\RelationProvider;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Configuration\RelationProvider;
 
 interface RelationProviderInterface
 {

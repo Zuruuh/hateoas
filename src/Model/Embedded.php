@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Model;
+namespace Zuruuh\Hateoas\Model;
 
-use Hateoas\Serializer\Metadata\RelationPropertyMetadata;
+use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
 
 class Embedded
 {

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Factory;
+namespace Zuruuh\Hateoas\Factory;
 
-use Hateoas\Model\Link;
-use Hateoas\Serializer\ExclusionManager;
+use Zuruuh\Hateoas\Model\Link;
+use Zuruuh\Hateoas\Serializer\ExclusionManager;
 use JMS\Serializer\SerializationContext;
 use Metadata\MetadataFactoryInterface;
 

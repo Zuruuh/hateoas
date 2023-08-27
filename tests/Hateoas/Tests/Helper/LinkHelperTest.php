@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Helper;
+namespace Zuruuh\Hateoas\Tests\Helper;
 
-use Hateoas\Configuration\Metadata\ClassMetadata;
-use Hateoas\Configuration\Relation;
-use Hateoas\Configuration\Route;
-use Hateoas\Factory\LinkFactory;
-use Hateoas\HateoasBuilder;
-use Hateoas\Helper\LinkHelper;
-use Hateoas\Model\Link;
-use Hateoas\Tests\Fixtures\Will;
-use Hateoas\Tests\TestCase;
-use Hateoas\UrlGenerator\CallableUrlGenerator;
+use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Configuration\Route;
+use Zuruuh\Hateoas\Factory\LinkFactory;
+use Zuruuh\Hateoas\HateoasBuilder;
+use Zuruuh\Hateoas\Helper\LinkHelper;
+use Zuruuh\Hateoas\Model\Link;
+use Zuruuh\Hateoas\Tests\Fixtures\Will;
+use Zuruuh\Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 use Metadata\MetadataFactoryInterface;
 
 class LinkHelperTest extends TestCase

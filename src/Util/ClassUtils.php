@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Util;
+namespace Zuruuh\Hateoas\Util;
 
 use Doctrine\Persistence\Proxy;
 

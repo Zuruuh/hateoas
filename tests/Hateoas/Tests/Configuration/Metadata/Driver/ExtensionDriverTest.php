@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Configuration\Metadata\Driver;
+namespace Zuruuh\Hateoas\Tests\Configuration\Metadata\Driver;
 
-use Hateoas\Configuration\Metadata\ClassMetadata;
-use Hateoas\Configuration\Metadata\Driver\ExtensionDriver;
-use Hateoas\Configuration\Relation;
-use Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
+use Zuruuh\Hateoas\Configuration\Metadata\Driver\ExtensionDriver;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Tests\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 

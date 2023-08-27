@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Serializer\Metadata;
+namespace Zuruuh\Hateoas\Tests\Serializer\Metadata;
 
-use Hateoas\Configuration\Embedded;
-use Hateoas\Configuration\Exclusion;
-use Hateoas\Configuration\Relation;
-use Hateoas\Configuration\Route;
-use Hateoas\Serializer\Metadata\RelationPropertyMetadata;
-use Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\Configuration\Embedded;
+use Zuruuh\Hateoas\Configuration\Exclusion;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Configuration\Route;
+use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
+use Zuruuh\Hateoas\Tests\TestCase;
 
 class RelationPropertyMetadataTest extends TestCase
 {

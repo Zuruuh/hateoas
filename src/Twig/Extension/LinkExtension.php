@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Twig\Extension;
+namespace Zuruuh\Hateoas\Twig\Extension;
 
-use Hateoas\Helper\LinkHelper;
+use Zuruuh\Hateoas\Helper\LinkHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 

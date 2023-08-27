@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Configuration\Metadata;
+namespace Zuruuh\Hateoas\Configuration\Metadata;
 
 interface ConfigurationExtensionInterface
 {

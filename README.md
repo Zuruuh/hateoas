@@ -147,7 +147,7 @@ has an `href` parameter:
 
 ```php
 use JMS\Serializer\Annotation as Serializer;
-use Hateoas\Configuration\Annotation as Hateoas;
+use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\XmlRoot("user")
@@ -183,7 +183,7 @@ them right now (see [The HateoasBuilder](#the-hateoasbuilder)).
 Everything works fine out of the box:
 
 ```php
-use Hateoas\HateoasBuilder;
+use Zuruuh\Hateoas\HateoasBuilder;
 
 $hateoas = HateoasBuilder::create()->build();
 
@@ -243,7 +243,7 @@ by the `embedded` parameter.
 
 ```php
 use JMS\Serializer\Annotation as Serializer;
-use Hateoas\Configuration\Annotation as Hateoas;
+use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * ...
@@ -346,8 +346,8 @@ actually a collection of resources (e.g. `/users` is a collection of users).
 These help you represent the collection and add pagination and limits:
 
 ```php
-use Hateoas\Representation\PaginatedRepresentation;
-use Hateoas\Representation\CollectionRepresentation;
+use Zuruuh\Hateoas\Representation\PaginatedRepresentation;
+use Zuruuh\Hateoas\Representation\CollectionRepresentation;
 
 $paginatedCollection = new PaginatedRepresentation(
     new CollectionRepresentation(array($user1, $user2, ...)),
@@ -386,8 +386,8 @@ the Pagerfanta library, this is an easier way to create the collection
 representations:
 
 ```php
-use Hateoas\Configuration\Route;
-use Hateoas\Representation\Factory\PagerfantaFactory;
+use Zuruuh\Hateoas\Configuration\Route;
+use Zuruuh\Hateoas\Representation\Factory\PagerfantaFactory;
 
 $pagerfantaFactory   = new PagerfantaFactory(); // you can pass the page,
                                                 // and limit parameters name
@@ -444,7 +444,7 @@ If you want to customize the inlined `CollectionRepresentation`, pass one as
 third argument of the `createRepresentation()` method:
 
 ```php
-use Hateoas\Representation\Factory\PagerfantaFactory;
+use Zuruuh\Hateoas\Representation\Factory\PagerfantaFactory;
 
 $pagerfantaFactory   = new PagerfantaFactory(); // you can pass the page and limit parameters name
 $paginatedCollection = $pagerfantaFactory->createRepresentation(
@@ -574,7 +574,7 @@ Using the `HateoasBuilder`, call the `setExpressionContextVariable()` method to 
 new context variables:
 
 ```php
-use Hateoas\HateoasBuilder;
+use Zuruuh\Hateoas\HateoasBuilder;
 
 $hateoas = HateoasBuilder::create()
     ->setExpressionContextVariable('foo', new Foo())
@@ -604,7 +604,7 @@ either implement the `Hateoas\UrlGenerator\UrlGeneratorInterface`, or use the
 `Hateoas\UrlGenerator\CallableUrlGenerator`:
 
 ```php
-use Hateoas\UrlGenerator\CallableUrlGenerator;
+use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 
 $hateoas = HateoasBuilder::create()
     ->setUrlGenerator(
@@ -620,7 +620,7 @@ $hateoas = HateoasBuilder::create()
 You will then be able to use the [@Route](#route) annotation:
 
 ```php
-use Hateoas\Configuration\Annotation as Hateoas;
+use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Hateoas\Relation(
@@ -653,7 +653,7 @@ Note that the library comes with a `SymfonyUrlGenerator`. For example, to use it
 in Silex:
 
 ```php
-use Hateoas\UrlGenerator\SymfonyUrlGenerator;
+use Zuruuh\Hateoas\UrlGenerator\SymfonyUrlGenerator;
 
 $hateoas = HateoasBuilder::create()
     ->setUrlGenerator(null, new SymfonyUrlGenerator($app['url_generator']))
@@ -886,7 +886,7 @@ The `HateoasBuilder` class is used to easily configure Hateoas thanks to a
 powerful and fluent API.
 
 ```php
-use Hateoas\HateoasBuilder;
+use Zuruuh\Hateoas\HateoasBuilder;
 
 $hateoas = HateoasBuilder::create()
     ->setCacheDir('/path/to/cache/dir')
@@ -991,9 +991,9 @@ In order to leverage this mechanism, the `ConfigurationExtensionInterface`
 interface has to be implemented:
 
 ```php
-use Hateoas\Configuration\Metadata\ConfigurationExtensionInterface;
-use Hateoas\Configuration\Metadata\ClassMetadataInterface;
-use Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Configuration\Metadata\ConfigurationExtensionInterface;
+use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadataInterface;
+use Zuruuh\Hateoas\Configuration\Relation;
 
 class AcmeFooConfigurationExtension implements ConfigurationExtensionInterface
 {
@@ -1094,7 +1094,7 @@ Acme\Demo\Representation\User:
 This annotation can be defined on a class.
 
 ```php
-use Hateoas\Configuration\Annotation as Hateoas;
+use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Hateoas\Relation(
@@ -1121,7 +1121,7 @@ with the `href` property, not with the `embedded` one).
 #### @Route
 
 ```php
-use Hateoas\Configuration\Annotation as Hateoas;
+use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Hateoas\Relation(
@@ -1150,7 +1150,7 @@ if you have configured one.
 #### @Embedded
 
 ```php
-use Hateoas\Configuration\Annotation as Hateoas;
+use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Hateoas\Relation(
@@ -1247,7 +1247,7 @@ It can be "name":
 Here and example using the expression language:
 
 ```php
-use Hateoas\Configuration\Annotation as Hateoas;
+use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Hateoas\RelationProvider("expr(service('user.rel_provider').getExtraRelations())")
@@ -1261,8 +1261,8 @@ class User
 Here the `UserRelPrvider` class:
 
 ```php
-use Hateoas\Configuration\Relation;
-use Hateoas\Configuration\Route;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Configuration\Route;
 
 class UserRelPrvider
 {

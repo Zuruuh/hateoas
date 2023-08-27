@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Configuration;
+namespace Zuruuh\Hateoas\Tests\Configuration;
 
-use Hateoas\Configuration\Relation;
-use Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Tests\TestCase;
 
 class RelationTest extends TestCase
 {

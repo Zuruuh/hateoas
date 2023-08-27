@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\UrlGenerator;
+namespace Zuruuh\Hateoas\Tests\UrlGenerator;
 
-use Hateoas\Tests\TestCase;
-use Hateoas\UrlGenerator\SymfonyUrlGenerator;
+use Zuruuh\Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\UrlGenerator\SymfonyUrlGenerator;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 

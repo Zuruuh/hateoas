@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Expression;
+namespace Zuruuh\Hateoas\Tests\Expression;
 
-use Hateoas\Expression\ExpressionEvaluator;
-use Hateoas\Expression\LinkExpressionFunction;
-use Hateoas\Helper\LinkHelper;
-use Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\Expression\ExpressionEvaluator;
+use Zuruuh\Hateoas\Expression\LinkExpressionFunction;
+use Zuruuh\Hateoas\Helper\LinkHelper;
+use Zuruuh\Hateoas\Tests\TestCase;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 class LinkExpressionFunctionTest extends TestCase

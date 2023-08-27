@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Expression;
+namespace Zuruuh\Hateoas\Expression;
 
 use Symfony\Component\ExpressionLanguage\ExpressionFunction;
 use Symfony\Component\ExpressionLanguage\ExpressionFunctionProviderInterface;

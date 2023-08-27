@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Configuration\Metadata\Driver;
+namespace Zuruuh\Hateoas\Configuration\Metadata\Driver;
 
-use Hateoas\Configuration\Metadata\ClassMetadata;
-use Hateoas\Configuration\Metadata\ConfigurationExtensionInterface;
+use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
+use Zuruuh\Hateoas\Configuration\Metadata\ConfigurationExtensionInterface;
 use Metadata\ClassMetadata as JMSClassMetadata;
 use Metadata\Driver\DriverInterface;
 

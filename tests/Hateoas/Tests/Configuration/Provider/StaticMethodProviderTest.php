@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Configuration\Provider;
+namespace Zuruuh\Hateoas\Tests\Configuration\Provider;
 
-use Hateoas\Configuration\Provider\StaticMethodProvider;
-use Hateoas\Configuration\Relation;
-use Hateoas\Configuration\RelationProvider;
-use Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\Configuration\Provider\StaticMethodProvider;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Configuration\RelationProvider;
+use Zuruuh\Hateoas\Tests\TestCase;
 
 class StaticMethodProviderTest extends TestCase
 {

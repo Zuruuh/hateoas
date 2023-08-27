@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Configuration\Provider;
+namespace Zuruuh\Hateoas\Configuration\Provider;
 
-use Hateoas\Configuration\RelationProvider;
+use Zuruuh\Hateoas\Configuration\RelationProvider;
 
 class FunctionProvider implements RelationProviderInterface
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Tests\Fixtures;
+namespace Zuruuh\Hateoas\Tests\Fixtures;
 
-use Hateoas\Configuration\Annotation as Hateoas;
+use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
