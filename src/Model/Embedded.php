@@ -4,40 +4,15 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Model;
 
-use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
+// use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
 
 class Embedded
 {
-    /**
-     * @param mixed $data
-     */
-    public function __construct(private readonly string $rel, private $data, private readonly RelationPropertyMetadata $metadata, private readonly ?string $xmlElementName = null, private readonly ?array $type = null) {}
-
-    public function getType(): ?array
-    {
-        return $this->type;
-    }
-
-    public function getMetadata(): RelationPropertyMetadata
-    {
-        return $this->metadata;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getData()
-    {
-        return $this->data;
-    }
-
-    public function getRel(): string
-    {
-        return $this->rel;
-    }
-
-    public function getXmlElementName(): ?string
-    {
-        return $this->xmlElementName;
-    }
+    public function __construct(
+        public readonly string $rel,
+        public readonly mixed $data,
+        public readonly mixed /*RelationPropertyMetadata*/ $metadata,
+        public readonly ?string $xmlElementName = null,
+        public readonly ?array $type = null
+    ) {}
 }
