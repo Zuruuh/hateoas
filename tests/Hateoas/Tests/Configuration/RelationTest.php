@@ -9,7 +9,7 @@ use Zuruuh\Hateoas\Tests\TestCase;
 
 class RelationTest extends TestCase
 {
-    public function testConstructor()
+    public function testConstructor(): void
     {
         $relation = new Relation('self', 'user_get');
 
@@ -18,17 +18,17 @@ class RelationTest extends TestCase
         $this->assertEmpty($relation->getAttributes());
     }
 
-    public function requireHrefOrEmbed()
+    public function requireHrefOrEmbed(): void
     {
         $this
-            ->exception(function () {
+            ->exception(function (): void {
                 new Relation('', null, null);
             })
             ->isInstanceOf('InvalidArgumentException')
             ->hasMessage('$href and $embedded cannot be both null.');
     }
 
-    public function canBeConstructedWithOnlyAnEmbed()
+    public function canBeConstructedWithOnlyAnEmbed(): void
     {
         $relation = new Relation('self', null, 'foo');
 

@@ -27,7 +27,7 @@ class JsonHalSerializerTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testSerializeLinks()
+    public function testSerializeLinks(): void
     {
         $links = [
             new Link('self', '/users/42', ['awesome' => 'exactly']),
@@ -69,7 +69,7 @@ class JsonHalSerializerTest extends TestCase
         );
     }
 
-    public function testSerializeEmbeddeds()
+    public function testSerializeEmbeddeds(): void
     {
         $acceptArguments = [
             ['name' => 'John'],
@@ -130,7 +130,7 @@ class JsonHalSerializerTest extends TestCase
         );
     }
 
-    public function testSerializeCuriesWithOneLinkShouldBeAnArray()
+    public function testSerializeCuriesWithOneLinkShouldBeAnArray(): void
     {
         $links = [
             new Link('self', '/users/42'),
@@ -162,7 +162,7 @@ class JsonHalSerializerTest extends TestCase
         );
     }
 
-    public function testSerializeCuriesWithMultipleEntriesShouldBeAnArray()
+    public function testSerializeCuriesWithMultipleEntriesShouldBeAnArray(): void
     {
         $links = [
             new Link('self', '/users/42'),
@@ -199,7 +199,7 @@ class JsonHalSerializerTest extends TestCase
         );
     }
 
-    public function testSerializeAdrienBrault()
+    public function testSerializeAdrienBrault(): void
     {
         $hateoas      = HateoasBuilder::buildHateoas();
         $adrienBrault = new AdrienBrault();
@@ -246,7 +246,7 @@ JSON
         );
     }
 
-    public function testSerializeInlineJson()
+    public function testSerializeInlineJson(): void
     {
         $foo1 = new Foo1();
         $foo2 = new Foo2();
@@ -282,7 +282,7 @@ JSON
         );
     }
 
-    public function testGh236()
+    public function testGh236(): void
     {
         $data = new CollectionRepresentation([new Gh236Foo()]);
 
@@ -314,7 +314,7 @@ JSON
         );
     }
 
-    public function testTemplateLink()
+    public function testTemplateLink(): void
     {
         $data = new LinkAttributes();
 

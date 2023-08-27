@@ -11,11 +11,8 @@ use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
  */
 class Post
 {
-    private $id;
-
-    public function __construct($id)
+    public function __construct(private $id)
     {
-        $this->id = $id;
     }
 
     public function getId()

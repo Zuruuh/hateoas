@@ -6,18 +6,16 @@ namespace Zuruuh\Hateoas\UrlGenerator;
 
 class UrlGeneratorRegistry
 {
-    public const DEFAULT_URL_GENERATOR_KEY = 'default';
+    final public const DEFAULT_URL_GENERATOR_KEY = 'default';
 
     /**
      * @var UrlGeneratorInterface[]
      */
-    private $urlGenerators;
+    private array $urlGenerators = [];
 
     public function __construct(?UrlGeneratorInterface $defaultUrlGenerator = null)
     {
-        $this->urlGenerators = [];
-
-        if (null !== $defaultUrlGenerator) {
+        if ($defaultUrlGenerator instanceof \Zuruuh\Hateoas\UrlGenerator\UrlGeneratorInterface) {
             $this->urlGenerators = [self::DEFAULT_URL_GENERATOR_KEY => $defaultUrlGenerator];
         }
     }
@@ -55,6 +53,6 @@ class UrlGeneratorRegistry
 
     public function hasGenerators(): bool
     {
-        return count($this->urlGenerators) > 0;
+        return $this->urlGenerators !== [];
     }
 }

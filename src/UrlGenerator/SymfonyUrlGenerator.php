@@ -8,14 +8,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface as SymfonyUrlGener
 
 class SymfonyUrlGenerator implements UrlGeneratorInterface
 {
-    /**
-     * @var SymfonyUrlGeneratorInterface
-     */
-    private $urlGenerator;
-
-    public function __construct(SymfonyUrlGeneratorInterface $urlGenerator)
+    public function __construct(private readonly SymfonyUrlGeneratorInterface $urlGenerator)
     {
-        $this->urlGenerator = $urlGenerator;
     }
 
     /**

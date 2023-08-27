@@ -11,28 +11,7 @@ use JMS\Serializer\Annotation as Serializer;
  */
 abstract class AbstractSegmentedRepresentation extends RouteAwareRepresentation
 {
-    /**
-     * @Serializer\Expose
-     * @Serializer\Type("integer")
-     * @Serializer\XmlAttribute
-     *
-     * @var int
-     */
-    private $limit;
-
-    /**
-     * @Serializer\Expose
-     * @Serializer\Type("integer")
-     * @Serializer\XmlAttribute
-     *
-     * @var int
-     */
-    private $total;
-
-    /**
-     * @var string
-     */
-    private $limitParameterName;
+    private readonly string $limitParameterName;
 
     /**
      * @param mixed $inline
@@ -41,15 +20,22 @@ abstract class AbstractSegmentedRepresentation extends RouteAwareRepresentation
         $inline,
         string $route,
         array $parameters,
-        int $limit,
-        ?int $total = null,
+        /**
+         * @Serializer\Expose
+         * @Serializer\Type("integer")
+         * @Serializer\XmlAttribute
+         */
+        private readonly int $limit,
+        /**
+         * @Serializer\Expose
+         * @Serializer\Type("integer")
+         * @Serializer\XmlAttribute
+         */
+        private readonly ?int $total = null,
         ?string $limitParameterName = null,
         bool $absolute = false
     ) {
         parent::__construct($inline, $route, $parameters, $absolute);
-
-        $this->total               = $total;
-        $this->limit               = $limit;
         $this->limitParameterName  = $limitParameterName ?: 'limit';
     }
 

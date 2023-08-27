@@ -11,11 +11,11 @@ use JMS\Serializer\Metadata\VirtualPropertyMetadata;
 
 class RelationPropertyMetadata extends VirtualPropertyMetadata
 {
-    public const EXPRESSION_REGEX = '/expr\((?P<expression>.+)\)/';
+    final public const EXPRESSION_REGEX = '/expr\((?P<expression>.+)\)/';
 
     public function __construct(?Exclusion $exclusion = null, ?Relation $relation = null)
     {
-        if (null !== $relation) {
+        if ($relation instanceof \Zuruuh\Hateoas\Configuration\Relation) {
             $this->name = $relation->getName();
             $this->class = get_class($relation);
 
@@ -26,7 +26,7 @@ class RelationPropertyMetadata extends VirtualPropertyMetadata
             }
         }
 
-        if (null === $exclusion) {
+        if (!$exclusion instanceof \Zuruuh\Hateoas\Configuration\Exclusion) {
             return;
         }
 

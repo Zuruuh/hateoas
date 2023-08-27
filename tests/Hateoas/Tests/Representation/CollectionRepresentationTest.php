@@ -11,7 +11,7 @@ class CollectionRepresentationTest extends RepresentationTestCase
     /**
      * @dataProvider getTestSerializeData
      */
-    public function testSerialize($resources)
+    public function testSerialize(array|\ArrayIterator $resources): void
     {
         $collection = new CollectionRepresentation($resources);
 
@@ -58,7 +58,7 @@ JSON
         );
     }
 
-    public function getTestSerializeData()
+    public function getTestSerializeData(): array
     {
         return [
             [

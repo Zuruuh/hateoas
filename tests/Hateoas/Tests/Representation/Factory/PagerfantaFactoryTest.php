@@ -16,7 +16,7 @@ class PagerfantaFactoryTest extends RepresentationTestCase
 {
     use ProphecyTrait;
 
-    public function test()
+    public function test(): void
     {
         $results = [
             'Adrien',
@@ -69,7 +69,7 @@ class PagerfantaFactoryTest extends RepresentationTestCase
         }
     }
 
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $factory    = new PagerfantaFactory();
         $pagerfanta = new Pagerfanta(new ArrayAdapter([
@@ -130,7 +130,7 @@ JSON
         );
     }
 
-    public function testGenerateAbsoluteURIs()
+    public function testGenerateAbsoluteURIs(): void
     {
         $factory    = new PagerfantaFactory();
         $pagerfanta = new Pagerfanta(new ArrayAdapter([

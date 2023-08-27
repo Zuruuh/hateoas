@@ -16,14 +16,14 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 class LinkFactoryTest extends TestCase
 {
-    protected function expr($expr)
+    protected function expr(string $expr): \JMS\Serializer\Expression\Expression
     {
         $expressionEvaluator = new ExpressionEvaluator(new ExpressionLanguage());
 
         return $expressionEvaluator->parse($expr, ['object']);
     }
 
-    public function test()
+    public function test(): void
     {
         $context = SerializationContext::create();
         $link = $this->createLinkFactory()->createLink(
@@ -38,7 +38,7 @@ class LinkFactoryTest extends TestCase
         $this->assertSame(['templated' => false], $link->getAttributes());
     }
 
-    public function testRoute()
+    public function testRoute(): void
     {
         $context = SerializationContext::create();
         $link = $this->createLinkFactory()->createLink(
@@ -52,7 +52,7 @@ class LinkFactoryTest extends TestCase
         $this->assertSame('/route?foo=bar', $link->getHref());
     }
 
-    public function testExpressions()
+    public function testExpressions(): void
     {
         $context = SerializationContext::create();
         $link = $this->createLinkFactory()->createLink(
@@ -72,7 +72,7 @@ class LinkFactoryTest extends TestCase
         $this->assertSame(['tested-rel' => '/tested-url'], $link->getAttributes());
     }
 
-    public function testParametersExpression()
+    public function testParametersExpression(): void
     {
         $context = SerializationContext::create();
         $link = $this->createLinkFactory()->createLink(
@@ -86,7 +86,7 @@ class LinkFactoryTest extends TestCase
         $this->assertSame('/route?a=b', $link->getHref());
     }
 
-    public function testParametersDeepArrayExpression()
+    public function testParametersDeepArrayExpression(): void
     {
         $context = SerializationContext::create();
         $link = $this->createLinkFactory()->createLink(
@@ -108,7 +108,7 @@ class LinkFactoryTest extends TestCase
         $this->assertSame('/route?param%5B0%5D=tested-rel', $link->getHref());
     }
 
-    public function testRouteRequiresGenerator()
+    public function testRouteRequiresGenerator(): void
     {
         $expressionEvaluator = new ExpressionEvaluator(new ExpressionLanguage());
         $urlGeneratorRegistry = new UrlGeneratorRegistry();
@@ -126,7 +126,7 @@ class LinkFactoryTest extends TestCase
         );
     }
 
-    public function testRouteParamatersNotArray()
+    public function testRouteParamatersNotArray(): void
     {
         $linkFactory = $this->createLinkFactory();
 
@@ -141,9 +141,9 @@ class LinkFactoryTest extends TestCase
         );
     }
 
-    private function createLinkFactory()
+    private function createLinkFactory(): \Zuruuh\Hateoas\Factory\LinkFactory
     {
-        $defaultUrlGenerator = new CallableUrlGenerator(function ($route, $parameters) {
+        $defaultUrlGenerator = new CallableUrlGenerator(function (string $route, $parameters): string {
             return $route . '?' . http_build_query($parameters);
         });
         $expressionEvaluator = new ExpressionEvaluator(new ExpressionLanguage());
@@ -155,17 +155,17 @@ class LinkFactoryTest extends TestCase
 
 class TestedObject
 {
-    public function getRel()
+    public function getRel(): string
     {
         return 'tested-rel';
     }
 
-    public function getUrl()
+    public function getUrl(): string
     {
         return '/tested-url';
     }
 
-    public function getParameters()
+    public function getParameters(): array
     {
         return ['a' => 'b'];
     }

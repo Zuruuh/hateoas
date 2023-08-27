@@ -22,13 +22,13 @@ abstract class RepresentationTestCase extends TestCase
      */
     protected $halHateoas;
 
-    private $queryStringUrlGenerator;
+    private \Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator $queryStringUrlGenerator;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->queryStringUrlGenerator = new CallableUrlGenerator(function ($route, array $parameters, $absolute) {
+        $this->queryStringUrlGenerator = new CallableUrlGenerator(function (string $route, array $parameters, $absolute): string {
             if ('' !== $queryString = http_build_query($parameters)) {
                 $queryString = '?' . $queryString;
             }

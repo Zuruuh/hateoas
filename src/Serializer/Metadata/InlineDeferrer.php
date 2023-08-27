@@ -8,10 +8,7 @@ use JMS\Serializer\SerializationContext;
 
 class InlineDeferrer
 {
-    /**
-     * @var \SplObjectStorage
-     */
-    protected $deferredData;
+    protected \SplObjectStorage $deferredData;
 
     public function __construct()
     {

@@ -72,7 +72,7 @@ class XmlSerializer implements SerializerInterface
     {
         $elementName = null;
 
-        if (null !== $embedded) {
+        if ($embedded instanceof \Zuruuh\Hateoas\Model\Embedded) {
             $elementName = $embedded->getXmlElementName();
         }
 

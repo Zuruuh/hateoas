@@ -12,7 +12,7 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 class LinkExpressionFunctionTest extends TestCase
 {
-    public function testEvaluate()
+    public function testEvaluate(): void
     {
         $object = new \StdClass();
 
@@ -27,7 +27,7 @@ class LinkExpressionFunctionTest extends TestCase
         );
     }
 
-    public function testCompile()
+    public function testCompile(): void
     {
         $object = new \StdClass();
 
@@ -54,7 +54,7 @@ class LinkExpressionFunctionTest extends TestCase
      *
      * @return LinkHelper
      */
-    private function mockHelper($result, $expectedObject, $expectedRel, $expectedAbsolute)
+    private function mockHelper(string $result, \StdClass $expectedObject, string $expectedRel, bool $expectedAbsolute)
     {
         $linkHelperMock = $this
             ->getMockBuilder('Hateoas\Helper\LinkHelper')

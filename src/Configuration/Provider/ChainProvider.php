@@ -9,13 +9,10 @@ use Zuruuh\Hateoas\Configuration\RelationProvider;
 class ChainProvider implements RelationProviderInterface
 {
     /**
-     * @var RelationProviderInterface[]
+     * @param \Zuruuh\Hateoas\Configuration\Provider\RelationProviderInterface[] $resolvers
      */
-    private $resolvers;
-
-    public function __construct(array $resolvers)
+    public function __construct(private array $resolvers)
     {
-        $this->resolvers = $resolvers;
     }
 
     public function addProvider(RelationProviderInterface $resolver): void

@@ -13,7 +13,7 @@ class StaticMethodProvider implements RelationProviderInterface
      */
     public function getRelations(RelationProvider $configuration, string $class): array
     {
-        if (!preg_match('/^(?P<class>[a-z0-9_\\\\]+)::(?P<method>[a-z0-9_]+)$/i', $configuration->getName(), $matches)) {
+        if (!preg_match('/^(?P<class>[a-z0-9_\\\\]+)::(?P<method>[a-z0-9_]+)$/i', (string) $configuration->getName(), $matches)) {
             return [];
         }
 

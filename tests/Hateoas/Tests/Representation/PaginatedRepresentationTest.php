@@ -10,7 +10,7 @@ use Zuruuh\Hateoas\Tests\Fixtures\UsersRepresentation;
 
 class PaginatedRepresentationTest extends RepresentationTestCase
 {
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $collection = new PaginatedRepresentation(
             new CollectionRepresentation(
@@ -101,13 +101,7 @@ XML
             $this->halHateoas->serialize(new UsersRepresentation($collection), 'xml')
         );
         $this->assertSame(
-            '{'
-                . '"page":3,'
-                . '"limit":20,'
-                . '"pages":17,'
-                . '"total":100,'
-                . '"_links":{'
-                    . '"self":{'
+            '{"page":3,"limit":20,"pages":17,"total":100,"_links":{"self":{'
                         . '"href":"\/authors?query=willdurand%2FHateoas&page=3&limit=20"'
                     . '},'
                     . '"first":{'
@@ -134,7 +128,7 @@ XML
         );
     }
 
-    public function testGenerateAbsoluteURIs()
+    public function testGenerateAbsoluteURIs(): void
     {
         $collection = new PaginatedRepresentation(
             new CollectionRepresentation(
@@ -189,12 +183,7 @@ XML
             $this->halHateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
-            '{'
-                . '"page":3,'
-                . '"limit":20,'
-                . '"pages":17,'
-                . '"_links":{'
-                    . '"self":{'
+            '{"page":3,"limit":20,"pages":17,"_links":{"self":{'
                         . '"href":"http:\/\/example.com\/authors?query=willdurand%2FHateoas&page=3&limit=20"'
                     . '},'
                     . '"first":{'

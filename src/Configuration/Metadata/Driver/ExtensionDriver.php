@@ -12,19 +12,10 @@ use Metadata\Driver\DriverInterface;
 class ExtensionDriver implements DriverInterface
 {
     /**
-     * @var DriverInterface
+     * @param \Zuruuh\Hateoas\Configuration\Metadata\ConfigurationExtensionInterface[] $extensions
      */
-    private $delegate;
-
-    /**
-     * @var ConfigurationExtensionInterface[]
-     */
-    private $extensions;
-
-    public function __construct(DriverInterface $delegate, array $extensions = [])
+    public function __construct(private readonly \Metadata\Driver\DriverInterface $delegate, private array $extensions = [])
     {
-        $this->delegate   = $delegate;
-        $this->extensions = $extensions;
     }
 
     public function loadMetadataForClass(\ReflectionClass $class): ?JMSClassMetadata
@@ -32,11 +23,11 @@ class ExtensionDriver implements DriverInterface
         $metadata    = $this->delegate->loadMetadataForClass($class);
         $newMetadata = false;
 
-        if (empty($this->extensions)) {
+        if ($this->extensions === []) {
             return $metadata;
         }
 
-        if (null === $metadata) {
+        if (!$metadata instanceof \Metadata\ClassMetadata) {
             $metadata    = new ClassMetadata($class->getName());
             $newMetadata = true;
         }

@@ -11,20 +11,8 @@ use Pagerfanta\Pagerfanta;
 
 class PagerfantaFactory
 {
-    /**
-     * @var string
-     */
-    private $pageParameterName;
-
-    /**
-     * @var string
-     */
-    private $limitParameterName;
-
-    public function __construct(?string $pageParameterName = null, ?string $limitParameterName = null)
+    public function __construct(private readonly ?string $pageParameterName = null, private readonly ?string $limitParameterName = null)
     {
-        $this->pageParameterName  = $pageParameterName;
-        $this->limitParameterName = $limitParameterName;
     }
 
     /**

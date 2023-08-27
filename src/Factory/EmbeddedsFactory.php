@@ -14,29 +14,8 @@ use Metadata\MetadataFactoryInterface;
 
 class EmbeddedsFactory
 {
-    /**
-     * @var ExpressionEvaluatorInterface
-     */
-    private $expressionEvaluator;
-
-    /**
-     * @var ExclusionManager
-     */
-    private $exclusionManager;
-
-    /**
-     * @var MetadataFactoryInterface
-     */
-    private $metadataFactory;
-
-    public function __construct(
-        MetadataFactoryInterface $metadataFactory,
-        ExpressionEvaluatorInterface $expressionEvaluator,
-        ExclusionManager $exclusionManager
-    ) {
-        $this->expressionEvaluator = $expressionEvaluator;
-        $this->exclusionManager = $exclusionManager;
-        $this->metadataFactory = $metadataFactory;
+    public function __construct(private readonly \Metadata\MetadataFactoryInterface $metadataFactory, private readonly \JMS\Serializer\Expression\ExpressionEvaluatorInterface $expressionEvaluator, private readonly \Zuruuh\Hateoas\Serializer\ExclusionManager $exclusionManager)
+    {
     }
 
     /**

@@ -11,7 +11,7 @@ final class ExpressionLanguageResolver
     /**
      * @var CompilableExpressionEvaluatorInterface
      */
-    private CompilableExpressionEvaluatorInterface$expressionLanguage;
+    private readonly CompilableExpressionEvaluatorInterface$expressionLanguage;
 
     /**
      * @param mixed $exp

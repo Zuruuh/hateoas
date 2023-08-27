@@ -9,7 +9,7 @@ use Zuruuh\Hateoas\Configuration\Metadata\Driver\AttributesDriver;
 
 class AnnotationDriverTest extends AbstractDriverTest
 {
-    public function createDriver()
+    public function createDriver(): \Zuruuh\Hateoas\Configuration\Metadata\Driver\AttributesDriver
     {
         return new AttributesDriver(
             new AnnotationReader(),

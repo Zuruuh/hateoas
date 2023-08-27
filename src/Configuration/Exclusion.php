@@ -8,46 +8,25 @@ use JMS\Serializer\Expression\ExpressionEvaluator;
 
 class Exclusion
 {
-    /**
-     * @var array|null
-     */
-    private $groups;
+    private ?string $sinceVersion = null;
 
-    /**
-     * @var string|null
-     */
-    private $sinceVersion;
+    private ?string $untilVersion = null;
 
-    /**
-     * @var string|null
-     */
-    private $untilVersion;
-
-    /**
-     * @var int|null
-     */
-    private $maxDepth;
-
-    /**
-     * @var string|ExpressionEvaluator|null
-     */
-    private $excludeIf;
+    private ?int $maxDepth = null;
 
     /**
      * @param mixed $excludeIf
      */
     public function __construct(
-        ?array $groups = null,
+        private readonly ?array $groups = null,
         ?string $sinceVersion = null,
         ?string $untilVersion = null,
         ?int $maxDepth = null,
-        $excludeIf = null
+        private $excludeIf = null
     ) {
-        $this->groups = $groups;
         $this->sinceVersion = $sinceVersion ?? null;
         $this->untilVersion = $untilVersion ?? null;
         $this->maxDepth = $maxDepth ?? null;
-        $this->excludeIf = $excludeIf;
     }
 
     /**

@@ -9,7 +9,7 @@ use Metadata\Driver\FileLocator;
 
 class XmlDriverTest extends AbstractDriverTest
 {
-    public function createDriver()
+    public function createDriver(): \Zuruuh\Hateoas\Configuration\Metadata\Driver\XmlDriver
     {
         return new XmlDriver(new FileLocator([
             'Hateoas\Tests\Fixtures' => $this->rootPath() . '/Fixtures/config',

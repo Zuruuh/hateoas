@@ -15,7 +15,7 @@ use JMS\Serializer\SerializationContext;
 
 class XmlHalSerializerTest extends TestCase
 {
-    public function testSerializeAdrienBrault()
+    public function testSerializeAdrienBrault(): void
     {
         $hateoas = HateoasBuilder::create()
             ->setXmlSerializer(new XmlHalSerializer())
@@ -51,7 +51,7 @@ XML
         );
     }
 
-    public function testGh236()
+    public function testGh236(): void
     {
         $data = new CollectionRepresentation([new Gh236Foo()]);
 
@@ -79,7 +79,7 @@ XML
         );
     }
 
-    public function testTemplateLink()
+    public function testTemplateLink(): void
     {
         $data = new LinkAttributes();
 

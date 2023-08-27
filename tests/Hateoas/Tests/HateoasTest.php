@@ -10,12 +10,12 @@ use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 
 class HateoasTest extends TestCase
 {
-    private $hateoas;
+    private \Zuruuh\Hateoas\Hateoas $hateoas;
 
     protected function setUp(): void
     {
         $this->hateoas = HateoasBuilder::create()
-            ->setUrlGenerator(null, new CallableUrlGenerator(function ($name, $parameters, $absolute) {
+            ->setUrlGenerator(null, new CallableUrlGenerator(function ($name, $parameters, $absolute): string {
                 if ('user_get' === $name) {
                     return sprintf(
                         '%s%s',
@@ -37,7 +37,7 @@ class HateoasTest extends TestCase
             ->build();
     }
 
-    public function testGetLinkHrefUrlWithUnknownRelThrowsException()
+    public function testGetLinkHrefUrlWithUnknownRelThrowsException(): void
     {
         $this->expectException(\RuntimeException::class);
         $this->expectExceptionMessage('Can not find the relation "unknown-rel" for the "Hateoas\Tests\Fixtures\Will" class');
@@ -45,13 +45,13 @@ class HateoasTest extends TestCase
         $this->assertNull($this->hateoas->getLinkHelper()->getLinkHref(new Will(123), 'unknown-rel', true));
     }
 
-    public function testGetLinkHrefUrl()
+    public function testGetLinkHrefUrl(): void
     {
         $this->assertEquals('/users/123', $this->hateoas->getLinkHelper()->getLinkHref(new Will(123), 'self'));
         $this->assertEquals('/users/123', $this->hateoas->getLinkHelper()->getLinkHref(new Will(123), 'self', false));
     }
 
-    public function testGetLinkHrefUrlWithAbsoluteTrue()
+    public function testGetLinkHrefUrlWithAbsoluteTrue(): void
     {
         $this->assertEquals('http://example.com/users/123', $this->hateoas->getLinkHelper()->getLinkHref(new Will(123), 'self', true));
     }

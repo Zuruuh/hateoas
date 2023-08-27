@@ -9,14 +9,8 @@ use JMS\Serializer\Expression\ExpressionEvaluatorInterface;
 
 class ExpressionEvaluatorProvider implements RelationProviderInterface
 {
-    /**
-     * @var ExpressionEvaluatorInterface
-     */
-    private $expressionEvaluator;
-
-    public function __construct(ExpressionEvaluatorInterface $expressionEvaluator)
+    public function __construct(private readonly \JMS\Serializer\Expression\ExpressionEvaluatorInterface $expressionEvaluator)
     {
-        $this->expressionEvaluator = $expressionEvaluator;
     }
 
     /**
@@ -24,7 +18,7 @@ class ExpressionEvaluatorProvider implements RelationProviderInterface
      */
     public function getRelations(RelationProvider $configuration, string $class): array
     {
-        if (!preg_match('/expr\((?P<expression>.+)\)/', $configuration->getName(), $matches)) {
+        if (!preg_match('/expr\((?P<expression>.+)\)/', (string) $configuration->getName(), $matches)) {
             return [];
         }
 

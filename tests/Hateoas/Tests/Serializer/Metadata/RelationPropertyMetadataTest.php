@@ -13,7 +13,7 @@ use Zuruuh\Hateoas\Tests\TestCase;
 
 class RelationPropertyMetadataTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
         $propertyMetadata = new RelationPropertyMetadata();
 
@@ -23,7 +23,7 @@ class RelationPropertyMetadataTest extends TestCase
         $this->assertNull($propertyMetadata->maxDepth);
     }
 
-    public function testWithExclusion()
+    public function testWithExclusion(): void
     {
         $propertyMetadata = new RelationPropertyMetadata(new Exclusion(
             ['foo', 'bar'],
@@ -38,7 +38,7 @@ class RelationPropertyMetadataTest extends TestCase
         $this->assertSame(42, $propertyMetadata->maxDepth);
     }
 
-    public function testWithEmbeddedRelation()
+    public function testWithEmbeddedRelation(): void
     {
         $propertyMetadata = new RelationPropertyMetadata(null, new Relation(
             'foo',
@@ -57,7 +57,7 @@ class RelationPropertyMetadataTest extends TestCase
         );
     }
 
-    public function testWithLinkRelation()
+    public function testWithLinkRelation(): void
     {
         $propertyMetadata = new RelationPropertyMetadata(null, new Relation(
             'foo',

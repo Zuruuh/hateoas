@@ -19,6 +19,6 @@ abstract class TestCase extends BaseTestCase
             throw new \PHPUnit_Framework_IncompleteTestError('This test requires PHP 5.4+');
         }
 
-        return json_encode(json_decode($string), JSON_PRETTY_PRINT);
+        return json_encode(json_decode((string) $string), JSON_PRETTY_PRINT);
     }
 }

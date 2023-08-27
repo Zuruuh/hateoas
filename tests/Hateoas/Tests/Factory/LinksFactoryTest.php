@@ -17,7 +17,7 @@ class LinksFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function test()
+    public function test(): void
     {
         $object = new \StdClass();
         $context = SerializationContext::create();

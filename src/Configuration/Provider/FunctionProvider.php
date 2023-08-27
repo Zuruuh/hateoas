@@ -13,7 +13,7 @@ class FunctionProvider implements RelationProviderInterface
      */
     public function getRelations(RelationProvider $configuration, string $class): array
     {
-        if (!preg_match('/func\((?P<function>.+)\)/i', $configuration->getName(), $matches)) {
+        if (!preg_match('/func\((?P<function>.+)\)/i', (string) $configuration->getName(), $matches)) {
             return [];
         }
 

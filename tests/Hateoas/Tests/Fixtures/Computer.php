@@ -11,11 +11,8 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class Computer
 {
-    private $name;
-
-    public function __construct($name)
+    public function __construct(private $name)
     {
-        $this->name = $name;
     }
 
     /**

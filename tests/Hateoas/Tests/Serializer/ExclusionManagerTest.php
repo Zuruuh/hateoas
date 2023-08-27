@@ -23,7 +23,7 @@ class ExclusionManagerTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testDoesNotSkipNonNullEmbedded()
+    public function testDoesNotSkipNonNullEmbedded(): void
     {
         $exclusionManager = new ExclusionManager(new ExpressionLanguageExclusionStrategy(new ExpressionEvaluator(new ExpressionLanguage())));
 
@@ -34,7 +34,7 @@ class ExclusionManagerTest extends TestCase
         $this->assertFalse($exclusionManager->shouldSkipEmbedded($object, $relation, $context));
     }
 
-    public function testSkipNullEmbedded()
+    public function testSkipNullEmbedded(): void
     {
         $exclusionManager = new ExclusionManager(new ExpressionLanguageExclusionStrategy(new ExpressionEvaluator(new ExpressionLanguage())));
 
@@ -45,7 +45,7 @@ class ExclusionManagerTest extends TestCase
         $this->assertTrue($exclusionManager->shouldSkipEmbedded($object, $relation, $context));
     }
 
-    public function testDoesNotSkipNonNullLink()
+    public function testDoesNotSkipNonNullLink(): void
     {
         $exclusionManager = new ExclusionManager(new ExpressionLanguageExclusionStrategy(new ExpressionEvaluator(new ExpressionLanguage())));
 
@@ -56,7 +56,7 @@ class ExclusionManagerTest extends TestCase
         $this->assertFalse($exclusionManager->shouldSkipLink($object, $relation, $context));
     }
 
-    public function testSkipNullLink()
+    public function testSkipNullLink(): void
     {
         $exclusionManager = new ExclusionManager(new ExpressionLanguageExclusionStrategy(new ExpressionEvaluator(new ExpressionLanguage())));
 
@@ -67,10 +67,10 @@ class ExclusionManagerTest extends TestCase
         $this->assertTrue($exclusionManager->shouldSkipLink($object, $relation, $context));
     }
 
-    public function testSkip()
+    public function testSkip(): void
     {
         $test = $this;
-        $exclusionStrategyCallback = function ($args) use ($test) {
+        $exclusionStrategyCallback = function (array $args) use ($test): void {
             $test->assertSame(['foo', 'bar'], $args[0]->groups);
             $test->assertSame('1.1', $args[0]->sinceVersion);
             $test->assertSame('1.7', $args[0]->untilVersion);
@@ -95,7 +95,7 @@ class ExclusionManagerTest extends TestCase
         $this->assertTrue($exclusionManager->shouldSkipEmbedded($object, $relation, $context));
     }
 
-    public function testSkipEmbedded()
+    public function testSkipEmbedded(): void
     {
         $exclusionManager = new ExclusionManager(new ExpressionLanguageExclusionStrategy(new ExpressionEvaluator(new ExpressionLanguage())));
 
@@ -110,7 +110,7 @@ class ExclusionManagerTest extends TestCase
     /**
      * @dataProvider getTestSkipExcludeIfData
      */
-    public function testSkipExcludeIf($exclude)
+    public function testSkipExcludeIf(bool $exclude): void
     {
         $object = (object) ['name' => 'adrien'];
         $exclusion = new Exclusion(null, null, null, null, 'stuff');
@@ -136,7 +136,7 @@ class ExclusionManagerTest extends TestCase
         $this->assertSame($exclude, $exclusionManager->shouldSkipEmbedded($object, $relation, $context));
     }
 
-    public function getTestSkipExcludeIfData()
+    public function getTestSkipExcludeIfData(): array
     {
         return [
             [true],
@@ -148,7 +148,7 @@ class ExclusionManagerTest extends TestCase
      * @param \Closure $shouldSkipPropertyCallback
      * @param int $calledTimes
      */
-    private function mockExclusionStrategy($shouldSkipProperty = false, $shouldSkipPropertyCallback = null, $calledTimes = null)
+    private function mockExclusionStrategy(bool $shouldSkipProperty = false, $shouldSkipPropertyCallback = null, $calledTimes = null)
     {
         $exclusionStrategyProphecy = $this->prophesize('JMS\Serializer\Exclusion\ExclusionStrategyInterface');
         $method = $exclusionStrategyProphecy
@@ -156,8 +156,8 @@ class ExclusionManagerTest extends TestCase
                 Argument::type('Hateoas\Serializer\Metadata\RelationPropertyMetadata'),
                 Argument::type('JMS\Serializer\SerializationContext')
             )
-            ->will(function () use ($shouldSkipProperty, $shouldSkipPropertyCallback) {
-                if (null !== $shouldSkipPropertyCallback) {
+            ->will(function () use ($shouldSkipProperty, $shouldSkipPropertyCallback): bool {
+                if ($shouldSkipPropertyCallback instanceof \Closure) {
                     call_user_func_array($shouldSkipPropertyCallback, func_get_args());
                 }
 

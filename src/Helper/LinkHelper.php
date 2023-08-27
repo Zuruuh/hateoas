@@ -13,20 +13,8 @@ use Metadata\MetadataFactoryInterface;
 
 class LinkHelper
 {
-    /**
-     * @var LinkFactory
-     */
-    private $linkFactory;
-
-    /**
-     * @var MetadataFactoryInterface
-     */
-    private $metadataFactory;
-
-    public function __construct(LinkFactory $linkFactory, MetadataFactoryInterface $metadataFactory)
+    public function __construct(private readonly \Zuruuh\Hateoas\Factory\LinkFactory $linkFactory, private readonly \Metadata\MetadataFactoryInterface $metadataFactory)
     {
-        $this->linkFactory         = $linkFactory;
-        $this->metadataFactory = $metadataFactory;
     }
 
     public function getLinkHref(object $object, string $rel, bool $absolute = false, ?SerializationContext $context = null): string
@@ -38,7 +26,7 @@ class LinkHelper
                 if ($rel === $relation->getName()) {
                     $relation = $this->patchAbsolute($relation, $absolute);
 
-                    if (null !== $link = $this->linkFactory->createLink($object, $relation, $context)) {
+                    if (($link = $this->linkFactory->createLink($object, $relation, $context)) instanceof \Zuruuh\Hateoas\Model\Link) {
                         return $link->getHref();
                     }
                 }
@@ -51,7 +39,7 @@ class LinkHelper
     /**
      * @param mixed $absolute
      */
-    private function patchAbsolute(Relation $relation, $absolute): Relation
+    private function patchAbsolute(Relation $relation, bool $absolute): Relation
     {
         $href = $relation->getHref();
 

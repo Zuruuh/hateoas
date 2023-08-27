@@ -18,10 +18,11 @@ use Zuruuh\Hateoas\Resolver\ExpressionLanguageResolver;
 
 final class AttributesDriver implements ClassMetadataFactoryInterface
 {
+    public $typeParser;
     public function __construct(
-        private RelationProviderInterface $relationProvider,
-        private ExpressionLanguageResolver $expressionLanguageResolver,
-        private ClassMetadataFactoryInterface $classMetadataFactory,
+        private readonly RelationProviderInterface $relationProvider,
+        private readonly ExpressionLanguageResolver $expressionLanguageResolver,
+        private readonly ClassMetadataFactoryInterface $classMetadataFactory,
     ) {}
 
     public function getMetadataFor(string|object $value): ClassMetadataInterface
@@ -29,7 +30,7 @@ final class AttributesDriver implements ClassMetadataFactoryInterface
         $classMetadata = new ClassMetadataWithRelations($this->classMetadataFactory->getMetadataFor($value));
         $attributes = $classMetadata->getReflectionClass()->getAttributes();
 
-        if (count($attributes) === 0) {
+        if ($attributes === []) {
             return $classMetadata;
         }
 
@@ -97,7 +98,7 @@ final class AttributesDriver implements ClassMetadataFactoryInterface
         if ($embedded instanceof Annotation\Embedded) {
             $embeddedExclusion = $embedded->exclusion;
 
-            if (null !== $embeddedExclusion) {
+            if ($embeddedExclusion instanceof \Hateoas\Configuration\Annotation\Exclusion) {
                 $embeddedExclusion = $this->parseExclusion($embeddedExclusion);
             }
 
@@ -114,7 +115,7 @@ final class AttributesDriver implements ClassMetadataFactoryInterface
 
     private function createExclusion(?Annotation\Exclusion $exclusion = null): ?Exclusion
     {
-        if (null !== $exclusion) {
+        if ($exclusion instanceof \Zuruuh\Hateoas\Configuration\Annotation\Exclusion) {
             $exclusion = $this->parseExclusion($exclusion);
         }
 

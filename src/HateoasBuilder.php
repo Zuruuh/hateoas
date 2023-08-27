@@ -43,75 +43,42 @@ use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 class HateoasBuilder
 {
-    /**
-     * @var SerializerBuilder
-     */
-    private $serializerBuilder;
+    private readonly \JMS\Serializer\SerializerBuilder $serializerBuilder;
 
-    /**
-     * @var ExpressionLanguage
-     */
-    private $expressionLanguage;
+    private ?\Symfony\Component\ExpressionLanguage\ExpressionLanguage $expressionLanguage = null;
 
-    /**
-     * @var ExpressionEvaluator
-     */
-    private $expressionEvaluator;
+    private ?\JMS\Serializer\Expression\ExpressionEvaluator $expressionEvaluator = null;
 
-    /**
-     * @var array
-     */
-    private $contextVariables = [];
+    private array $contextVariables = [];
 
-    /**
-     * @var SerializerInterface
-     */
-    private $xmlSerializer;
+    private ?\Zuruuh\Hateoas\Serializer\SerializerInterface $xmlSerializer = null;
 
-    /**
-     * @var SerializerInterface
-     */
-    private $jsonSerializer;
+    private ?\Zuruuh\Hateoas\Serializer\SerializerInterface $jsonSerializer = null;
 
-    /**
-     * @var UrlGeneratorRegistry
-     */
-    private $urlGeneratorRegistry;
+    private readonly \Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry $urlGeneratorRegistry;
 
     /**
      * @var ConfigurationExtensionInterface[]
      */
-    private $configurationExtensions = [];
+    private array $configurationExtensions = [];
 
-    /**
-     * @var ChainProvider
-     */
-    private $chainProvider;
+    private readonly \Zuruuh\Hateoas\Configuration\Provider\ChainProvider $chainProvider;
 
     /**
      * @var string[]
      */
-    private $metadataDirs = [];
+    private array $metadataDirs = [];
 
-    /**
-     * @var bool
-     */
-    private $debug = false;
+    private bool $debug = false;
 
-    /**
-     * @var string
-     */
-    private $cacheDir;
+    private ?string $cacheDir = null;
 
     /**
      * @var AnnotationReader
      */
     private $annotationReader;
 
-    /**
-     * @var bool
-     */
-    private $includeInterfaceMetadata = false;
+    private bool $includeInterfaceMetadata = false;
 
     public static function create(?SerializerBuilder $serializerBuilder = null): HateoasBuilder
     {
@@ -159,11 +126,11 @@ class HateoasBuilder
         $linksFactory        = new LinksFactory($metadataFactory, $linkFactory, $exclusionManager);
         $embeddedsFactory    = new EmbeddedsFactory($metadataFactory, $expressionEvaluator, $exclusionManager);
 
-        if (null === $this->xmlSerializer) {
+        if (!$this->xmlSerializer instanceof \Zuruuh\Hateoas\Serializer\SerializerInterface) {
             $this->setDefaultXmlSerializer();
         }
 
-        if (null === $this->jsonSerializer) {
+        if (!$this->jsonSerializer instanceof \Zuruuh\Hateoas\Serializer\SerializerInterface) {
             $this->setDefaultJsonSerializer();
         }
 
@@ -188,7 +155,7 @@ class HateoasBuilder
             ->addDefaultListeners()
             ->configureListeners(static function (EventDispatcherInterface $dispatcher) use ($eventListeners): void {
                 foreach ($eventListeners as $format => $listener) {
-                    $dispatcher->addListener(Events::POST_SERIALIZE, [$listener, 'onPostSerialize'], null, $format);
+                    $dispatcher->addListener(Events::POST_SERIALIZE, $listener->onPostSerialize(...), null, $format);
                 }
             });
 
@@ -391,7 +358,7 @@ class HateoasBuilder
     {
         $annotationReader = $this->annotationReader;
 
-        if (null === $annotationReader) {
+        if (!$annotationReader instanceof \Doctrine\Common\Annotations\AnnotationReader) {
             $annotationReader = new AnnotationReader();
 
             if (null !== $this->cacheDir) {
@@ -404,7 +371,7 @@ class HateoasBuilder
 
         $typeParser = new Parser();
 
-        if (!empty($this->metadataDirs)) {
+        if ($this->metadataDirs !== []) {
             $fileLocator    = new FileLocator($this->metadataDirs);
             $metadataDriver = new DriverChain([
                 new YamlDriver($fileLocator, $expressionEvaluator, $this->chainProvider, $typeParser),
@@ -433,14 +400,14 @@ class HateoasBuilder
             return;
         }
 
-        if (false === @mkdir($dir, 0777, true) && !is_dir($dir)) {
+        if (!@mkdir($dir, 0777, true) && !is_dir($dir)) {
             throw new \RuntimeException(sprintf('Could not create directory "%s".', $dir));
         }
     }
 
     private function getExpressionLanguage(): ExpressionLanguage
     {
-        if (null === $this->expressionLanguage) {
+        if (!$this->expressionLanguage instanceof \Symfony\Component\ExpressionLanguage\ExpressionLanguage) {
             $this->expressionLanguage = new ExpressionLanguage();
             $this->expressionLanguage->registerProvider(new LinkExpressionFunction());
         }
@@ -450,7 +417,7 @@ class HateoasBuilder
 
     private function getExpressionEvaluator(): ExpressionEvaluator
     {
-        if (null === $this->expressionEvaluator) {
+        if (!$this->expressionEvaluator instanceof \JMS\Serializer\Expression\ExpressionEvaluator) {
             $this->expressionEvaluator = new ExpressionEvaluator($this->getExpressionLanguage(), $this->contextVariables);
         }
 

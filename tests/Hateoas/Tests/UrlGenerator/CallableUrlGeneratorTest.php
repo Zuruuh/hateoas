@@ -9,7 +9,7 @@ use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 
 class CallableUrlGeneratorTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
         $expectedName = 'user_get';
         $expectedParameters = ['id' => 42];

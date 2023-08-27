@@ -11,29 +11,8 @@ use Metadata\MetadataFactoryInterface;
 
 class LinksFactory
 {
-    /**
-     * @var LinkFactory
-     */
-    private $linkFactory;
-
-    /**
-     * @var ExclusionManager
-     */
-    private $exclusionManager;
-
-    /**
-     * @var MetadataFactoryInterface
-     */
-    private $metadataFactory;
-
-    public function __construct(
-        MetadataFactoryInterface $metadataFactory,
-        LinkFactory $linkFactory,
-        ExclusionManager $exclusionManager
-    ) {
-        $this->linkFactory = $linkFactory;
-        $this->exclusionManager = $exclusionManager;
-        $this->metadataFactory = $metadataFactory;
+    public function __construct(private readonly \Metadata\MetadataFactoryInterface $metadataFactory, private readonly \Zuruuh\Hateoas\Factory\LinkFactory $linkFactory, private readonly \Zuruuh\Hateoas\Serializer\ExclusionManager $exclusionManager)
+    {
     }
 
     /**

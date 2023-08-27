@@ -11,20 +11,8 @@ use JMS\Serializer\SerializerInterface;
 
 class Hateoas implements SerializerInterface
 {
-    /**
-     * @var SerializerInterface
-     */
-    private $serializer;
-
-    /**
-     * @var LinkHelper
-     */
-    private $linkHelper;
-
-    public function __construct(SerializerInterface $serializer, LinkHelper $linkHelper)
+    public function __construct(private readonly \JMS\Serializer\SerializerInterface $serializer, private readonly \Zuruuh\Hateoas\Helper\LinkHelper $linkHelper)
     {
-        $this->serializer = $serializer;
-        $this->linkHelper = $linkHelper;
     }
 
     /**

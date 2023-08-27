@@ -10,14 +10,8 @@ use Twig\TwigFunction;
 
 class LinkExtension extends AbstractExtension
 {
-    /**
-     * @var LinkHelper
-     */
-    private $linkHelper;
-
-    public function __construct(LinkHelper $linkHelper)
+    public function __construct(private readonly \Zuruuh\Hateoas\Helper\LinkHelper $linkHelper)
     {
-        $this->linkHelper = $linkHelper;
     }
 
     /**
@@ -26,14 +20,14 @@ class LinkExtension extends AbstractExtension
     public function getFunctions()
     {
         return [
-            new TwigFunction('link_href', [$this->linkHelper, 'getLinkHref']),
+            new TwigFunction('link_href', $this->linkHelper->getLinkHref(...)),
         ];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getName()
+    public function getName(): string
     {
         return 'hateoas_link';
     }

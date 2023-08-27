@@ -56,28 +56,7 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class PaginatedRepresentation extends AbstractSegmentedRepresentation
 {
-    /**
-     * @Serializer\Expose
-     * @Serializer\Type("integer")
-     * @Serializer\XmlAttribute
-     *
-     * @var int
-     */
-    private $page;
-
-    /**
-     * @Serializer\Expose
-     * @Serializer\Type("integer")
-     * @Serializer\XmlAttribute
-     *
-     * @var int
-     */
-    private $pages;
-
-    /**
-     * @var string
-     */
-    private $pageParameterName;
+    private readonly string $pageParameterName;
 
     /**
      * @param mixed $inline
@@ -86,18 +65,25 @@ class PaginatedRepresentation extends AbstractSegmentedRepresentation
         $inline,
         string $route,
         array $parameters,
-        ?int $page,
+        /**
+         * @Serializer\Expose
+         * @Serializer\Type("integer")
+         * @Serializer\XmlAttribute
+         */
+        private readonly ?int $page,
         ?int $limit,
-        ?int $pages,
+        /**
+         * @Serializer\Expose
+         * @Serializer\Type("integer")
+         * @Serializer\XmlAttribute
+         */
+        private readonly ?int $pages,
         ?string $pageParameterName = null,
         ?string $limitParameterName = null,
         bool $absolute = false,
         ?int $total = null
     ) {
         parent::__construct($inline, $route, $parameters, $limit, $total, $limitParameterName, $absolute);
-
-        $this->page               = $page;
-        $this->pages              = $pages;
         $this->pageParameterName  = $pageParameterName  ?: 'page';
     }
 
@@ -112,7 +98,7 @@ class PaginatedRepresentation extends AbstractSegmentedRepresentation
      *
      * @return array
      */
-    public function getParameters($page = null, $limit = null): array
+    public function getParameters($page = null, ?int $limit = null): array
     {
         $parameters = parent::getParameters($limit);
 

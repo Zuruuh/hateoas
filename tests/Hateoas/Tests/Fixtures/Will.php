@@ -15,14 +15,8 @@ use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
  */
 class Will
 {
-    private $id;
-
-    private $post;
-
-    public function __construct($id, ?Post $post = null)
+    public function __construct(private $id, private readonly ?\Zuruuh\Hateoas\Tests\Fixtures\Post $post = null)
     {
-        $this->id   = $id;
-        $this->post = $post;
     }
 
     public function getId()

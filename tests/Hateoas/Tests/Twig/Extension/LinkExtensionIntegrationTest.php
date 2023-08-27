@@ -14,7 +14,7 @@ class LinkExtensionIntegrationTest extends IntegrationTestCase
     public function getExtensions()
     {
         $hateoas = HateoasBuilder::create()
-            ->setUrlGenerator(null, new CallableUrlGenerator(function ($name, $parameters, $absolute) {
+            ->setUrlGenerator(null, new CallableUrlGenerator(function ($name, $parameters, $absolute): string {
                 return sprintf(
                     '%s/%s%s',
                     $absolute ? 'http://example.com' : '',

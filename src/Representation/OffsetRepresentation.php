@@ -56,24 +56,17 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class OffsetRepresentation extends AbstractSegmentedRepresentation
 {
-    /**
-     * @Serializer\Expose
-     * @Serializer\XmlAttribute
-     *
-     * @var int
-     */
-    private $offset;
-
-    /**
-     * @var string
-     */
-    private $offsetParameterName;
+    private readonly string $offsetParameterName;
 
     public function __construct(
         CollectionRepresentation $inline,
         string $route,
         array $parameters,
-        ?int $offset,
+        /**
+         * @Serializer\Expose
+         * @Serializer\XmlAttribute
+         */
+        private readonly ?int $offset,
         ?int $limit,
         ?int $total = null,
         ?string $offsetParameterName = null,
@@ -81,8 +74,6 @@ class OffsetRepresentation extends AbstractSegmentedRepresentation
         bool $absolute = false
     ) {
         parent::__construct($inline, $route, $parameters, $limit, $total, $limitParameterName, $absolute);
-
-        $this->offset              = $offset;
         $this->offsetParameterName = $offsetParameterName  ?: 'offset';
     }
 

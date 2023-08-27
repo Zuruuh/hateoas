@@ -35,45 +35,23 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class VndErrorRepresentation
 {
-    /**
-     * @Serializer\Expose
-     * @Serializer\Type("string")
-     *
-     * @var string
-     */
-    private $message;
-
-    /**
-     * @Serializer\Expose
-     * @Serializer\XmlAttribute
-     * @Serializer\Type("int")
-     *
-     * @var int
-     */
-    private $logref;
-
-    /**
-     * @var string
-     */
-    private $about;
-
-    /**
-     * @var string
-     */
-    private $help;
-
-    /**
-     * @var string
-     */
-    private $describes;
-
-    public function __construct(string $message, ?int $logref = null, ?string $help = null, ?string $describes = null, ?string $about = null)
+    public function __construct(
+        /**
+         * @Serializer\Expose
+         * @Serializer\Type("string")
+         */
+        private readonly string $message,
+        /**
+         * @Serializer\Expose
+         * @Serializer\XmlAttribute
+         * @Serializer\Type("int")
+         */
+        private readonly ?int $logref = null,
+        private readonly ?string $help = null,
+        private readonly ?string $describes = null,
+        private readonly ?string $about = null
+    )
     {
-        $this->message = $message;
-        $this->logref = $logref;
-        $this->help = $help;
-        $this->describes = $describes;
-        $this->about = $about;
     }
 
     public function getHelp(): ?string

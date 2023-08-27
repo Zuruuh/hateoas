@@ -14,20 +14,8 @@ use JMS\Serializer\SerializationContext;
 
 class LinkFactory
 {
-    /**
-     * @var CompilableExpressionEvaluatorInterface
-     */
-    private $expressionEvaluator;
-
-    /**
-     * @var UrlGeneratorRegistry
-     */
-    private $urlGeneratorRegistry;
-
-    public function __construct(UrlGeneratorRegistry $urlGeneratorRegistry, ?CompilableExpressionEvaluatorInterface $expressionEvaluator = null)
+    public function __construct(private readonly \Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry $urlGeneratorRegistry, private ?\JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface $expressionEvaluator = null)
     {
-        $this->urlGeneratorRegistry = $urlGeneratorRegistry;
-        $this->expressionEvaluator = $expressionEvaluator;
     }
 
     public function setExpressionEvaluator(CompilableExpressionEvaluatorInterface $expressionEvaluator): void

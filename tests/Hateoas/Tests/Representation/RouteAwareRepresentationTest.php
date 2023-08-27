@@ -9,7 +9,7 @@ use Zuruuh\Hateoas\Representation\RouteAwareRepresentation;
 
 class RouteAwareRepresentationTest extends RepresentationTestCase
 {
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $collection = new RouteAwareRepresentation(
             new CollectionRepresentation(
@@ -71,7 +71,7 @@ JSON
         );
     }
 
-    public function testGenerateAbsoluteURIs()
+    public function testGenerateAbsoluteURIs(): void
     {
         $collection = new RouteAwareRepresentation(
             new CollectionRepresentation(

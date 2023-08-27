@@ -21,14 +21,14 @@ class EmbeddedsFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    protected function expr($expr)
+    protected function expr(string $expr): \JMS\Serializer\Expression\Expression
     {
         $expressionEvaluator = new ExpressionEvaluator(new ExpressionLanguage());
 
         return $expressionEvaluator->parse($expr, ['object']);
     }
 
-    public function test()
+    public function test(): void
     {
         $relations = [
             new Relation('self', '/users/1'),

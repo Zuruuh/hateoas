@@ -10,7 +10,7 @@ use Zuruuh\Hateoas\Tests\Fixtures\UsersRepresentation;
 
 class OffsetRepresentationTest extends RepresentationTestCase
 {
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $collection = new OffsetRepresentation(
             new CollectionRepresentation(
@@ -103,12 +103,7 @@ XML
         );
 
         $this->assertSame(
-            '{'
-                . '"offset":44,'
-                . '"limit":20,'
-                . '"total":95,'
-                . '"_links":{'
-                    . '"self":{'
+            '{"offset":44,"limit":20,"total":95,"_links":{"self":{'
                         . '"href":"\/authors?query=willdurand%2FHateoas&offset=44&limit=20"'
                     . '},'
                     . '"first":{'
@@ -135,7 +130,7 @@ XML
         );
     }
 
-    public function testGenerateAbsoluteURIs()
+    public function testGenerateAbsoluteURIs(): void
     {
         $collection = new OffsetRepresentation(
             new CollectionRepresentation(
@@ -190,12 +185,7 @@ XML
             $this->halHateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
-            '{'
-                . '"offset":44,'
-                . '"limit":20,'
-                . '"total":95,'
-                . '"_links":{'
-                    . '"self":{'
+            '{"offset":44,"limit":20,"total":95,"_links":{"self":{'
                         . '"href":"http:\/\/example.com\/authors?query=willdurand%2FHateoas&offset=44&limit=20"'
                     . '},'
                     . '"first":{'
@@ -222,7 +212,7 @@ XML
         );
     }
 
-    public function testExclusion()
+    public function testExclusion(): void
     {
         $inline = new CollectionRepresentation(
             [

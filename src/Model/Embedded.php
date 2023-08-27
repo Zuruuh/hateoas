@@ -9,41 +9,11 @@ use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
 class Embedded
 {
     /**
-     * @var string
-     */
-    private $rel;
-
-    /**
-     * @var mixed
-     */
-    private $data;
-
-    /**
-     * @var string|null
-     */
-    private $xmlElementName;
-
-    /**
-     * @var RelationPropertyMetadata
-     */
-    private $metadata;
-
-    /**
-     * @var array
-     */
-    private $type;
-
-    /**
      * @param mixed $data
      * @param string|null $xmlElementName
      */
-    public function __construct(string $rel, $data, RelationPropertyMetadata $metadata, $xmlElementName = null, ?array $type = null)
+    public function __construct(private readonly string $rel, private $data, private readonly \Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata $metadata, private readonly ?string $xmlElementName = null, private readonly ?array $type = null)
     {
-        $this->rel            = $rel;
-        $this->data           = $data;
-        $this->metadata       = $metadata;
-        $this->xmlElementName = $xmlElementName;
-        $this->type = $type;
     }
 
     public function getType(): ?array

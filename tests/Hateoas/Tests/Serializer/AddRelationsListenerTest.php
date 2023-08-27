@@ -14,12 +14,12 @@ class AddRelationsListenerTest extends TestCase
 {
     use ProphecyTrait;
 
-    protected function createEventSubscriber($serializer, $linksFactory, $embedsFactory)
+    protected function createEventSubscriber($serializer, $linksFactory, $embedsFactory): \Zuruuh\Hateoas\Serializer\AddRelationsListener
     {
         $inlineDeferrerProphecy = $this->prophesize('Hateoas\Serializer\Metadata\InlineDeferrer');
         $inlineDeferrerProphecy
             ->handleItems(Argument::cetera())
-            ->will(function ($args) {
+            ->will(function (array $args) {
                 return $args[1];
             });
 
@@ -32,12 +32,12 @@ class AddRelationsListenerTest extends TestCase
         );
     }
 
-    protected function prophesizeSerializer()
+    protected function prophesizeSerializer(): \Prophecy\Prophecy\ObjectProphecy
     {
         return $this->prophesize('Hateoas\Serializer\SerializerInterface');
     }
 
-    public function testOnPostSerialize()
+    public function testOnPostSerialize(): void
     {
         $embeddeds = [
             $this->prophesize('Hateoas\Model\Embedded')->reveal(),
@@ -80,7 +80,7 @@ class AddRelationsListenerTest extends TestCase
         $embeddedEventSubscriber->onPostSerialize($eventProphecy->reveal());
     }
 
-    public function testOnPostSerializeWithNoLinksEmbeddeds()
+    public function testOnPostSerializeWithNoLinksEmbeddeds(): void
     {
         $embeddeds = [];
         $links = [];
@@ -124,7 +124,7 @@ class AddRelationsListenerTest extends TestCase
         return $this->prophesize(SerializationVisitorInterface::class)->reveal();
     }
 
-    private function mockEvent($object, $serializationVisitor, $context)
+    private function mockEvent(\StdClass $object, $serializationVisitor, $context)
     {
         $eventProphecy = $this->prophesize('JMS\Serializer\EventDispatcher\ObjectEvent');
         $eventProphecy->getObject()->willreturn($object);

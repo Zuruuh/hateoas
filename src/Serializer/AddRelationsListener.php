@@ -11,43 +11,8 @@ use JMS\Serializer\EventDispatcher\ObjectEvent;
 
 class AddRelationsListener
 {
-    /**
-     * @var SerializerInterface
-     */
-    private $serializer;
-
-    /**
-     * @var LinksFactory
-     */
-    private $linksFactory;
-
-    /**
-     * @var EmbeddedsFactory
-     */
-    private $embeddedsFactory;
-
-    /**
-     * @var InlineDeferrer
-     */
-    private $embeddedsInlineDeferrer;
-
-    /**
-     * @var InlineDeferrer
-     */
-    private $linksInlineDeferrer;
-
-    public function __construct(
-        SerializerInterface $serializer,
-        LinksFactory $linksFactory,
-        EmbeddedsFactory $embeddedsFactory,
-        InlineDeferrer $embeddedsInlineDeferrer,
-        InlineDeferrer $linksInleDeferrer
-    ) {
-        $this->serializer          = $serializer;
-        $this->linksFactory            = $linksFactory;
-        $this->embeddedsFactory        = $embeddedsFactory;
-        $this->embeddedsInlineDeferrer = $embeddedsInlineDeferrer;
-        $this->linksInlineDeferrer     = $linksInleDeferrer;
+    public function __construct(private readonly \Zuruuh\Hateoas\Serializer\SerializerInterface $serializer, private readonly \Zuruuh\Hateoas\Factory\LinksFactory $linksFactory, private readonly \Zuruuh\Hateoas\Factory\EmbeddedsFactory $embeddedsFactory, private readonly \Zuruuh\Hateoas\Serializer\Metadata\InlineDeferrer $embeddedsInlineDeferrer, private readonly \Zuruuh\Hateoas\Serializer\Metadata\InlineDeferrer $linksInlineDeferrer)
+    {
     }
 
     public function onPostSerialize(ObjectEvent $event): void
@@ -63,11 +28,11 @@ class AddRelationsListener
         $embeddeds = $this->embeddedsInlineDeferrer->handleItems($object, $embeddeds, $context);
         $links  = $this->linksInlineDeferrer->handleItems($object, $links, $context);
 
-        if (count($links) > 0) {
+        if ($links !== []) {
             $this->serializer->serializeLinks($links, $event->getVisitor(), $context);
         }
 
-        if (count($embeddeds) > 0) {
+        if ($embeddeds !== []) {
             $this->serializer->serializeEmbeddeds($embeddeds, $event->getVisitor(), $context);
         }
 

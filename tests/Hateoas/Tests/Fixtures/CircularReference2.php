@@ -17,11 +17,11 @@ class CircularReference2
     /**
      * @Serializer\Expose
      */
-    private $name = 'reference2';
+    private string $name = 'reference2';
 
     private $reference1;
 
-    public function setReference1($reference1)
+    public function setReference1($reference1): void
     {
         $this->reference1 = $reference1;
     }

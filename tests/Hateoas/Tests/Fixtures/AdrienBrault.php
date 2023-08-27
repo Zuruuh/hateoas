@@ -54,27 +54,27 @@ class AdrienBrault
      */
     public $lastName = 'Brault';
 
-    public function getMacbookPro()
+    public function getMacbookPro(): \Zuruuh\Hateoas\Tests\Fixtures\Computer
     {
         return new Computer('MacBook Pro');
     }
 
-    public function getWindowsComputer()
+    public function getWindowsComputer(): \Zuruuh\Hateoas\Tests\Fixtures\Computer
     {
         return new Computer('Windows Computer');
     }
 
-    public function getiOSSmartphone()
+    public function getiOSSmartphone(): \Zuruuh\Hateoas\Tests\Fixtures\Smartphone
     {
         return new Smartphone('iPhone 6');
     }
 
-    public function getAndroidSmartphone()
+    public function getAndroidSmartphone(): \Zuruuh\Hateoas\Tests\Fixtures\Smartphone
     {
         return new Smartphone('Nexus 5');
     }
 
-    public static function getRelations()
+    public static function getRelations(): array
     {
         return [
             new Relation('dynamic-relation', 'awesome!!!', ['wowowow']),

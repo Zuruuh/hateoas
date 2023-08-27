@@ -12,7 +12,7 @@ class UrlGeneratorRegistryTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function test()
+    public function test(): void
     {
         $defaultUrlGenerator = $this->mockUrlGenerator();
         $registry = new UrlGeneratorRegistry($defaultUrlGenerator);

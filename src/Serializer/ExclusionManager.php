@@ -12,14 +12,8 @@ use JMS\Serializer\SerializationContext;
 
 class ExclusionManager
 {
-    /**
-     * @var ExpressionLanguageExclusionStrategy
-     */
-    private $expressionExclusionStrategy;
-
-    public function __construct(ExpressionLanguageExclusionStrategy $expressionLanguageExclusionStrategy)
+    public function __construct(private readonly \JMS\Serializer\Exclusion\ExpressionLanguageExclusionStrategy $expressionExclusionStrategy)
     {
-        $this->expressionExclusionStrategy = $expressionLanguageExclusionStrategy;
     }
 
     public function shouldSkipLink(object $object, Relation $relation, SerializationContext $context): bool
@@ -52,13 +46,11 @@ class ExclusionManager
     private function shouldSkip(Relation $relation, SerializationContext $context, ?Exclusion $exclusion = null): bool
     {
         $propertyMetadata = new RelationPropertyMetadata($exclusion, $relation);
-        if ($context->getExclusionStrategy()) {
-            if ($context->getExclusionStrategy()->shouldSkipProperty($propertyMetadata, $context)) {
-                return true;
-            }
+        if ($context->getExclusionStrategy() instanceof \JMS\Serializer\Exclusion\ExclusionStrategyInterface && $context->getExclusionStrategy()->shouldSkipProperty($propertyMetadata, $context)) {
+            return true;
         }
 
-        return null !== $exclusion
+        return $exclusion instanceof \Zuruuh\Hateoas\Configuration\Exclusion
             && null !== $exclusion->getExcludeIf()
             && $this->expressionExclusionStrategy->shouldSkipProperty($propertyMetadata, $context);
     }

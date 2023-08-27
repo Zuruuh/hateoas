@@ -46,7 +46,7 @@ abstract class AbstractDriverTest extends TestCase
      */
     abstract public function createDriver();
 
-    public function testUser()
+    public function testUser(): void
     {
         $driver = $this->createDriver();
         $class = new \ReflectionClass('Hateoas\Tests\Fixtures\User');
@@ -147,7 +147,7 @@ abstract class AbstractDriverTest extends TestCase
 //        $this->assertSame('getRelations', $relation->getName());
     }
 
-    public function testEmptyClass()
+    public function testEmptyClass(): void
     {
         $driver = $this->createDriver();
         $class = new \ReflectionClass('Hateoas\Tests\Fixtures\EmptyClass');

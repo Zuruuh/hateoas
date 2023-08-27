@@ -14,12 +14,12 @@ class LinkExpressionFunction implements ExpressionFunctionProviderInterface
      *
      * @phpcsSuppress SlevomatCodingStandard.TypeHints.ReturnTypeHint.MissingNativeTypeHint
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
-            new ExpressionFunction('link', static function ($object, $rel, $absolute = false) {
+            new ExpressionFunction('link', static function ($object, $rel, $absolute = false): string {
                 return sprintf('$link_helper->getLinkHref(%s, %s, %s)', $object, $rel, $absolute);
-            }, static function ($context, $object, $rel, $absolute = false) {
+            }, static function (array $context, $object, $rel, $absolute = false) {
                 return $context['link_helper']->getLinkHref($object, $rel, $absolute);
             }),
         ];

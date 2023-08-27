@@ -22,38 +22,11 @@ use JMS\Serializer\Annotation as Serializer;
 class RouteAwareRepresentation
 {
     /**
-     * @Serializer\Inline
-     * @Serializer\Expose
-     *
-     * @var mixed
-     */
-    private $inline;
-
-    /**
-     * @var string
-     */
-    private $route;
-
-    /**
-     * @var array
-     */
-    private $parameters;
-
-    /**
-     * @var bool
-     */
-    private $absolute;
-
-    /**
      * @param mixed $inline
      * @param array $parameters
      */
-    public function __construct($inline, string $route, array $parameters = [], bool $absolute = false)
+    public function __construct(private $inline, private readonly string $route, private readonly array $parameters = [], private readonly bool $absolute = false)
     {
-        $this->inline     = $inline;
-        $this->route      = $route;
-        $this->parameters = $parameters;
-        $this->absolute   = $absolute;
     }
 
     /**

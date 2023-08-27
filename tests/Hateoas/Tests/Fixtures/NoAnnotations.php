@@ -6,14 +6,10 @@ namespace Zuruuh\Hateoas\Tests\Fixtures;
 
 class NoAnnotations
 {
-    private $id;
-    private $number;
-    private $unused = 'N/A';
+    private string $unused = 'N/A';
 
-    public function __construct(string $id, int $number)
+    public function __construct(private readonly string $id, private readonly int $number)
     {
-        $this->id = $id;
-        $this->number = $number;
     }
 
     public function id(): string

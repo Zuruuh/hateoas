@@ -18,12 +18,12 @@ use Metadata\MetadataFactoryInterface;
 
 class LinkHelperTest extends TestCase
 {
-    private $hateoas;
+    private \Zuruuh\Hateoas\Hateoas $hateoas;
 
     protected function setUp(): void
     {
         $this->hateoas = HateoasBuilder::create()
-            ->setUrlGenerator(null, new CallableUrlGenerator(function ($name, $parameters, $absolute) {
+            ->setUrlGenerator(null, new CallableUrlGenerator(function ($name, $parameters, $absolute): string {
                 if ('user_get' === $name) {
                     return sprintf(
                         '%s%s',
@@ -45,7 +45,7 @@ class LinkHelperTest extends TestCase
             ->build();
     }
 
-    public function testGetLinkHref()
+    public function testGetLinkHref(): void
     {
         $linkHelper = new LinkHelper($this->getLinkFactoryMock(), $this->getMetadataFactoryMock());
 
@@ -55,7 +55,7 @@ class LinkHelperTest extends TestCase
         );
     }
 
-    public function testGetLinkHrefReturnsNullIfRelNotFound()
+    public function testGetLinkHrefReturnsNullIfRelNotFound(): void
     {
         $linkHelper = new LinkHelper($this->getLinkFactoryMock($this->never()), $this->getMetadataFactoryMock());
 
@@ -100,7 +100,7 @@ class LinkHelperTest extends TestCase
      */
     private function getLinkFactoryMock($expects = null)
     {
-        if (null === $expects) {
+        if (!$expects instanceof \PHPUnit_Framework_MockObject_Matcher_InvokedCount) {
             $expects = $this->once();
         }
 
@@ -111,7 +111,7 @@ class LinkHelperTest extends TestCase
         $linkFactoryMock
             ->expects($expects)
             ->method('createLink')
-            ->will($this->returnCallback(function ($obj, Relation $relation) {
+            ->will($this->returnCallback(function ($obj, Relation $relation): \Zuruuh\Hateoas\Model\Link {
                 return new Link($relation->getName(), 'http://example.com/' . $relation->getName());
             }));
 

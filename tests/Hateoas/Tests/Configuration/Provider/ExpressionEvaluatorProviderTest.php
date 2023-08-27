@@ -14,7 +14,7 @@ class ExpressionEvaluatorProviderTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function test()
+    public function test(): void
     {
         $service = new \StdClass();
 

@@ -11,7 +11,7 @@ use Zuruuh\Hateoas\Tests\TestCase;
 
 class MethodProviderTest extends TestCase
 {
-    public function test()
+    public function test(): void
     {
         $providerProvider = new FunctionProvider();
 
@@ -25,7 +25,7 @@ class MethodProviderTest extends TestCase
         );
     }
 
-    public static function abc()
+    public static function abc(): array
     {
         return [new Relation('abcdef')];
     }

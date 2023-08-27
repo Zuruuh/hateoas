@@ -13,7 +13,7 @@ class SymfonyUrlGeneratorTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function test()
+    public function test(): void
     {
         $name           = 'user_get';
         $parameters     = ['id' => 42];

@@ -13,13 +13,12 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class UsersRepresentation
 {
-    /**
-     * @Serializer\Inline
-     */
-    private $inline;
-
-    public function __construct($inline)
+    public function __construct(
+        /**
+         * @Serializer\Inline
+         */
+        private $inline
+    )
     {
-        $this->inline = $inline;
     }
 }

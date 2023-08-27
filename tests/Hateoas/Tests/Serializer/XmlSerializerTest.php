@@ -23,7 +23,7 @@ class XmlSerializerTest extends TestCase
 {
     use ProphecyTrait;
 
-    public function testSerializeLinks()
+    public function testSerializeLinks(): void
     {
         $contextProphecy = $this->prophesize('JMS\Serializer\SerializationContext');
 
@@ -55,7 +55,7 @@ XML
         );
     }
 
-    public function testSerializeEmbeddeds()
+    public function testSerializeEmbeddeds(): void
     {
         $contextProphecy = $this->prophesize('JMS\Serializer\SerializationContext');
         $navigatorProphecy = $this->prophesize('JMS\Serializer\GraphNavigatorInterface');
@@ -95,7 +95,7 @@ XML
         );
     }
 
-    public function testSerializeAdrienBrault()
+    public function testSerializeAdrienBrault(): void
     {
         $hateoas      = HateoasBuilder::buildHateoas();
         $adrienBrault = new AdrienBrault();
@@ -132,7 +132,7 @@ XML
         );
     }
 
-    public function testGh236()
+    public function testGh236(): void
     {
         $data = new CollectionRepresentation([new Gh236Foo()]);
 
@@ -160,7 +160,7 @@ XML
         );
     }
 
-    private function createXmlSerializationVisitor()
+    private function createXmlSerializationVisitor(): \JMS\Serializer\XmlSerializationVisitor
     {
         $xmlSerializationVisitor = new XmlSerializationVisitor();
         $xmlSerializationVisitorClass = new \ReflectionClass('JMS\Serializer\XmlSerializationVisitor');
@@ -174,7 +174,7 @@ XML
         return $xmlSerializationVisitor;
     }
 
-    public function testTemplateLink()
+    public function testTemplateLink(): void
     {
         $data = new LinkAttributes();
 

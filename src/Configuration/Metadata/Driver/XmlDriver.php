@@ -22,28 +22,16 @@ class XmlDriver extends AbstractFileDriver
 {
     use CheckExpressionTrait;
 
-    public const NAMESPACE_URI = 'https://github.com/willdurand/Hateoas';
-
-    /**
-     * @var RelationProviderInterface
-     */
-    private $relationProvider;
-
-    /**
-     * @var ParserInterface
-     */
-    private $typeParser;
+    final public const NAMESPACE_URI = 'https://github.com/willdurand/Hateoas';
 
     public function __construct(
         FileLocatorInterface $locator,
         CompilableExpressionEvaluatorInterface $expressionLanguage,
-        RelationProviderInterface $relationProvider,
-        ParserInterface $typeParser
+        private readonly \Zuruuh\Hateoas\Configuration\Provider\RelationProviderInterface $relationProvider,
+        private readonly \JMS\Serializer\Type\ParserInterface $typeParser
     ) {
         parent::__construct($locator);
-        $this->relationProvider = $relationProvider;
         $this->expressionLanguage = $expressionLanguage;
-        $this->typeParser = $typeParser;
     }
 
     protected function loadMetadataFromFile(\ReflectionClass $class, string $file): ?JMSClassMetadata
@@ -65,7 +53,7 @@ class XmlDriver extends AbstractFileDriver
         $classMetadata->fileResources[] = $file;
         $classMetadata->fileResources[] = $class->getFileName();
 
-        if ($exists[0]->attributes(self::NAMESPACE_URI)->providers) {
+        if ($exists[0]->attributes(self::NAMESPACE_URI)->providers instanceof \SimpleXMLElement) {
             $providers = preg_split('/\s*,\s*/', (string) $exists[0]->attributes(self::NAMESPACE_URI)->providers);
 
             foreach ($providers as $relationProvider) {
@@ -82,12 +70,12 @@ class XmlDriver extends AbstractFileDriver
             $name = (string) $relation->attributes('')->rel;
 
             $href = null;
-            if (isset($relation->href)) {
+            if (property_exists($relation, 'href') && $relation->href instanceof \SimpleXMLElement) {
                 $href = $this->createHref($relation->href, $name);
             }
 
             $embedded = null;
-            if (isset($relation->embedded)) {
+            if (property_exists($relation, 'embedded') && $relation->embedded instanceof \SimpleXMLElement) {
                 $embedded = $this->createEmbedded($relation->embedded);
             }
 
@@ -96,7 +84,7 @@ class XmlDriver extends AbstractFileDriver
                 $attributes[(string) $attribute->attributes('')->name] = $this->checkExpression((string) $attribute->attributes('')->value);
             }
 
-            $exclusion = isset($relation->exclusion) ? $this->parseExclusion($relation->exclusion) : null;
+            $exclusion = property_exists($relation, 'exclusion') && $relation->exclusion instanceof \SimpleXMLElement ? $this->parseExclusion($relation->exclusion) : null;
 
             $classMetadata->addRelation(
                 new Relation(
@@ -120,7 +108,7 @@ class XmlDriver extends AbstractFileDriver
     private function parseExclusion(\SimpleXMLElement $exclusion): Exclusion
     {
         return new Exclusion(
-            isset($exclusion->attributes('')->groups) ? preg_split('/\s*,\s*/', (string) $exclusion->attributes('')->groups) : null,
+            property_exists($exclusion->attributes(''), 'groups') && $exclusion->attributes('')->groups instanceof \SimpleXMLElement ? preg_split('/\s*,\s*/', (string) $exclusion->attributes('')->groups) : null,
             isset($exclusion->attributes('')->{'since-version'}) ? (string) $exclusion->attributes('')->{'since-version'} : null,
             isset($exclusion->attributes('')->{'until-version'}) ? (string) $exclusion->attributes('')->{'until-version'} : null,
             isset($exclusion->attributes('')->{'max-depth'}) ? (int) $exclusion->attributes('')->{'max-depth'} : null,
@@ -134,14 +122,14 @@ class XmlDriver extends AbstractFileDriver
      *
      * @return mixed
      */
-    private function createHref($href, $name)
+    private function createHref(\SimpleXMLElement $href, string $name)
     {
-        if (isset($href->attributes('')->uri) && isset($href->attributes('')->route)) {
+        if (property_exists($href->attributes(''), 'uri') && $href->attributes('')->uri instanceof \SimpleXMLElement && (property_exists($href->attributes(''), 'route') && $href->attributes('')->route instanceof \SimpleXMLElement)) {
             throw new \RuntimeException(sprintf(
                 'uri and route attributes are mutually exclusive, please set only one of them. The problematic relation rel is %s.',
                 $name
             ));
-        } elseif (isset($href->attributes('')->uri)) {
+        } elseif (property_exists($href->attributes(''), 'uri') && $href->attributes('')->uri instanceof \SimpleXMLElement) {
             $href = $this->checkExpression((string) $href->attributes('')->uri);
         } else {
             $parameters = [];
@@ -150,7 +138,7 @@ class XmlDriver extends AbstractFileDriver
             }
 
             $absolute = false;
-            if (null !== ($href->attributes('')->absolute)) {
+            if ($href->attributes('')->absolute instanceof \SimpleXMLElement) {
                 $absolute = (string) $href->attributes('')->absolute;
                 if ('true' === strtolower($absolute) || 'false' === strtolower($absolute)) {
                     $absolute = 'true' === strtolower($absolute);
@@ -163,7 +151,7 @@ class XmlDriver extends AbstractFileDriver
                 $this->checkExpression((string) $href->attributes('')->route),
                 $parameters,
                 $absolute,
-                isset($href->attributes('')->generator) ? (string) $href->attributes('')->generator : null
+                property_exists($href->attributes(''), 'generator') && $href->attributes('')->generator instanceof \SimpleXMLElement ? (string) $href->attributes('')->generator : null
             );
         }
 
@@ -173,9 +161,9 @@ class XmlDriver extends AbstractFileDriver
     /**
      * @param mixed $embedded
      */
-    private function createEmbedded($embedded): Embedded
+    private function createEmbedded(\SimpleXMLElement $embedded): Embedded
     {
-        $embeddedExclusion = isset($embedded->exclusion) ? $this->parseExclusion($embedded->exclusion) : null;
+        $embeddedExclusion = property_exists($embedded, 'exclusion') && $embedded->exclusion instanceof \SimpleXMLElement ? $this->parseExclusion($embedded->exclusion) : null;
         $xmlElementName = isset($embedded->attributes('')->{'xml-element-name'}) ? $this->checkExpression((string) $embedded->attributes('')->{'xml-element-name'}) : null;
         $type = isset($embedded->attributes('')->{'type'}) ? $this->typeParser->parse((string) $embedded->attributes('')->{'type'}) : null;
 

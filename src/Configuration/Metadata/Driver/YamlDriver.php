@@ -23,26 +23,14 @@ class YamlDriver extends AbstractFileDriver
 {
     use CheckExpressionTrait;
 
-    /**
-     * @var RelationProviderInterface
-     */
-    private $relationProvider;
-
-    /**
-     * @var ParserInterface
-     */
-    private $typeParser;
-
     public function __construct(
         FileLocatorInterface $locator,
         CompilableExpressionEvaluatorInterface $expressionLanguage,
-        RelationProviderInterface $relationProvider,
-        ParserInterface $typeParser
+        private readonly \Zuruuh\Hateoas\Configuration\Provider\RelationProviderInterface $relationProvider,
+        private readonly \JMS\Serializer\Type\ParserInterface $typeParser
     ) {
         parent::__construct($locator);
-        $this->relationProvider = $relationProvider;
         $this->expressionLanguage = $expressionLanguage;
-        $this->typeParser = $typeParser;
     }
 
     protected function loadMetadataFromFile(\ReflectionClass $class, string $file): ?JMSClassMetadata
@@ -132,7 +120,7 @@ class YamlDriver extends AbstractFileDriver
      *
      * @return Embedded|Expression|mixed|null
      */
-    private function createEmbedded($relation)
+    private function createEmbedded(array $relation)
     {
         $embedded = null;
         if (isset($relation['embedded'])) {
@@ -161,7 +149,7 @@ class YamlDriver extends AbstractFileDriver
     /**
      * @param mixed $relation
      */
-    private function createExclusion($relation): ?Exclusion
+    private function createExclusion(array $relation): ?Exclusion
     {
         $exclusion = null;
         if (isset($relation['exclusion'])) {

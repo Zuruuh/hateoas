@@ -8,7 +8,7 @@ use Zuruuh\Hateoas\Representation\VndErrorRepresentation;
 
 class VndErrorRepresentationTest extends RepresentationTestCase
 {
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $error = new VndErrorRepresentation(
             'Validation failed',

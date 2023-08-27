@@ -13,13 +13,8 @@ use Zuruuh\Hateoas\Configuration\Relation;
 final class ClassMetadataWithRelations implements ClassMetadataInterface
 {
     public function __construct(
-        private ClassMetadataInterface $decoratedClassMetadata
+        public readonly ClassMetadataInterface $decoratedClassMetadata
     ) {}
-
-    public function getDecoratedClassMetadata(): ClassMetadataInterface
-    {
-        return $this->decoratedClassMetadata;
-    }
 
     /**
      * @var list<Relation> $relations

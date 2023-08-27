@@ -19,7 +19,7 @@ use JMS\Serializer\SerializerInterface;
  */
 class HateoasBuilderTest extends TestCase
 {
-    public function testBuild()
+    public function testBuild(): void
     {
         $hateoasBuilder = new HateoasBuilder();
         $hateoas = $hateoasBuilder->build();
@@ -27,7 +27,7 @@ class HateoasBuilderTest extends TestCase
         $this->assertInstanceOf(SerializerInterface::class, $hateoas);
     }
 
-    public function testSerializeAdrienBraultWithExclusion()
+    public function testSerializeAdrienBraultWithExclusion(): void
     {
         $hateoas = HateoasBuilder::buildHateoas();
 
@@ -68,9 +68,9 @@ XML
         );
     }
 
-    public function testAlternativeUrlGenerator()
+    public function testAlternativeUrlGenerator(): void
     {
-        $brokenUrlGenerator = new CallableUrlGenerator(function ($name, $parameters) {
+        $brokenUrlGenerator = new CallableUrlGenerator(function (string $name, $parameters): string {
             return $name . '?' . http_build_query($parameters);
         });
 
@@ -91,7 +91,7 @@ XML
         );
     }
 
-    public function testCyclicalReferences()
+    public function testCyclicalReferences(): void
     {
         $hateoas = HateoasBuilder::create()->build();
 
@@ -117,20 +117,12 @@ XML
         );
 
         $this->assertSame(
-            '{'
-            . '"name":"reference1",'
-            . '"_embedded":{'
-            . '"reference2":{'
-            . '"name":"reference2",'
-            . '"_embedded":{}'
-            . '}'
-            . '}'
-            . '}',
+            '{"name":"reference1","_embedded":{"reference2":{"name":"reference2","_embedded":{}}}}',
             $hateoas->serialize($reference1, 'json')
         );
     }
 
-    public function testWithNullInEmbedded()
+    public function testWithNullInEmbedded(): void
     {
         $hateoas = HateoasBuilder::create()->build();
 
@@ -150,17 +142,12 @@ XML
         );
 
         $this->assertSame(
-            '{'
-            . '"name":"reference1",'
-            . '"_embedded":{'
-            . '"reference2":null'
-            . '}'
-            . '}',
+            '{"name":"reference1","_embedded":{"reference2":null}}',
             $hateoas->serialize($reference1, 'json', SerializationContext::create()->setSerializeNull(true))
         );
     }
 
-    public function testWithXmlRootNameFromXmlConfiguration()
+    public function testWithXmlRootNameFromXmlConfiguration(): void
     {
         $hateoas = HateoasBuilder::create()
             ->addMetadataDir(self::rootPath() . '/Fixtures/config')

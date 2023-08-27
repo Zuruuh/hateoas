@@ -32,7 +32,7 @@ class JsonHalSerializer implements SerializerInterface
             }
         }
 
-        if (count($serializedLinks)) {
+        if ($serializedLinks !== []) {
             $visitor->visitProperty(new StaticPropertyMetadata(self::class, '_links', $serializedLinks), $serializedLinks);
         } else {
             $visitor->visitProperty(new StaticPropertyMetadata(self::class, '_links', new \ArrayObject()), new \ArrayObject());
@@ -68,7 +68,7 @@ class JsonHalSerializer implements SerializerInterface
             $context->popPropertyMetadata();
         }
 
-        if (count($serializedEmbeddeds)) {
+        if ($serializedEmbeddeds !== []) {
             $visitor->visitProperty(new StaticPropertyMetadata(self::class, '_embedded', $serializedEmbeddeds), $serializedEmbeddeds);
         } else {
             $visitor->visitProperty(new StaticPropertyMetadata(self::class, '_embedded', new \ArrayObject()), new \ArrayObject());

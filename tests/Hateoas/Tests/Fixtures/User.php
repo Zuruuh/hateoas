@@ -44,7 +44,7 @@ class User
     /**
      * do not use for functional testing
      */
-    public static function getRelations()
+    public static function getRelations(): array
     {
         return [];
     }
