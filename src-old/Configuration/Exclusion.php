@@ -2,33 +2,57 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Configuration;
+namespace Hateoas\Configuration;
 
 use JMS\Serializer\Expression\ExpressionEvaluator;
 
 class Exclusion
 {
-    private ?string $sinceVersion = null;
+    /**
+     * @var array|null
+     */
+    private $groups;
 
-    private ?string $untilVersion = null;
+    /**
+     * @var string|null
+     */
+    private $sinceVersion;
 
-    private ?int $maxDepth = null;
+    /**
+     * @var string|null
+     */
+    private $untilVersion;
+
+    /**
+     * @var int|null
+     */
+    private $maxDepth;
+
+    /**
+     * @var string|ExpressionEvaluator|null
+     */
+    private $excludeIf;
 
     /**
      * @param mixed $excludeIf
      */
     public function __construct(
-        private readonly ?array $groups = null,
+        ?array $groups = null,
         ?string $sinceVersion = null,
         ?string $untilVersion = null,
         ?int $maxDepth = null,
-        private $excludeIf = null
+        $excludeIf = null
     ) {
+        $this->groups = $groups;
         $this->sinceVersion = $sinceVersion ?? null;
         $this->untilVersion = $untilVersion ?? null;
         $this->maxDepth = $maxDepth ?? null;
+        $this->excludeIf = $excludeIf;
     }
 
+    /**
+     * @return array|null
+     */
     public function getGroups(): ?array
     {
         return $this->groups;
@@ -50,7 +74,7 @@ class Exclusion
     }
 
     /**
-     * @return null|ExpressionEvaluator|mixed|string
+     * @return ExpressionEvaluator|mixed|string|null
      */
     public function getExcludeIf()
     {

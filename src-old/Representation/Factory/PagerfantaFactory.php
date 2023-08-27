@@ -2,16 +2,30 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Representation\Factory;
+namespace Hateoas\Representation\Factory;
 
+use Hateoas\Configuration\Route;
+use Hateoas\Representation\CollectionRepresentation;
+use Hateoas\Representation\PaginatedRepresentation;
 use Pagerfanta\Pagerfanta;
-use Zuruuh\Hateoas\Configuration\Route;
-use Zuruuh\Hateoas\Representation\CollectionRepresentation;
-use Zuruuh\Hateoas\Representation\PaginatedRepresentation;
 
 class PagerfantaFactory
 {
-    public function __construct(private readonly ?string $pageParameterName = null, private readonly ?string $limitParameterName = null) {}
+    /**
+     * @var string
+     */
+    private $pageParameterName;
+
+    /**
+     * @var string
+     */
+    private $limitParameterName;
+
+    public function __construct(?string $pageParameterName = null, ?string $limitParameterName = null)
+    {
+        $this->pageParameterName  = $pageParameterName;
+        $this->limitParameterName = $limitParameterName;
+    }
 
     /**
      * @param Pagerfanta $pager  The pager

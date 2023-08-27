@@ -2,19 +2,42 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Factory;
+namespace Hateoas\Factory;
 
+use Hateoas\Model\Embedded;
+use Hateoas\Serializer\ExclusionManager;
+use Hateoas\Serializer\Metadata\RelationPropertyMetadata;
 use JMS\Serializer\Expression\Expression;
 use JMS\Serializer\Expression\ExpressionEvaluatorInterface;
 use JMS\Serializer\SerializationContext;
 use Metadata\MetadataFactoryInterface;
-use Zuruuh\Hateoas\Model\Embedded;
-use Zuruuh\Hateoas\Serializer\ExclusionManager;
-use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
 
 class EmbeddedsFactory
 {
-    public function __construct(private readonly MetadataFactoryInterface $metadataFactory, private readonly ExpressionEvaluatorInterface $expressionEvaluator, private readonly ExclusionManager $exclusionManager) {}
+    /**
+     * @var ExpressionEvaluatorInterface
+     */
+    private $expressionEvaluator;
+
+    /**
+     * @var ExclusionManager
+     */
+    private $exclusionManager;
+
+    /**
+     * @var MetadataFactoryInterface
+     */
+    private $metadataFactory;
+
+    public function __construct(
+        MetadataFactoryInterface $metadataFactory,
+        ExpressionEvaluatorInterface $expressionEvaluator,
+        ExclusionManager $exclusionManager
+    ) {
+        $this->expressionEvaluator = $expressionEvaluator;
+        $this->exclusionManager = $exclusionManager;
+        $this->metadataFactory = $metadataFactory;
+    }
 
     /**
      * @return Embedded[]
@@ -23,11 +46,10 @@ class EmbeddedsFactory
     {
         $embeddeds = [];
 
-        if (null !== ($classMetadata = $this->metadataFactory->getMetadataForClass($object::class))) {
+        if (null !== ($classMetadata = $this->metadataFactory->getMetadataForClass(get_class($object)))) {
             $langugeData = ['object' => $object, 'context' => $context];
-
             /**
-             * @var Relation $relation
+             * @var $relation Relation
              */
             foreach ($classMetadata->getRelations() as $relation) {
                 if ($this->exclusionManager->shouldSkipEmbedded($object, $relation, $context)) {
@@ -49,6 +71,7 @@ class EmbeddedsFactory
 
     /**
      * @param mixed $exp
+     * @param array $data
      *
      * @return mixed
      */
@@ -56,8 +79,8 @@ class EmbeddedsFactory
     {
         if ($exp instanceof Expression) {
             return $this->expressionEvaluator->evaluate((string) $exp, $data);
+        } else {
+            return $exp;
         }
-
-        return $exp;
     }
 }

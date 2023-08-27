@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Configuration\Metadata;
+namespace Hateoas\Configuration\Metadata;
 
 interface ConfigurationExtensionInterface
 {
-    public function decorate(ValueWithRelations $classMetadata): void;
+    public function decorate(ClassMetadataInterface $classMetadata): void;
 }

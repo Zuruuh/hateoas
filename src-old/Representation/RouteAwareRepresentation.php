@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Representation;
+namespace Hateoas\Representation;
 
+use Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
-use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\ExclusionPolicy("all")
@@ -22,9 +22,39 @@ use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 class RouteAwareRepresentation
 {
     /**
-     * @param mixed $inline
+     * @Serializer\Inline
+     * @Serializer\Expose
+     *
+     * @var mixed
      */
-    public function __construct(private $inline, private readonly string $route, private readonly array $parameters = [], private readonly bool $absolute = false) {}
+    private $inline;
+
+    /**
+     * @var string
+     */
+    private $route;
+
+    /**
+     * @var array
+     */
+    private $parameters;
+
+    /**
+     * @var bool
+     */
+    private $absolute;
+
+    /**
+     * @param mixed $inline
+     * @param array $parameters
+     */
+    public function __construct($inline, string $route, array $parameters = [], bool $absolute = false)
+    {
+        $this->inline     = $inline;
+        $this->route      = $route;
+        $this->parameters = $parameters;
+        $this->absolute   = $absolute;
+    }
 
     /**
      * @return mixed
@@ -39,6 +69,9 @@ class RouteAwareRepresentation
         return $this->route;
     }
 
+    /**
+     * @return array
+     */
     public function getParameters(): array
     {
         return $this->parameters;

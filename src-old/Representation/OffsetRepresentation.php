@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Representation;
+namespace Hateoas\Representation;
 
+use Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
-use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\ExclusionPolicy("all")
- *
  * @Serializer\XmlRoot("collection")
- *
  * @Serializer\AccessorOrder("custom", custom = {"offset", "limit", "total"})
  *
  * @Hateoas\Relation(
@@ -58,18 +56,24 @@ use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
  */
 class OffsetRepresentation extends AbstractSegmentedRepresentation
 {
-    private readonly string $offsetParameterName;
+    /**
+     * @Serializer\Expose
+     * @Serializer\XmlAttribute
+     *
+     * @var int
+     */
+    private $offset;
+
+    /**
+     * @var string
+     */
+    private $offsetParameterName;
 
     public function __construct(
         CollectionRepresentation $inline,
         string $route,
         array $parameters,
-        /**
-         * @Serializer\Expose
-         *
-         * @Serializer\XmlAttribute
-         */
-        private readonly ?int $offset,
+        ?int $offset,
         ?int $limit,
         ?int $total = null,
         ?string $offsetParameterName = null,
@@ -77,7 +81,9 @@ class OffsetRepresentation extends AbstractSegmentedRepresentation
         bool $absolute = false
     ) {
         parent::__construct($inline, $route, $parameters, $limit, $total, $limitParameterName, $absolute);
-        $this->offsetParameterName = $offsetParameterName ?: 'offset';
+
+        $this->offset              = $offset;
+        $this->offsetParameterName = $offsetParameterName  ?: 'offset';
     }
 
     public function getOffset(): ?int
@@ -86,8 +92,10 @@ class OffsetRepresentation extends AbstractSegmentedRepresentation
     }
 
     /**
-     * @param null $offset
-     * @param null $limit
+     * @param  null  $offset
+     * @param  null  $limit
+     *
+     * @return array
      */
     public function getParameters(?int $offset = null, ?int $limit = null): array
     {

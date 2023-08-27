@@ -2,45 +2,55 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Configuration\Metadata\Driver;
+namespace Hateoas\Configuration\Metadata\Driver;
 
+use Hateoas\Configuration\Embedded;
+use Hateoas\Configuration\Exclusion;
+use Hateoas\Configuration\Metadata\ClassMetadata;
+use Hateoas\Configuration\Provider\RelationProviderInterface;
+use Hateoas\Configuration\Relation;
+use Hateoas\Configuration\RelationProvider;
+use Hateoas\Configuration\Route;
 use JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface;
 use JMS\Serializer\Expression\Expression;
 use JMS\Serializer\Type\ParserInterface;
 use Metadata\ClassMetadata as JMSClassMetadata;
 use Metadata\Driver\AbstractFileDriver;
 use Metadata\Driver\FileLocatorInterface;
-use ReflectionClass;
-use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
-use Zuruuh\Hateoas\Configuration\Embedded;
-use Zuruuh\Hateoas\Configuration\Exclusion;
-use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
-use Zuruuh\Hateoas\Configuration\Provider\RelationProviderInterface;
-use Zuruuh\Hateoas\Configuration\Relation;
-use Zuruuh\Hateoas\Configuration\RelationProvider;
-use Zuruuh\Hateoas\Configuration\Route;
 
 class YamlDriver extends AbstractFileDriver
 {
     use CheckExpressionTrait;
 
+    /**
+     * @var RelationProviderInterface
+     */
+    private $relationProvider;
+
+    /**
+     * @var ParserInterface
+     */
+    private $typeParser;
+
     public function __construct(
         FileLocatorInterface $locator,
         CompilableExpressionEvaluatorInterface $expressionLanguage,
-        private readonly RelationProviderInterface $relationProvider,
-        private readonly ParserInterface $typeParser
+        RelationProviderInterface $relationProvider,
+        ParserInterface $typeParser
     ) {
         parent::__construct($locator);
+        $this->relationProvider = $relationProvider;
         $this->expressionLanguage = $expressionLanguage;
+        $this->typeParser = $typeParser;
     }
 
-    protected function loadMetadataFromFile(ReflectionClass $class, string $file): ?JMSClassMetadata
+    protected function loadMetadataFromFile(\ReflectionClass $class, string $file): ?JMSClassMetadata
     {
         $config = Yaml::parse(file_get_contents($file));
 
         if (!isset($config[$name = $class->getName()])) {
-            throw new RuntimeException(sprintf('Expected metadata for class %s to be defined in %s.', $name, $file));
+            throw new \RuntimeException(sprintf('Expected metadata for class %s to be defined in %s.', $name, $file));
         }
 
         $config = $config[$name];
@@ -110,8 +120,7 @@ class YamlDriver extends AbstractFileDriver
                 $absolute,
                 $href['generator'] ?? null
             );
-        }
-        if (isset($relation['href']) && is_string($relation['href'])) {
+        } elseif (isset($relation['href']) && is_string($relation['href'])) {
             $href = $relation['href'];
         }
 
@@ -121,9 +130,9 @@ class YamlDriver extends AbstractFileDriver
     /**
      * @param mixed $relation
      *
-     * @return null|Embedded|Expression|mixed
+     * @return Embedded|Expression|mixed|null
      */
-    private function createEmbedded(array $relation)
+    private function createEmbedded($relation)
     {
         $embedded = null;
         if (isset($relation['embedded'])) {
@@ -152,7 +161,7 @@ class YamlDriver extends AbstractFileDriver
     /**
      * @param mixed $relation
      */
-    private function createExclusion(array $relation): ?Exclusion
+    private function createExclusion($relation): ?Exclusion
     {
         $exclusion = null;
         if (isset($relation['exclusion'])) {

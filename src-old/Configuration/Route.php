@@ -2,19 +2,72 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Configuration;
+namespace Hateoas\Configuration;
 
-use Zuruuh\Hateoas\Expression\Expression;
+use JMS\Serializer\Expression\Expression;
 
 class Route
 {
     /**
-     * @param array<string, string>|string      $parameters
+     * @var string|Expression
      */
-    public function __construct(
-        public readonly Expression|string $name,
-        public readonly array|string $parameters = [],
-        public readonly bool $isAbsolute = false,
-        public readonly ?string $generator = null
-    ) {}
+    private $name;
+
+    /**
+     * @var Expression|string|array|string[]|Expression[]
+     */
+    private $parameters;
+
+    /**
+     * @var bool|Expression
+     */
+    private $absolute;
+
+    /**
+     * @var string|null
+     */
+    private $generator;
+
+    /**
+     * @param string|Expression $name
+     * @param string|array $parameters
+     * @param bool|Expression $absolute
+     * @param string|null $generator
+     */
+    public function __construct($name, $parameters = [], $absolute = false, $generator = null)
+    {
+        $this->name = $name;
+        $this->parameters = $parameters;
+        $this->absolute = $absolute;
+        $this->generator = $generator;
+    }
+
+    /**
+     * @return Expression|string|array|string[]|Expression[]
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string|array
+     */
+    public function getParameters()
+    {
+        return $this->parameters;
+    }
+
+    /**
+     * @return bool|Expression
+     */
+    public function isAbsolute()
+    {
+        return $this->absolute;
+    }
+
+    public function getGenerator(): ?string
+    {
+        return $this->generator;
+    }
 }

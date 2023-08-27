@@ -2,16 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Representation;
+namespace Hateoas\Representation;
 
+use Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
-use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\ExclusionPolicy("all")
- *
  * @Serializer\XmlRoot("collection")
- *
  * @Serializer\AccessorOrder("custom", custom = {"page", "limit", "pages", "total"})
  *
  * @Hateoas\Relation(
@@ -58,7 +56,28 @@ use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
  */
 class PaginatedRepresentation extends AbstractSegmentedRepresentation
 {
-    private readonly string $pageParameterName;
+    /**
+     * @Serializer\Expose
+     * @Serializer\Type("integer")
+     * @Serializer\XmlAttribute
+     *
+     * @var int
+     */
+    private $page;
+
+    /**
+     * @Serializer\Expose
+     * @Serializer\Type("integer")
+     * @Serializer\XmlAttribute
+     *
+     * @var int
+     */
+    private $pages;
+
+    /**
+     * @var string
+     */
+    private $pageParameterName;
 
     /**
      * @param mixed $inline
@@ -67,30 +86,19 @@ class PaginatedRepresentation extends AbstractSegmentedRepresentation
         $inline,
         string $route,
         array $parameters,
-        /**
-         * @Serializer\Expose
-         *
-         * @Serializer\Type("integer")
-         *
-         * @Serializer\XmlAttribute
-         */
-        private readonly ?int $page,
+        ?int $page,
         ?int $limit,
-        /**
-         * @Serializer\Expose
-         *
-         * @Serializer\Type("integer")
-         *
-         * @Serializer\XmlAttribute
-         */
-        private readonly ?int $pages,
+        ?int $pages,
         ?string $pageParameterName = null,
         ?string $limitParameterName = null,
         bool $absolute = false,
         ?int $total = null
     ) {
         parent::__construct($inline, $route, $parameters, $limit, $total, $limitParameterName, $absolute);
-        $this->pageParameterName = $pageParameterName ?: 'page';
+
+        $this->page               = $page;
+        $this->pages              = $pages;
+        $this->pageParameterName  = $pageParameterName  ?: 'page';
     }
 
     public function getPage(): int
@@ -99,10 +107,12 @@ class PaginatedRepresentation extends AbstractSegmentedRepresentation
     }
 
     /**
-     * @param null $page
-     * @param null $limit
+     * @param  null  $page
+     * @param  null  $limit
+     *
+     * @return array
      */
-    public function getParameters($page = null, ?int $limit = null): array
+    public function getParameters($page = null, $limit = null): array
     {
         $parameters = parent::getParameters($limit);
 

@@ -2,20 +2,39 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Factory;
+namespace Hateoas\Factory;
 
+use Hateoas\Model\Link;
+use Hateoas\Serializer\ExclusionManager;
 use JMS\Serializer\SerializationContext;
 use Metadata\MetadataFactoryInterface;
-use Zuruuh\Hateoas\Model\Link;
-use Zuruuh\Hateoas\Serializer\ExclusionManager;
 
 class LinksFactory
 {
+    /**
+     * @var LinkFactory
+     */
+    private $linkFactory;
+
+    /**
+     * @var ExclusionManager
+     */
+    private $exclusionManager;
+
+    /**
+     * @var MetadataFactoryInterface
+     */
+    private $metadataFactory;
+
     public function __construct(
-        private readonly MetadataFactoryInterface $metadataFactory,
-        private readonly LinkFactory $linkFactory,
-        private readonly ExclusionManager $exclusionManager
-    ) {}
+        MetadataFactoryInterface $metadataFactory,
+        LinkFactory $linkFactory,
+        ExclusionManager $exclusionManager
+    ) {
+        $this->linkFactory = $linkFactory;
+        $this->exclusionManager = $exclusionManager;
+        $this->metadataFactory = $metadataFactory;
+    }
 
     /**
      * @return Link[]
@@ -23,7 +42,7 @@ class LinksFactory
     public function create(object $object, SerializationContext $context): array
     {
         $links = [];
-        if (null !== ($classMetadata = $this->metadataFactory->getMetadataForClass($object::class))) {
+        if (null !== ($classMetadata = $this->metadataFactory->getMetadataForClass(get_class($object)))) {
             foreach ($classMetadata->getRelations() as $relation) {
                 if ($this->exclusionManager->shouldSkipLink($object, $relation, $context)) {
                     continue;

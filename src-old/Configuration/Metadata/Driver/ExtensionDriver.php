@@ -2,32 +2,42 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Configuration\Metadata\Driver;
+namespace Hateoas\Configuration\Metadata\Driver;
 
+use Hateoas\Configuration\Metadata\ClassMetadata;
+use Hateoas\Configuration\Metadata\ConfigurationExtensionInterface;
 use Metadata\ClassMetadata as JMSClassMetadata;
 use Metadata\Driver\DriverInterface;
-use ReflectionClass;
-use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
-use Zuruuh\Hateoas\Configuration\Metadata\ConfigurationExtensionInterface;
 
 class ExtensionDriver implements DriverInterface
 {
     /**
-     * @param \Zuruuh\Hateoas\Configuration\Metadata\ConfigurationExtensionInterface[] $extensions
+     * @var DriverInterface
      */
-    public function __construct(private readonly DriverInterface $delegate, private array $extensions = []) {}
+    private $delegate;
 
-    public function loadMetadataForClass(ReflectionClass $class): ?JMSClassMetadata
+    /**
+     * @var ConfigurationExtensionInterface[]
+     */
+    private $extensions;
+
+    public function __construct(DriverInterface $delegate, array $extensions = [])
     {
-        $metadata = $this->delegate->loadMetadataForClass($class);
+        $this->delegate   = $delegate;
+        $this->extensions = $extensions;
+    }
+
+    public function loadMetadataForClass(\ReflectionClass $class): ?JMSClassMetadata
+    {
+        $metadata    = $this->delegate->loadMetadataForClass($class);
         $newMetadata = false;
 
-        if ([] === $this->extensions) {
+        if (empty($this->extensions)) {
             return $metadata;
         }
 
-        if (!$metadata instanceof \Metadata\ClassMetadata) {
-            $metadata = new ClassMetadata($class->getName());
+        if (null === $metadata) {
+            $metadata    = new ClassMetadata($class->getName());
             $newMetadata = true;
         }
 

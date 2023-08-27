@@ -2,17 +2,21 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Configuration\Provider;
+namespace Hateoas\Configuration\Provider;
 
-use Zuruuh\Hateoas\Configuration\Relation;
-use Zuruuh\Hateoas\Configuration\RelationProvider;
+use Hateoas\Configuration\RelationProvider;
 
-final class ChainProvider implements RelationProviderInterface
+class ChainProvider implements RelationProviderInterface
 {
     /**
-     * @param list<RelationProviderInterface> $resolvers
+     * @var RelationProviderInterface[]
      */
-    public function __construct(private array $resolvers) {}
+    private $resolvers;
+
+    public function __construct(array $resolvers)
+    {
+        $this->resolvers = $resolvers;
+    }
 
     public function addProvider(RelationProviderInterface $resolver): void
     {
@@ -20,7 +24,7 @@ final class ChainProvider implements RelationProviderInterface
     }
 
     /**
-     * @return list<Relation>
+     * {@inheritdoc}
      */
     public function getRelations(RelationProvider $configuration, string $class): array
     {

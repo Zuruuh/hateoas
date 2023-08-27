@@ -2,17 +2,43 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Configuration;
+namespace Hateoas\Configuration;
 
 use JMS\Serializer\Expression\Expression;
 
 class Embedded
 {
     /**
-     * @param mixed|string           $content
-     * @param null|Expression|string $xmlElementName
+     * @var string|mixed
      */
-    public function __construct(private $content, private $xmlElementName = null, private readonly ?Exclusion $exclusion = null, private readonly ?array $type = null) {}
+    private $content;
+
+    /**
+     * @var string|Expression|null
+     */
+    private $xmlElementName;
+
+    /**
+     * @var Exclusion|null
+     */
+    private $exclusion;
+
+    /**
+     * @var array
+     */
+    private $type;
+
+    /**
+     * @param string|mixed $content
+     * @param string|Expression|null  $xmlElementName
+     */
+    public function __construct($content, $xmlElementName = null, ?Exclusion $exclusion = null, ?array $type = null)
+    {
+        $this->content        = $content;
+        $this->xmlElementName = $xmlElementName;
+        $this->exclusion      = $exclusion;
+        $this->type = $type;
+    }
 
     public function getType(): ?array
     {
@@ -28,7 +54,7 @@ class Embedded
     }
 
     /**
-     * @return null|Expression|string
+     * @return Expression|string|null
      */
     public function getXmlElementName()
     {

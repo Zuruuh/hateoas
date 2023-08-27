@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Representation;
+namespace Hateoas\Representation;
 
 use JMS\Serializer\Annotation as Serializer;
 
@@ -11,7 +11,28 @@ use JMS\Serializer\Annotation as Serializer;
  */
 abstract class AbstractSegmentedRepresentation extends RouteAwareRepresentation
 {
-    private readonly string $limitParameterName;
+    /**
+     * @Serializer\Expose
+     * @Serializer\Type("integer")
+     * @Serializer\XmlAttribute
+     *
+     * @var int
+     */
+    private $limit;
+
+    /**
+     * @Serializer\Expose
+     * @Serializer\Type("integer")
+     * @Serializer\XmlAttribute
+     *
+     * @var int
+     */
+    private $total;
+
+    /**
+     * @var string
+     */
+    private $limitParameterName;
 
     /**
      * @param mixed $inline
@@ -20,27 +41,16 @@ abstract class AbstractSegmentedRepresentation extends RouteAwareRepresentation
         $inline,
         string $route,
         array $parameters,
-        /**
-         * @Serializer\Expose
-         *
-         * @Serializer\Type("integer")
-         *
-         * @Serializer\XmlAttribute
-         */
-        private readonly int $limit,
-        /**
-         * @Serializer\Expose
-         *
-         * @Serializer\Type("integer")
-         *
-         * @Serializer\XmlAttribute
-         */
-        private readonly ?int $total = null,
+        int $limit,
+        ?int $total = null,
         ?string $limitParameterName = null,
         bool $absolute = false
     ) {
         parent::__construct($inline, $route, $parameters, $absolute);
-        $this->limitParameterName = $limitParameterName ?: 'limit';
+
+        $this->total               = $total;
+        $this->limit               = $limit;
+        $this->limitParameterName  = $limitParameterName ?: 'limit';
     }
 
     public function getLimit(): int
@@ -49,7 +59,9 @@ abstract class AbstractSegmentedRepresentation extends RouteAwareRepresentation
     }
 
     /**
-     * @param null $limit
+     * @param  null  $limit
+     *
+     * @return array
      */
     public function getParameters(?int $limit = null): array
     {
@@ -72,7 +84,7 @@ abstract class AbstractSegmentedRepresentation extends RouteAwareRepresentation
 
     protected function moveParameterToEnd(array &$parameters, string $key): void
     {
-        if (!array_key_exists($key, $parameters)) {
+        if (! array_key_exists($key, $parameters)) {
             return;
         }
 

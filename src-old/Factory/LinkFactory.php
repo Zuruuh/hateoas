@@ -2,74 +2,98 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Factory;
+namespace Hateoas\Factory;
 
-use RuntimeException;
-use Zuruuh\Hateoas\Configuration\Relation;
-use Zuruuh\Hateoas\Configuration\Route;
-use Zuruuh\Hateoas\Expression\Expression;
-use Zuruuh\Hateoas\Model\Link;
-use Zuruuh\Hateoas\Resolver\ExpressionLanguageResolver;
-use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry;
+use Hateoas\Configuration\Relation;
+use Hateoas\Configuration\Route;
+use Hateoas\Model\Link;
+use Hateoas\UrlGenerator\UrlGeneratorRegistry;
+use JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface;
+use JMS\Serializer\Expression\Expression;
+use JMS\Serializer\SerializationContext;
 
-class LinkFactory implements LinkFactoryInterface
+class LinkFactory
 {
-    public function __construct(
-        private readonly UrlGeneratorRegistry $urlGeneratorRegistry,
-        private readonly ExpressionLanguageResolver $expressionLanguage,
-    ) {}
+    /**
+     * @var CompilableExpressionEvaluatorInterface
+     */
+    private $expressionEvaluator;
 
-    public function createLink(object $object, Relation $relation): Link
+    /**
+     * @var UrlGeneratorRegistry
+     */
+    private $urlGeneratorRegistry;
+
+    public function __construct(UrlGeneratorRegistry $urlGeneratorRegistry, ?CompilableExpressionEvaluatorInterface $expressionEvaluator = null)
     {
-        $rel = $relation->name;
-        $href = $relation->href;
+        $this->urlGeneratorRegistry = $urlGeneratorRegistry;
+        $this->expressionEvaluator = $expressionEvaluator;
+    }
 
+    public function setExpressionEvaluator(CompilableExpressionEvaluatorInterface $expressionEvaluator): void
+    {
+        $this->expressionEvaluator = $expressionEvaluator;
+    }
+
+    public function createLink(object $object, Relation $relation, SerializationContext $context): Link
+    {
+        $data = ['object' => $object, 'context' => $context];
+
+        $rel = $relation->getName();
+        $href = $relation->getHref();
         if ($href instanceof Route) {
             if (!$this->urlGeneratorRegistry->hasGenerators()) {
-                throw new RuntimeException('You cannot use a route without an url generator.');
+                throw new \RuntimeException('You cannot use a route without an url generator.');
             }
 
-            $name = $this->expressionLanguage->checkExpression($href->name, $object);
-//            $parameters = is_array($href->parameters)
- //               ? $this->evaluateArray($href->parameters, $data)
-   //             : $this->checkExpression($href->parameters, $data);
-  //          $isAbsolute = $this->checkExpression($href->isAbsolute, $data);
+            $name = $this->checkExpression($href->getName(), $data);
+            $parameters = is_array($href->getParameters())
+                ? $this->evaluateArray($href->getParameters(), $data)
+                : $this->checkExpression($href->getParameters(), $data);
+            $isAbsolute = $this->checkExpression($href->isAbsolute(), $data);
 
-            if (!is_array($href->parameters)) {
-                throw new RuntimeException(
+            if (!is_array($parameters)) {
+                throw new \RuntimeException(
                     sprintf(
                         'The route parameters should be an array, %s given. Maybe you forgot to wrap the expression in expr(...).',
-                        gettype($href->parameters)
+                        gettype($parameters)
                     )
                 );
             }
 
             $href = $this->urlGeneratorRegistry
-                ->get($href->generator)
-                ->generate($name, $href->parameters, $href->isAbsolute)
-            ;
+                ->get($href->getGenerator())
+                ->generate($name, $parameters, $isAbsolute);
         } else {
-            // $href = $this->checkExpression($href, $data);
+            $href = $this->checkExpression($href, $data);
         }
 
-        // $attributes = $this->evaluateArray($relation->getAttributes(), $data);
+        $attributes = $this->evaluateArray($relation->getAttributes(), $data);
 
-        return new Link($rel, $href, []);
+        return new Link($rel, $href, $attributes);
     }
 
     /**
      * @param mixed $exp
+     * @param array $data
      *
      * @return mixed
+     */
     private function checkExpression($exp, array $data)
     {
         if ($exp instanceof Expression) {
             return $this->expressionEvaluator->evaluateParsed($exp, $data);
+        } else {
+            return $exp;
         }
-
-        return $exp;
     }
 
+    /**
+     * @param array $array
+     * @param array $data
+     *
+     * @return array
+     */
     private function evaluateArray(array $array, array $data): array
     {
         $newArray = [];
@@ -81,5 +105,4 @@ class LinkFactory implements LinkFactoryInterface
 
         return $newArray;
     }
-**/
 }

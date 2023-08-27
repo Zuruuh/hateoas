@@ -2,9 +2,22 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Configuration;
+namespace Hateoas\Configuration;
 
-final class RelationProvider
+class RelationProvider
 {
-    public function __construct(public readonly string $name) {}
+    /**
+     * @var string
+     */
+    private $name;
+
+    public function __construct(string $name)
+    {
+        $this->name = $name;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }

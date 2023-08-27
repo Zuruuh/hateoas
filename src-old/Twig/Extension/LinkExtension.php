@@ -2,27 +2,38 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Twig\Extension;
+namespace Hateoas\Twig\Extension;
 
+use Hateoas\Helper\LinkHelper;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
-use Zuruuh\Hateoas\Helper\LinkHelper;
 
-final class LinkExtension extends AbstractExtension
+class LinkExtension extends AbstractExtension
 {
-    public function __construct(private readonly LinkHelper $linkHelper) {}
+    /**
+     * @var LinkHelper
+     */
+    private $linkHelper;
+
+    public function __construct(LinkHelper $linkHelper)
+    {
+        $this->linkHelper = $linkHelper;
+    }
 
     /**
-     * {inheritDoc}.
+     * {@inheritDoc}
      */
-    public function getFunctions(): array
+    public function getFunctions()
     {
         return [
-            new TwigFunction('link_href', $this->linkHelper->getLinkHref(...)),
+            new TwigFunction('link_href', [$this->linkHelper, 'getLinkHref']),
         ];
     }
 
-    public function getName(): string
+    /**
+     * {@inheritDoc}
+     */
+    public function getName()
     {
         return 'hateoas_link';
     }
