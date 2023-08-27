@@ -15,7 +15,11 @@ use Zuruuh\Hateoas\Tests\Fixtures\WithAlternativeRouter;
 use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 
 /**
- * Contains functional tests
+ * Contains functional tests.
+ *
+ * @internal
+ *
+ * @coversNothing
  */
 class HateoasBuilderTest extends TestCase
 {
@@ -31,16 +35,16 @@ class HateoasBuilderTest extends TestCase
     {
         $hateoas = HateoasBuilder::buildHateoas();
 
-        $adrienBrault     = new AdrienBrault();
+        $adrienBrault = new AdrienBrault();
         $fakeAdrienBrault = new AdrienBrault();
         $fakeAdrienBrault->firstName = 'John';
         $fakeAdrienBrault->lastName = 'Smith';
 
-        $context  = SerializationContext::create()->setGroups(['simple']);
+        $context = SerializationContext::create()->setGroups(['simple']);
         $context2 = clone $context;
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result>
                   <first_name><![CDATA[Adrien]]></first_name>
@@ -53,7 +57,7 @@ class HateoasBuilderTest extends TestCase
             $hateoas->serialize($adrienBrault, 'xml', $context)
         );
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result>
                   <first_name><![CDATA[John]]></first_name>
@@ -68,14 +72,15 @@ class HateoasBuilderTest extends TestCase
 
     public function testAlternativeUrlGenerator(): void
     {
-        $brokenUrlGenerator = new CallableUrlGenerator(fn (string $name, $parameters): string => $name . '?' . http_build_query($parameters));
+        $brokenUrlGenerator = new CallableUrlGenerator(fn (string $name, $parameters): string => $name.'?'.http_build_query($parameters));
 
         $hateoas = HateoasBuilder::create()
             ->setUrlGenerator('my_generator', $brokenUrlGenerator)
-            ->build();
+            ->build()
+        ;
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result>
                   <link rel="search" href="/search?query=hello"/>
@@ -96,7 +101,7 @@ class HateoasBuilderTest extends TestCase
         $reference2->setReference1($reference1);
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result>
                   <name><![CDATA[reference1]]></name>
@@ -123,7 +128,7 @@ class HateoasBuilderTest extends TestCase
         $reference1 = new CircularReference1();
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
                   <name><![CDATA[reference1]]></name>
@@ -143,13 +148,14 @@ class HateoasBuilderTest extends TestCase
     public function testWithXmlRootNameFromXmlConfiguration(): void
     {
         $hateoas = HateoasBuilder::create()
-            ->addMetadataDir(self::rootPath() . '/Fixtures/config')
-            ->build();
+            ->addMetadataDir(self::rootPath().'/Fixtures/config')
+            ->build()
+        ;
 
         $resource = new NoAnnotations('#303', 303);
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <resource>
                   <id><![CDATA[id-#303]]></id>

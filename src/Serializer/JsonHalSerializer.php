@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Serializer;
 
+use ArrayObject;
 use JMS\Serializer\Exception\NotAcceptableException;
 use JMS\Serializer\Metadata\StaticPropertyMetadata;
 use JMS\Serializer\SerializationContext;
@@ -35,7 +36,7 @@ class JsonHalSerializer implements SerializerInterface
         if ($serializedLinks !== []) {
             $visitor->visitProperty(new StaticPropertyMetadata(self::class, '_links', $serializedLinks), $serializedLinks);
         } else {
-            $visitor->visitProperty(new StaticPropertyMetadata(self::class, '_links', new \ArrayObject()), new \ArrayObject());
+            $visitor->visitProperty(new StaticPropertyMetadata(self::class, '_links', new ArrayObject()), new ArrayObject());
         }
     }
 
@@ -71,7 +72,7 @@ class JsonHalSerializer implements SerializerInterface
         if ($serializedEmbeddeds !== []) {
             $visitor->visitProperty(new StaticPropertyMetadata(self::class, '_embedded', $serializedEmbeddeds), $serializedEmbeddeds);
         } else {
-            $visitor->visitProperty(new StaticPropertyMetadata(self::class, '_embedded', new \ArrayObject()), new \ArrayObject());
+            $visitor->visitProperty(new StaticPropertyMetadata(self::class, '_embedded', new ArrayObject()), new ArrayObject());
         }
     }
 }

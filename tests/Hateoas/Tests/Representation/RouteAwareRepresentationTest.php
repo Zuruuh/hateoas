@@ -7,6 +7,11 @@ namespace Zuruuh\Hateoas\Tests\Representation;
 use Zuruuh\Hateoas\Representation\CollectionRepresentation;
 use Zuruuh\Hateoas\Representation\RouteAwareRepresentation;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class RouteAwareRepresentationTest extends RepresentationTestCase
 {
     public function testSerialize(): void
@@ -23,7 +28,7 @@ class RouteAwareRepresentationTest extends RepresentationTestCase
         );
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result>
                   <link rel="self" href="/authors?query=willdurand%2FHateoas"/>
@@ -37,7 +42,7 @@ class RouteAwareRepresentationTest extends RepresentationTestCase
             $this->hateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result href="/authors?query=willdurand%2FHateoas">
                   <resource rel="items"><![CDATA[Adrien]]></resource>
@@ -49,7 +54,7 @@ class RouteAwareRepresentationTest extends RepresentationTestCase
         );
 
         $this->assertSame(
-            <<<JSON
+            <<<'JSON'
                 {
                     "_links": {
                         "self": {
@@ -85,7 +90,7 @@ class RouteAwareRepresentationTest extends RepresentationTestCase
         );
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result>
                   <link rel="self" href="http://example.com/authors?query=willdurand%2FHateoas"/>
@@ -99,7 +104,7 @@ class RouteAwareRepresentationTest extends RepresentationTestCase
             $this->hateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result href="http://example.com/authors?query=willdurand%2FHateoas">
                   <resource rel="items"><![CDATA[Adrien]]></resource>
@@ -111,7 +116,7 @@ class RouteAwareRepresentationTest extends RepresentationTestCase
         );
 
         $this->assertSame(
-            <<<JSON
+            <<<'JSON'
                 {
                     "_links": {
                         "self": {

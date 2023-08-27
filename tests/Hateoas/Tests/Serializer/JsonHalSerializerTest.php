@@ -23,6 +23,11 @@ use Zuruuh\Hateoas\Tests\Fixtures\Gh236Foo;
 use Zuruuh\Hateoas\Tests\Fixtures\LinkAttributes;
 use Zuruuh\Hateoas\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class JsonHalSerializerTest extends TestCase
 {
     use ProphecyTrait;
@@ -59,7 +64,8 @@ class JsonHalSerializerTest extends TestCase
         $jsonSerializationVisitorProphecy = $this->prophesize(SerializationVisitorInterface::class);
         $jsonSerializationVisitorProphecy
             ->visitProperty(new StaticPropertyMetadata(JsonHalSerializer::class, '_links', $expectedSerializedLinks), $expectedSerializedLinks)
-            ->shouldBeCalledTimes(1);
+            ->shouldBeCalledTimes(1)
+        ;
 
         $jsonHalSerializer = new JsonHalSerializer();
         $jsonHalSerializer->serializeLinks(
@@ -85,12 +91,14 @@ class JsonHalSerializerTest extends TestCase
 
         $contextProphecy
             ->getNavigator()
-            ->willReturn($navigatorProphecy);
+            ->willReturn($navigatorProphecy)
+        ;
 
         foreach ($acceptArguments as $arg) {
             $navigatorProphecy
                 ->accept($arg, null, $contextProphecy)
-                ->willReturnArgument();
+                ->willReturnArgument()
+            ;
         }
 
         $contextProphecy->pushPropertyMetadata(Argument::type('Hateoas\Serializer\Metadata\RelationPropertyMetadata'))->shouldBeCalled();
@@ -120,7 +128,8 @@ class JsonHalSerializerTest extends TestCase
         $jsonSerializationVisitorProphecy = $this->prophesize(SerializationVisitorInterface::class);
         $jsonSerializationVisitorProphecy
             ->visitProperty(new StaticPropertyMetadata(JsonHalSerializer::class, '_embedded', $expectedEmbeddedded), $expectedEmbeddedded)
-            ->shouldBeCalledTimes(1);
+            ->shouldBeCalledTimes(1)
+        ;
 
         $jsonHalSerializer = new JsonHalSerializer();
         $jsonHalSerializer->serializeEmbeddeds(
@@ -152,7 +161,8 @@ class JsonHalSerializerTest extends TestCase
         $jsonSerializationVisitorProphecy = $this->prophesize(SerializationVisitorInterface::class);
         $jsonSerializationVisitorProphecy
             ->visitProperty(new StaticPropertyMetadata(JsonHalSerializer::class, '_links', $expectedSerializedLinks), $expectedSerializedLinks)
-            ->shouldBeCalledTimes(1);
+            ->shouldBeCalledTimes(1)
+        ;
 
         $jsonHalSerializer = new JsonHalSerializer();
         $jsonHalSerializer->serializeLinks(
@@ -189,7 +199,8 @@ class JsonHalSerializerTest extends TestCase
         $jsonSerializationVisitorProphecy = $this->prophesize(SerializationVisitorInterface::class);
         $jsonSerializationVisitorProphecy
             ->visitProperty(new StaticPropertyMetadata(JsonHalSerializer::class, '_links', $expectedSerializedLinks), $expectedSerializedLinks)
-            ->shouldBeCalledTimes(1);
+            ->shouldBeCalledTimes(1)
+        ;
 
         $jsonHalSerializer = new JsonHalSerializer();
         $jsonHalSerializer->serializeLinks(
@@ -201,11 +212,11 @@ class JsonHalSerializerTest extends TestCase
 
     public function testSerializeAdrienBrault(): void
     {
-        $hateoas      = HateoasBuilder::buildHateoas();
+        $hateoas = HateoasBuilder::buildHateoas();
         $adrienBrault = new AdrienBrault();
 
         $this->assertSame(
-            <<<JSON
+            <<<'JSON'
                 {
                     "first_name": "Adrien",
                     "last_name": "Brault",
@@ -256,7 +267,7 @@ class JsonHalSerializerTest extends TestCase
         $hateoas = HateoasBuilder::buildHateoas();
 
         $this->assertSame(
-            <<<JSON
+            <<<'JSON'
                 {
                     "_links": {
                         "self3": {
@@ -287,7 +298,7 @@ class JsonHalSerializerTest extends TestCase
         $hateoas = HateoasBuilder::buildHateoas();
 
         $this->assertSame(
-            <<<JSON
+            <<<'JSON'
                 {
                     "_embedded": {
                         "items": [
@@ -316,11 +327,12 @@ class JsonHalSerializerTest extends TestCase
         $data = new LinkAttributes();
 
         $hateoas = HateoasBuilder::create()
-            ->addMetadataDir(__DIR__ . '/../Fixtures/config/')
-            ->build();
+            ->addMetadataDir(__DIR__.'/../Fixtures/config/')
+            ->build()
+        ;
 
         $this->assertSame(
-            <<<JSON
+            <<<'JSON'
                 {
                     "_links": {
                         "self": {

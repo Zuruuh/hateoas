@@ -9,10 +9,10 @@ use JMS\Serializer\Expression\Expression;
 class Embedded
 {
     /**
-     * @param string|mixed $content
-     * @param string|Expression|null  $xmlElementName
+     * @param mixed|string           $content
+     * @param null|Expression|string $xmlElementName
      */
-    public function __construct(private $content, private $xmlElementName = null, private readonly ?\Zuruuh\Hateoas\Configuration\Exclusion $exclusion = null, private readonly ?array $type = null) {}
+    public function __construct(private $content, private $xmlElementName = null, private readonly ?Exclusion $exclusion = null, private readonly ?array $type = null) {}
 
     public function getType(): ?array
     {
@@ -28,7 +28,7 @@ class Embedded
     }
 
     /**
-     * @return Expression|string|null
+     * @return null|Expression|string
      */
     public function getXmlElementName()
     {

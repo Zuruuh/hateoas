@@ -11,7 +11,11 @@ use Zuruuh\Hateoas\Serializer\ExclusionManager;
 
 class LinksFactory
 {
-    public function __construct(private readonly \Metadata\MetadataFactoryInterface $metadataFactory, private readonly \Zuruuh\Hateoas\Factory\LinkFactory $linkFactory, private readonly \Zuruuh\Hateoas\Serializer\ExclusionManager $exclusionManager) {}
+    public function __construct(
+        private readonly MetadataFactoryInterface $metadataFactory,
+        private readonly LinkFactory $linkFactory,
+        private readonly ExclusionManager $exclusionManager
+    ) {}
 
     /**
      * @return Link[]

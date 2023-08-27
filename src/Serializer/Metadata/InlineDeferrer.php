@@ -5,14 +5,15 @@ declare(strict_types=1);
 namespace Zuruuh\Hateoas\Serializer\Metadata;
 
 use JMS\Serializer\SerializationContext;
+use SplObjectStorage;
 
 class InlineDeferrer
 {
-    protected \SplObjectStorage $deferredData;
+    protected SplObjectStorage $deferredData;
 
     public function __construct()
     {
-        $this->deferredData = new \SplObjectStorage();
+        $this->deferredData = new SplObjectStorage();
     }
 
     public function handleItems(object $object, array $items, SerializationContext $context): array

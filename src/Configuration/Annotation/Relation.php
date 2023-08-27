@@ -6,12 +6,14 @@ namespace Zuruuh\Hateoas\Configuration\Annotation;
 
 /**
  * @Annotation
+ *
  * @Target("CLASS")
  */
 final class Relation
 {
     /**
      * @Required
+     *
      * @var string
      */
     public $name;
@@ -19,12 +21,12 @@ final class Relation
     /**
      * @var mixed
      */
-    public $href = null;
+    public $href;
 
     /**
      * @var mixed
      */
-    public $embedded = null;
+    public $embedded;
 
     /**
      * @var array
@@ -32,9 +34,10 @@ final class Relation
     public $attributes = [];
 
     /**
-     * phpcs:disable
+     * phpcs:disable.
+     *
      * @var \Hateoas\Configuration\Annotation\Exclusion
-     * phpcs:enable
+     *                                                  phpcs:enable
      */
-    public $exclusion = null;
+    public $exclusion;
 }

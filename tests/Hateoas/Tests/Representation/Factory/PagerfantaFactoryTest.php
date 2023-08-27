@@ -12,6 +12,11 @@ use Zuruuh\Hateoas\Representation\CollectionRepresentation;
 use Zuruuh\Hateoas\Representation\Factory\PagerfantaFactory;
 use Zuruuh\Hateoas\Tests\Representation\RepresentationTestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class PagerfantaFactoryTest extends RepresentationTestCase
 {
     use ProphecyTrait;
@@ -71,7 +76,7 @@ class PagerfantaFactoryTest extends RepresentationTestCase
 
     public function testSerialize(): void
     {
-        $factory    = new PagerfantaFactory();
+        $factory = new PagerfantaFactory();
         $pagerfanta = new Pagerfanta(new ArrayAdapter([
             'bim',
             'bam',
@@ -81,7 +86,7 @@ class PagerfantaFactoryTest extends RepresentationTestCase
         $collection = $factory->createRepresentation($pagerfanta, new Route('my_route'));
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <collection page="1" limit="10" pages="1" total="3">
                   <link rel="self" href="my_route?page=1&amp;limit=10"/>
@@ -98,7 +103,7 @@ class PagerfantaFactoryTest extends RepresentationTestCase
             $this->hateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
-            <<<JSON
+            <<<'JSON'
                 {
                     "page": 1,
                     "limit": 10,
@@ -130,7 +135,7 @@ class PagerfantaFactoryTest extends RepresentationTestCase
 
     public function testGenerateAbsoluteURIs(): void
     {
-        $factory    = new PagerfantaFactory();
+        $factory = new PagerfantaFactory();
         $pagerfanta = new Pagerfanta(new ArrayAdapter([
             'bim',
             'bam',
@@ -147,7 +152,7 @@ class PagerfantaFactoryTest extends RepresentationTestCase
         );
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <collection page="1" limit="10" pages="1" total="3">
                   <link rel="self" href="http://example.com/my_route?page=1&amp;limit=10"/>

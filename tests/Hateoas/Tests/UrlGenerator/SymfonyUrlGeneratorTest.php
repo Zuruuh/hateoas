@@ -9,15 +9,20 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Zuruuh\Hateoas\Tests\TestCase;
 use Zuruuh\Hateoas\UrlGenerator\SymfonyUrlGenerator;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class SymfonyUrlGeneratorTest extends TestCase
 {
     use ProphecyTrait;
 
     public function test(): void
     {
-        $name           = 'user_get';
-        $parameters     = ['id' => 42];
-        $absolute       = true;
+        $name = 'user_get';
+        $parameters = ['id' => 42];
+        $absolute = true;
         $expectedResult = '/users/42';
 
         if (1 === UrlGeneratorInterface::ABSOLUTE_PATH) {
@@ -27,7 +32,8 @@ class SymfonyUrlGeneratorTest extends TestCase
         $symfonyUrlGeneratorProphecy = $this->prophesize('Symfony\Component\Routing\Generator\UrlGeneratorInterface');
         $symfonyUrlGeneratorProphecy
             ->generate($name, $parameters, $absolute)
-            ->willReturn($expectedResult);
+            ->willReturn($expectedResult)
+        ;
 
         $urlGenerator = new SymfonyUrlGenerator($symfonyUrlGeneratorProphecy->reveal());
 

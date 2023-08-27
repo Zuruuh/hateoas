@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Configuration\Metadata\Driver;
 
-use Symfony\Component\Serializer\Mapping\ClassMetadataInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Zuruuh\Hateoas\Configuration\Annotation;
 use Zuruuh\Hateoas\Configuration\Embedded;
 use Zuruuh\Hateoas\Configuration\Exclusion;
+use Zuruuh\Hateoas\Configuration\Metadata\ClassAndRelationsMetadataFactoryInterface;
 use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadataWithRelations;
 use Zuruuh\Hateoas\Configuration\Provider\RelationProviderInterface;
 use Zuruuh\Hateoas\Configuration\Relation;
@@ -16,21 +16,22 @@ use Zuruuh\Hateoas\Configuration\RelationProvider;
 use Zuruuh\Hateoas\Configuration\Route;
 use Zuruuh\Hateoas\Resolver\ExpressionLanguageResolver;
 
-final class AttributesDriver implements ClassMetadataFactoryInterface
+final class AttributesDriver implements ClassAndRelationsMetadataFactoryInterface
 {
     public $typeParser;
+
     public function __construct(
         private readonly RelationProviderInterface $relationProvider,
         private readonly ExpressionLanguageResolver $expressionLanguageResolver,
         private readonly ClassMetadataFactoryInterface $classMetadataFactory,
     ) {}
 
-    public function getMetadataFor(string|object $value): ClassMetadataInterface
+    public function getMetadataFor(string|object $value): ClassMetadataWithRelations
     {
         $classMetadata = new ClassMetadataWithRelations($this->classMetadataFactory->getMetadataFor($value));
         $attributes = $classMetadata->getReflectionClass()->getAttributes();
 
-        if ($attributes === []) {
+        if ([] === $attributes) {
             return $classMetadata;
         }
 
@@ -57,6 +58,8 @@ final class AttributesDriver implements ClassMetadataFactoryInterface
 
         return $classMetadata;
     }
+
+    public function hasMetadataFor(mixed $value): bool {}
 
     private function parseExclusion(Annotation\Exclusion $exclusion): Exclusion
     {
@@ -121,6 +124,4 @@ final class AttributesDriver implements ClassMetadataFactoryInterface
 
         return $exclusion;
     }
-
-    public function hasMetadataFor(mixed $value): bool {}
 }

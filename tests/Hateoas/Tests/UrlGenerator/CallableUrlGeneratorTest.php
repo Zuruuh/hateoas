@@ -7,6 +7,11 @@ namespace Zuruuh\Hateoas\Tests\UrlGenerator;
 use Zuruuh\Hateoas\Tests\TestCase;
 use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class CallableUrlGeneratorTest extends TestCase
 {
     public function test(): void

@@ -12,12 +12,12 @@ use Zuruuh\Hateoas\Model\Link;
 interface SerializerInterface
 {
     /**
-     * @param Link[]                   $links
+     * @param Link[] $links
      */
     public function serializeLinks(array $links, SerializationVisitorInterface $visitor, SerializationContext $context): void;
 
     /**
-     * @param Embedded[]               $embeddeds
+     * @param Embedded[] $embeddeds
      */
     public function serializeEmbeddeds(array $embeddeds, SerializationVisitorInterface $visitor, SerializationContext $context): void;
 }

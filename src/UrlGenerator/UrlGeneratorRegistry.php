@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\UrlGenerator;
 
+use InvalidArgumentException;
+
 class UrlGeneratorRegistry
 {
     final public const DEFAULT_URL_GENERATOR_KEY = 'default';
@@ -21,7 +23,7 @@ class UrlGeneratorRegistry
     }
 
     /**
-     * @param string|null $name If null it will return the default url generator
+     * @param null|string $name If null it will return the default url generator
      */
     public function get(?string $name = null): UrlGeneratorInterface
     {
@@ -30,7 +32,7 @@ class UrlGeneratorRegistry
         }
 
         if (!isset($this->urlGenerators[$name])) {
-            throw new \InvalidArgumentException(
+            throw new InvalidArgumentException(
                 sprintf(
                     'The "%s" url generator is not set. Available url generators are: %s.',
                     $name,
@@ -53,6 +55,6 @@ class UrlGeneratorRegistry
 
     public function hasGenerators(): bool
     {
-        return $this->urlGenerators !== [];
+        return [] !== $this->urlGenerators;
     }
 }

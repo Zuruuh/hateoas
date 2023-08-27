@@ -8,14 +8,10 @@ use JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface;
 
 final class ExpressionLanguageResolver
 {
-    /**
-     * @var CompilableExpressionEvaluatorInterface
-     */
-    private readonly CompilableExpressionEvaluatorInterface$expressionLanguage;
+    private readonly CompilableExpressionEvaluatorInterface $expressionLanguage;
 
     /**
      * @param mixed $exp
-     * @param array $names
      *
      * @return Expression|mixed
      */
@@ -25,9 +21,9 @@ final class ExpressionLanguageResolver
             $names = array_merge($names, ['object', 'context', 'metadata']);
 
             return $this->expressionLanguage->parse($matches['expression'], $names);
-        } else {
-            return $exp;
         }
+
+        return $exp;
     }
 
     private function checkExpressionArray(array $data): array

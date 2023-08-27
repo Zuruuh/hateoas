@@ -4,21 +4,19 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Serializer;
 
-use function is_bool;
-
 use JMS\Serializer\Exception\NotAcceptableException;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use JMS\Serializer\XmlSerializationVisitor;
+use Traversable;
 use Zuruuh\Hateoas\Model\Embedded;
 use Zuruuh\Hateoas\Model\Link;
-
 use Zuruuh\Hateoas\Util\ClassUtils;
 
 class XmlSerializer implements SerializerInterface
 {
     /**
-     * @param Link[]                  $links
+     * @param Link[] $links
      */
     public function serializeLinks(array $links, SerializationVisitorInterface $visitor, SerializationContext $context): void
     {
@@ -47,7 +45,7 @@ class XmlSerializer implements SerializerInterface
             $visitor->setCurrentNode($entryNode);
             $visitor->getCurrentNode()->setAttribute('rel', $embedded->getRel());
 
-            if ($embedded->getData() instanceof \Traversable || is_array($embedded->getData())) {
+            if ($embedded->getData() instanceof Traversable || is_array($embedded->getData())) {
                 foreach ($embedded->getData() as $entry) {
                     $entryNode = $visitor->getDocument()->createElement($this->getElementName($context, $entry));
 
@@ -78,7 +76,7 @@ class XmlSerializer implements SerializerInterface
         }
 
         if (null === $elementName && is_object($data)) {
-            $metadata    = $context->getMetadataFactory()->getMetadataForClass(ClassUtils::getClass($data));
+            $metadata = $context->getMetadataFactory()->getMetadataForClass(ClassUtils::getClass($data));
             $elementName = $metadata->xmlRootName;
         }
 
@@ -92,6 +90,7 @@ class XmlSerializer implements SerializerInterface
     {
         $context->pushPropertyMetadata($embedded->getMetadata());
         $navigator = $context->getNavigator();
+
         try {
             if (null !== $node = $navigator->accept($data, $type)) {
                 $visitor->getCurrentNode()->appendChild($node);
@@ -107,7 +106,7 @@ class XmlSerializer implements SerializerInterface
      */
     private function formatValue($attributeValue): string
     {
-        if (is_bool($attributeValue)) {
+        if (\is_bool($attributeValue)) {
             return $attributeValue ? 'true' : 'false';
         }
 

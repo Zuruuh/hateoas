@@ -40,6 +40,7 @@ use Zuruuh\Hateoas\Configuration\Relation;
  *      "smartphone",
  *      embedded = "expr(object.getAndroidSmartphone())"
  * )
+ *
  * @Hateoas\RelationProvider("Hateoas\Tests\Fixtures\AdrienBrault::getRelations")
  */
 class AdrienBrault
@@ -54,22 +55,22 @@ class AdrienBrault
      */
     public $lastName = 'Brault';
 
-    public function getMacbookPro(): \Zuruuh\Hateoas\Tests\Fixtures\Computer
+    public function getMacbookPro(): Computer
     {
         return new Computer('MacBook Pro');
     }
 
-    public function getWindowsComputer(): \Zuruuh\Hateoas\Tests\Fixtures\Computer
+    public function getWindowsComputer(): Computer
     {
         return new Computer('Windows Computer');
     }
 
-    public function getiOSSmartphone(): \Zuruuh\Hateoas\Tests\Fixtures\Smartphone
+    public function getiOSSmartphone(): Smartphone
     {
         return new Smartphone('iPhone 6');
     }
 
-    public function getAndroidSmartphone(): \Zuruuh\Hateoas\Tests\Fixtures\Smartphone
+    public function getAndroidSmartphone(): Smartphone
     {
         return new Smartphone('Nexus 5');
     }

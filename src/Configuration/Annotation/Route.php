@@ -6,18 +6,21 @@ namespace Zuruuh\Hateoas\Configuration\Annotation;
 
 /**
  * @Annotation
+ *
  * @Target("ANNOTATION")
  */
 class Route
 {
     /**
      * @Required
+     *
      * @var string
      */
     public $name;
 
     /**
      * @Required
+     *
      * @var mixed
      */
     public $parameters = [];
@@ -30,5 +33,5 @@ class Route
     /**
      * @var string
      */
-    public $generator = null;
+    public $generator;
 }

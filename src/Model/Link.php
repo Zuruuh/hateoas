@@ -7,25 +7,11 @@ namespace Zuruuh\Hateoas\Model;
 class Link
 {
     /**
-     * @param array  $attributes
+     * @param array<array-key, mixed> $attributes
      */
-    public function __construct(private readonly string $rel, private readonly string $href, private readonly array $attributes = []) {}
-
-    /**
-     * @return array
-     */
-    public function getAttributes(): array
-    {
-        return $this->attributes;
-    }
-
-    public function getHref(): string
-    {
-        return $this->href;
-    }
-
-    public function getRel(): string
-    {
-        return $this->rel;
-    }
+    public function __construct(
+        public readonly string $rel,
+        public readonly string $href,
+        public readonly array $attributes = []
+    ) {}
 }

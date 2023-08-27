@@ -6,12 +6,14 @@ namespace Zuruuh\Hateoas\Configuration\Annotation;
 
 /**
  * @Annotation
+ *
  * @Target("ANNOTATION")
  */
 class Embedded
 {
     /**
      * @Required
+     *
      * @var mixed
      */
     public $content;
@@ -27,9 +29,10 @@ class Embedded
     public $xmlElementName;
 
     /**
-     * phpcs:disable
+     * phpcs:disable.
+     *
      * @var \Hateoas\Configuration\Annotation\Exclusion
-     * phpcs:enable
+     *                                                  phpcs:enable
      */
-    public $exclusion = null;
+    public $exclusion;
 }

@@ -9,6 +9,7 @@ use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\ExclusionPolicy("all")
+ *
  * @Serializer\XmlRoot("resource")
  *
  * @Hateoas\Relation(
@@ -38,12 +39,15 @@ class VndErrorRepresentation
     public function __construct(
         /**
          * @Serializer\Expose
+         *
          * @Serializer\Type("string")
          */
         private readonly string $message,
         /**
          * @Serializer\Expose
+         *
          * @Serializer\XmlAttribute
+         *
          * @Serializer\Type("int")
          */
         private readonly ?int $logref = null,

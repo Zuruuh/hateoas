@@ -14,7 +14,7 @@ use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
 
 class EmbeddedsFactory
 {
-    public function __construct(private readonly \Metadata\MetadataFactoryInterface $metadataFactory, private readonly \JMS\Serializer\Expression\ExpressionEvaluatorInterface $expressionEvaluator, private readonly \Zuruuh\Hateoas\Serializer\ExclusionManager $exclusionManager) {}
+    public function __construct(private readonly MetadataFactoryInterface $metadataFactory, private readonly ExpressionEvaluatorInterface $expressionEvaluator, private readonly ExclusionManager $exclusionManager) {}
 
     /**
      * @return Embedded[]
@@ -25,8 +25,9 @@ class EmbeddedsFactory
 
         if (null !== ($classMetadata = $this->metadataFactory->getMetadataForClass($object::class))) {
             $langugeData = ['object' => $object, 'context' => $context];
+
             /**
-             * @var $relation Relation
+             * @var Relation $relation
              */
             foreach ($classMetadata->getRelations() as $relation) {
                 if ($this->exclusionManager->shouldSkipEmbedded($object, $relation, $context)) {
@@ -48,7 +49,6 @@ class EmbeddedsFactory
 
     /**
      * @param mixed $exp
-     * @param array $data
      *
      * @return mixed
      */
@@ -56,8 +56,8 @@ class EmbeddedsFactory
     {
         if ($exp instanceof Expression) {
             return $this->expressionEvaluator->evaluate((string) $exp, $data);
-        } else {
-            return $exp;
         }
+
+        return $exp;
     }
 }

@@ -10,6 +10,7 @@ use JMS\Serializer\SerializationContext;
 use Metadata\MetadataFactoryInterface;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use stdClass;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Zuruuh\Hateoas\Configuration\Embedded;
 use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
@@ -17,16 +18,14 @@ use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Factory\EmbeddedsFactory;
 use Zuruuh\Hateoas\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class EmbeddedsFactoryTest extends TestCase
 {
     use ProphecyTrait;
-
-    protected function expr(string $expr): \JMS\Serializer\Expression\Expression
-    {
-        $expressionEvaluator = new ExpressionEvaluator(new ExpressionLanguage());
-
-        return $expressionEvaluator->parse($expr, ['object']);
-    }
 
     public function test(): void
     {
@@ -39,20 +38,22 @@ class EmbeddedsFactoryTest extends TestCase
                 new Embedded($this->expr('object.getManager()'), $this->expr('object.getXmlElementName()'))
             ),
         ];
-        $object = new \StdClass();
+        $object = new stdClass();
         $context = $this->prophesize(SerializationContext::class)->reveal();
 
         $metadata = $this->prophesize(ClassMetadata::class);
         $metadata
             ->getRelations()
             ->willReturn($relations)
-            ->shouldBeCalledTimes(1);
+            ->shouldBeCalledTimes(1)
+        ;
 
         $metadataFactory = $this->prophesize(MetadataFactoryInterface::class);
         $metadataFactory
             ->getMetadataForClass($object::class)
             ->willReturn($metadata)
-            ->shouldBeCalledTimes(1);
+            ->shouldBeCalledTimes(1)
+        ;
 
         $ctx = [
             'object' => $object,
@@ -86,5 +87,12 @@ class EmbeddedsFactoryTest extends TestCase
         $this->assertSame('manager', $embeddeds[1]->getRel());
         $this->assertSame(42, $embeddeds[1]->getData());
         $this->assertSame('foo', $embeddeds[1]->getXmlElementName());
+    }
+
+    protected function expr(string $expr): \JMS\Serializer\Expression\Expression
+    {
+        $expressionEvaluator = new ExpressionEvaluator(new ExpressionLanguage());
+
+        return $expressionEvaluator->parse($expr, ['object']);
     }
 }

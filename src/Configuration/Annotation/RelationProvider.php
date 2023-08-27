@@ -6,6 +6,7 @@ namespace Zuruuh\Hateoas\Configuration\Annotation;
 
 /**
  * @Annotation
+ *
  * @Target("CLASS")
  */
 class RelationProvider

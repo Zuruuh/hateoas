@@ -11,6 +11,11 @@ use Zuruuh\Hateoas\Configuration\Route;
 use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
 use Zuruuh\Hateoas\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class RelationPropertyMetadataTest extends TestCase
 {
     public function test(): void

@@ -16,7 +16,6 @@ trait CheckExpressionTrait
 
     /**
      * @param mixed $exp
-     * @param array $names
      *
      * @return Expression|mixed
      */
@@ -26,9 +25,9 @@ trait CheckExpressionTrait
             $names = array_merge($names, ['object', 'context', 'metadata']);
 
             return $this->expressionLanguage->parse($matches['expression'], $names);
-        } else {
-            return $exp;
         }
+
+        return $exp;
     }
 
     private function checkExpressionArray(array $data): array

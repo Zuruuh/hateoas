@@ -8,23 +8,20 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Zuruuh\Hateoas\Helper\LinkHelper;
 
-class LinkExtension extends AbstractExtension
+final class LinkExtension extends AbstractExtension
 {
-    public function __construct(private readonly \Zuruuh\Hateoas\Helper\LinkHelper $linkHelper) {}
+    public function __construct(private readonly LinkHelper $linkHelper) {}
 
     /**
-     * {@inheritDoc}
+     * {inheritDoc}.
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new TwigFunction('link_href', $this->linkHelper->getLinkHref(...)),
         ];
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getName(): string
     {
         return 'hateoas_link';

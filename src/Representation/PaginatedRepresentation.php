@@ -9,7 +9,9 @@ use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\ExclusionPolicy("all")
+ *
  * @Serializer\XmlRoot("collection")
+ *
  * @Serializer\AccessorOrder("custom", custom = {"page", "limit", "pages", "total"})
  *
  * @Hateoas\Relation(
@@ -67,14 +69,18 @@ class PaginatedRepresentation extends AbstractSegmentedRepresentation
         array $parameters,
         /**
          * @Serializer\Expose
+         *
          * @Serializer\Type("integer")
+         *
          * @Serializer\XmlAttribute
          */
         private readonly ?int $page,
         ?int $limit,
         /**
          * @Serializer\Expose
+         *
          * @Serializer\Type("integer")
+         *
          * @Serializer\XmlAttribute
          */
         private readonly ?int $pages,
@@ -84,7 +90,7 @@ class PaginatedRepresentation extends AbstractSegmentedRepresentation
         ?int $total = null
     ) {
         parent::__construct($inline, $route, $parameters, $limit, $total, $limitParameterName, $absolute);
-        $this->pageParameterName  = $pageParameterName ?: 'page';
+        $this->pageParameterName = $pageParameterName ?: 'page';
     }
 
     public function getPage(): int
@@ -93,10 +99,8 @@ class PaginatedRepresentation extends AbstractSegmentedRepresentation
     }
 
     /**
-     * @param  null  $page
-     * @param  null  $limit
-     *
-     * @return array
+     * @param null $page
+     * @param null $limit
      */
     public function getParameters($page = null, ?int $limit = null): array
     {

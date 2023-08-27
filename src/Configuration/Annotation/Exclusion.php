@@ -6,6 +6,7 @@ namespace Zuruuh\Hateoas\Configuration\Annotation;
 
 /**
  * @Annotation
+ *
  * @Target("ANNOTATION")
  */
 final class Exclusion
@@ -13,29 +14,29 @@ final class Exclusion
     /**
      * @var array
      */
-    public $groups = null;
+    public $groups;
 
     /**
      * @var string
      */
-    public $sinceVersion = null;
+    public $sinceVersion;
 
     /**
      * @var string
      */
-    public $untilVersion = null;
+    public $untilVersion;
 
     /**
      * If you are working with the FOS/Rest Bundle, be reminded to set
      * Rest\View(serializerEnableMaxDepthChecks=true)
-     * on your controller
+     * on your controller.
      *
      * @var int
      */
-    public $maxDepth = null;
+    public $maxDepth;
 
     /**
      * @var string
      */
-    public $excludeIf = null;
+    public $excludeIf;
 }

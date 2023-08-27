@@ -4,82 +4,72 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Factory;
 
-use JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface;
-use JMS\Serializer\Expression\Expression;
-use JMS\Serializer\SerializationContext;
+use RuntimeException;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Configuration\Route;
+use Zuruuh\Hateoas\Expression\Expression;
 use Zuruuh\Hateoas\Model\Link;
+use Zuruuh\Hateoas\Resolver\ExpressionLanguageResolver;
 use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry;
 
-class LinkFactory
+class LinkFactory implements LinkFactoryInterface
 {
-    public function __construct(private readonly \Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry $urlGeneratorRegistry, private ?\JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface $expressionEvaluator = null) {}
+    public function __construct(
+        private readonly UrlGeneratorRegistry $urlGeneratorRegistry,
+        private readonly ExpressionLanguageResolver $expressionLanguage,
+    ) {}
 
-    public function setExpressionEvaluator(CompilableExpressionEvaluatorInterface $expressionEvaluator): void
+    public function createLink(object $object, Relation $relation): Link
     {
-        $this->expressionEvaluator = $expressionEvaluator;
-    }
+        $rel = $relation->name;
+        $href = $relation->href;
 
-    public function createLink(object $object, Relation $relation, SerializationContext $context): Link
-    {
-        $data = ['object' => $object, 'context' => $context];
-
-        $rel = $relation->getName();
-        $href = $relation->getHref();
         if ($href instanceof Route) {
             if (!$this->urlGeneratorRegistry->hasGenerators()) {
-                throw new \RuntimeException('You cannot use a route without an url generator.');
+                throw new RuntimeException('You cannot use a route without an url generator.');
             }
 
-            $name = $this->checkExpression($href->getName(), $data);
-            $parameters = is_array($href->getParameters())
-                ? $this->evaluateArray($href->getParameters(), $data)
-                : $this->checkExpression($href->getParameters(), $data);
-            $isAbsolute = $this->checkExpression($href->isAbsolute(), $data);
+            $name = $this->expressionLanguage->checkExpression($href->name, $object);
+//            $parameters = is_array($href->parameters)
+ //               ? $this->evaluateArray($href->parameters, $data)
+   //             : $this->checkExpression($href->parameters, $data);
+  //          $isAbsolute = $this->checkExpression($href->isAbsolute, $data);
 
-            if (!is_array($parameters)) {
-                throw new \RuntimeException(
+            if (!is_array($href->parameters)) {
+                throw new RuntimeException(
                     sprintf(
                         'The route parameters should be an array, %s given. Maybe you forgot to wrap the expression in expr(...).',
-                        gettype($parameters)
+                        gettype($href->parameters)
                     )
                 );
             }
 
             $href = $this->urlGeneratorRegistry
-                ->get($href->getGenerator())
-                ->generate($name, $parameters, $isAbsolute);
+                ->get($href->generator)
+                ->generate($name, $href->parameters, $href->isAbsolute)
+            ;
         } else {
-            $href = $this->checkExpression($href, $data);
+            // $href = $this->checkExpression($href, $data);
         }
 
-        $attributes = $this->evaluateArray($relation->getAttributes(), $data);
+        // $attributes = $this->evaluateArray($relation->getAttributes(), $data);
 
-        return new Link($rel, $href, $attributes);
+        return new Link($rel, $href, []);
     }
 
     /**
      * @param mixed $exp
-     * @param array $data
      *
      * @return mixed
-     */
     private function checkExpression($exp, array $data)
     {
         if ($exp instanceof Expression) {
             return $this->expressionEvaluator->evaluateParsed($exp, $data);
-        } else {
-            return $exp;
         }
+
+        return $exp;
     }
 
-    /**
-     * @param array $array
-     * @param array $data
-     *
-     * @return array
-     */
     private function evaluateArray(array $array, array $data): array
     {
         $newArray = [];
@@ -91,4 +81,5 @@ class LinkFactory
 
         return $newArray;
     }
+**/
 }

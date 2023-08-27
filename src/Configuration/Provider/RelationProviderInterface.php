@@ -10,7 +10,7 @@ use Zuruuh\Hateoas\Configuration\RelationProvider;
 interface RelationProviderInterface
 {
     /**
-     * @return Relation[] Returns array of Relations for specified object.
+     * @return Relation[] returns array of Relations for specified object
      */
     public function getRelations(RelationProvider $relationProvider, string $class): array;
 }

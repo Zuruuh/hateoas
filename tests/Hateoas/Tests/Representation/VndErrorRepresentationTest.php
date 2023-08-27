@@ -6,6 +6,11 @@ namespace Zuruuh\Hateoas\Tests\Representation;
 
 use Zuruuh\Hateoas\Representation\VndErrorRepresentation;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class VndErrorRepresentationTest extends RepresentationTestCase
 {
     public function testSerialize(): void
@@ -18,7 +23,7 @@ class VndErrorRepresentationTest extends RepresentationTestCase
         );
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <resource logref="42">
                   <message><![CDATA[Validation failed]]></message>
@@ -31,7 +36,7 @@ class VndErrorRepresentationTest extends RepresentationTestCase
         );
 
         $this->assertSame(
-            <<<JSON
+            <<<'JSON'
                 {
                     "message": "Validation failed",
                     "logref": 42,

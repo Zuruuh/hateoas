@@ -14,15 +14,13 @@ use Zuruuh\Hateoas\Tests\TestCase;
 use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class LinkFactoryTest extends TestCase
 {
-    protected function expr(string $expr): \JMS\Serializer\Expression\Expression
-    {
-        $expressionEvaluator = new ExpressionEvaluator(new ExpressionLanguage());
-
-        return $expressionEvaluator->parse($expr, ['object']);
-    }
-
     public function test(): void
     {
         $context = SerializationContext::create();
@@ -141,9 +139,16 @@ class LinkFactoryTest extends TestCase
         );
     }
 
-    private function createLinkFactory(): \Zuruuh\Hateoas\Factory\LinkFactory
+    protected function expr(string $expr): \JMS\Serializer\Expression\Expression
     {
-        $defaultUrlGenerator = new CallableUrlGenerator(fn (string $route, $parameters): string => $route . '?' . http_build_query($parameters));
+        $expressionEvaluator = new ExpressionEvaluator(new ExpressionLanguage());
+
+        return $expressionEvaluator->parse($expr, ['object']);
+    }
+
+    private function createLinkFactory(): LinkFactory
+    {
+        $defaultUrlGenerator = new CallableUrlGenerator(fn (string $route, $parameters): string => $route.'?'.http_build_query($parameters));
         $expressionEvaluator = new ExpressionEvaluator(new ExpressionLanguage());
         $urlGeneratorRegistry = new UrlGeneratorRegistry($defaultUrlGenerator);
 

@@ -5,9 +5,15 @@ declare(strict_types=1);
 namespace Zuruuh\Hateoas\Tests\UrlGenerator;
 
 use Prophecy\PhpUnit\ProphecyTrait;
+use Throwable;
 use Zuruuh\Hateoas\Tests\TestCase;
 use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class UrlGeneratorRegistryTest extends TestCase
 {
     use ProphecyTrait;
@@ -21,9 +27,10 @@ class UrlGeneratorRegistryTest extends TestCase
         $this->assertSame($defaultUrlGenerator, $registry->get());
 
         $exception = null;
+
         try {
             $registry->get('foo');
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             $exception = $e;
         }
 

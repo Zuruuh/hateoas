@@ -8,6 +8,7 @@ use JMS\Serializer\Expression\ExpressionEvaluator;
 use JMS\Serializer\Type\Parser;
 use JMS\Serializer\Type\ParserInterface;
 use Metadata\Driver\DriverInterface;
+use ReflectionClass;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Zuruuh\Hateoas\Configuration\Provider\ChainProvider;
 use Zuruuh\Hateoas\Configuration\Provider\FunctionProvider;
@@ -20,27 +21,6 @@ use Zuruuh\Hateoas\Tests\TestCase;
 
 abstract class AbstractDriverTest extends TestCase
 {
-    protected function getExpressionEvaluator()
-    {
-        $expressionLanguage = new ExpressionLanguage();
-        $expressionLanguage->registerProvider(new LinkExpressionFunction());
-
-        return new ExpressionEvaluator($expressionLanguage);
-    }
-
-    protected function createProvider(): RelationProviderInterface
-    {
-        return new ChainProvider([
-            new FunctionProvider(),
-            new StaticMethodProvider(),
-        ]);
-    }
-
-    protected function createTypeParser(): ParserInterface
-    {
-        return new Parser();
-    }
-
     /**
      * @return DriverInterface
      */
@@ -49,7 +29,7 @@ abstract class AbstractDriverTest extends TestCase
     public function testUser(): void
     {
         $driver = $this->createDriver();
-        $class = new \ReflectionClass('Hateoas\Tests\Fixtures\User');
+        $class = new ReflectionClass('Hateoas\Tests\Fixtures\User');
         $classMetadata = $driver->loadMetadataForClass($class);
 
         $exp = $this->getExpressionEvaluator();
@@ -150,9 +130,30 @@ abstract class AbstractDriverTest extends TestCase
     public function testEmptyClass(): void
     {
         $driver = $this->createDriver();
-        $class = new \ReflectionClass('Hateoas\Tests\Fixtures\EmptyClass');
+        $class = new ReflectionClass('Hateoas\Tests\Fixtures\EmptyClass');
         $classMetadata = $driver->loadMetadataForClass($class);
 
         $this->assertNull($classMetadata);
+    }
+
+    protected function getExpressionEvaluator()
+    {
+        $expressionLanguage = new ExpressionLanguage();
+        $expressionLanguage->registerProvider(new LinkExpressionFunction());
+
+        return new ExpressionEvaluator($expressionLanguage);
+    }
+
+    protected function createProvider(): RelationProviderInterface
+    {
+        return new ChainProvider([
+            new FunctionProvider(),
+            new StaticMethodProvider(),
+        ]);
+    }
+
+    protected function createTypeParser(): ParserInterface
+    {
+        return new Parser();
     }
 }

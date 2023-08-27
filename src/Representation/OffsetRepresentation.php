@@ -9,7 +9,9 @@ use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\ExclusionPolicy("all")
+ *
  * @Serializer\XmlRoot("collection")
+ *
  * @Serializer\AccessorOrder("custom", custom = {"offset", "limit", "total"})
  *
  * @Hateoas\Relation(
@@ -64,6 +66,7 @@ class OffsetRepresentation extends AbstractSegmentedRepresentation
         array $parameters,
         /**
          * @Serializer\Expose
+         *
          * @Serializer\XmlAttribute
          */
         private readonly ?int $offset,
@@ -83,10 +86,8 @@ class OffsetRepresentation extends AbstractSegmentedRepresentation
     }
 
     /**
-     * @param  null  $offset
-     * @param  null  $limit
-     *
-     * @return array
+     * @param null $offset
+     * @param null $limit
      */
     public function getParameters(?int $offset = null, ?int $limit = null): array
     {

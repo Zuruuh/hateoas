@@ -9,6 +9,11 @@ use Zuruuh\Hateoas\HateoasBuilder;
 use Zuruuh\Hateoas\Twig\Extension\LinkExtension;
 use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class LinkExtensionIntegrationTest extends IntegrationTestCase
 {
     public function getExtensions()
@@ -22,7 +27,8 @@ class LinkExtensionIntegrationTest extends IntegrationTestCase
                     strtr('/id', $parameters)
                 );
             }))
-            ->build();
+            ->build()
+        ;
 
         return [
             new LinkExtension($hateoas->getLinkHelper()),
@@ -31,6 +37,6 @@ class LinkExtensionIntegrationTest extends IntegrationTestCase
 
     public function getFixturesDir()
     {
-        return __DIR__ . '/../Fixtures/';
+        return __DIR__.'/../Fixtures/';
     }
 }

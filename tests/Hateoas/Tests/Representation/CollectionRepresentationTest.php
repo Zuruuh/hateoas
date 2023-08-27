@@ -4,19 +4,25 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Representation;
 
+use ArrayIterator;
 use Zuruuh\Hateoas\Representation\CollectionRepresentation;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class CollectionRepresentationTest extends RepresentationTestCase
 {
     /**
      * @dataProvider getTestSerializeData
      */
-    public function testSerialize(array|\ArrayIterator $resources): void
+    public function testSerialize(array|ArrayIterator $resources): void
     {
         $collection = new CollectionRepresentation($resources);
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <collection>
                   <entry rel="items">
@@ -29,7 +35,7 @@ class CollectionRepresentationTest extends RepresentationTestCase
             $this->hateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <collection>
                   <resource rel="items"><![CDATA[Adrien]]></resource>
@@ -41,7 +47,7 @@ class CollectionRepresentationTest extends RepresentationTestCase
         );
 
         $this->assertSame(
-            <<<JSON
+            <<<'JSON'
                 {
                     "_embedded": {
                         "items": [
@@ -65,7 +71,7 @@ class CollectionRepresentationTest extends RepresentationTestCase
                 ],
             ],
             [
-                new \ArrayIterator([
+                new ArrayIterator([
                     'Adrien',
                     'William',
                 ]),

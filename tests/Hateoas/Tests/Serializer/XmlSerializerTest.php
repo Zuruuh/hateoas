@@ -8,6 +8,8 @@ use JMS\Serializer\SerializationContext;
 use JMS\Serializer\XmlSerializationVisitor;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use ReflectionClass;
+use SplStack;
 use Zuruuh\Hateoas\HateoasBuilder;
 use Zuruuh\Hateoas\Model\Embedded;
 use Zuruuh\Hateoas\Model\Link;
@@ -19,6 +21,11 @@ use Zuruuh\Hateoas\Tests\Fixtures\Gh236Foo;
 use Zuruuh\Hateoas\Tests\Fixtures\LinkAttributes;
 use Zuruuh\Hateoas\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class XmlSerializerTest extends TestCase
 {
     use ProphecyTrait;
@@ -42,7 +49,7 @@ class XmlSerializerTest extends TestCase
         );
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <root>
                   <link rel="self" href="/users/42"/>
@@ -61,7 +68,8 @@ class XmlSerializerTest extends TestCase
 
         $contextProphecy
             ->getNavigator()
-            ->willReturn($navigatorProphecy);
+            ->willReturn($navigatorProphecy)
+        ;
 
         $contextProphecy->pushPropertyMetadata(Argument::type('Hateoas\Serializer\Metadata\RelationPropertyMetadata'))->shouldBeCalled();
         $contextProphecy->popPropertyMetadata()->shouldBeCalled();
@@ -80,7 +88,7 @@ class XmlSerializerTest extends TestCase
         );
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <root>
                   <person rel="friend">
@@ -95,11 +103,11 @@ class XmlSerializerTest extends TestCase
 
     public function testSerializeAdrienBrault(): void
     {
-        $hateoas      = HateoasBuilder::buildHateoas();
+        $hateoas = HateoasBuilder::buildHateoas();
         $adrienBrault = new AdrienBrault();
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result>
                   <first_name><![CDATA[Adrien]]></first_name>
@@ -136,7 +144,7 @@ class XmlSerializerTest extends TestCase
         $hateoas = HateoasBuilder::buildHateoas();
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <collection>
                   <entry rel="items">
@@ -156,31 +164,18 @@ class XmlSerializerTest extends TestCase
         );
     }
 
-    private function createXmlSerializationVisitor(): \JMS\Serializer\XmlSerializationVisitor
-    {
-        $xmlSerializationVisitor = new XmlSerializationVisitor();
-        $xmlSerializationVisitorClass = new \ReflectionClass('JMS\Serializer\XmlSerializationVisitor');
-        $stackProperty = $xmlSerializationVisitorClass->getProperty('stack');
-        $stackProperty->setAccessible(true);
-        $stackProperty->setValue($xmlSerializationVisitor, new \SplStack());
-
-        $xmlRootNode = $document = $xmlSerializationVisitor->createRoot(null, 'root');
-        $xmlSerializationVisitor->setCurrentNode($xmlRootNode);
-
-        return $xmlSerializationVisitor;
-    }
-
     public function testTemplateLink(): void
     {
         $data = new LinkAttributes();
 
         $hateoas = HateoasBuilder::create()
             ->setXmlSerializer(new XmlSerializer())
-            ->addMetadataDir(__DIR__ . '/../Fixtures/config/')
-            ->build();
+            ->addMetadataDir(__DIR__.'/../Fixtures/config/')
+            ->build()
+        ;
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result>
                   <link rel="self" href="https://github.com/willdurand/Hateoas/issues/305" templated="false"/>
@@ -191,5 +186,19 @@ class XmlSerializerTest extends TestCase
                 XML,
             $hateoas->serialize($data, 'xml')
         );
+    }
+
+    private function createXmlSerializationVisitor(): XmlSerializationVisitor
+    {
+        $xmlSerializationVisitor = new XmlSerializationVisitor();
+        $xmlSerializationVisitorClass = new ReflectionClass('JMS\Serializer\XmlSerializationVisitor');
+        $stackProperty = $xmlSerializationVisitorClass->getProperty('stack');
+        $stackProperty->setAccessible(true);
+        $stackProperty->setValue($xmlSerializationVisitor, new SplStack());
+
+        $xmlRootNode = $document = $xmlSerializationVisitor->createRoot(null, 'root');
+        $xmlSerializationVisitor->setCurrentNode($xmlRootNode);
+
+        return $xmlSerializationVisitor;
     }
 }

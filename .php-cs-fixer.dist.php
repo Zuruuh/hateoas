@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 $finder = PhpCsFixer\Finder::create()
     ->in(__DIR__ . '/src')
-    ->ignoreVCSIgnored(true)
     ->in(__DIR__ . '/tests')
+    ->ignoreVCSIgnored(true)
 ;
 
 return (new PhpCsFixer\Config())
@@ -18,6 +18,10 @@ return (new PhpCsFixer\Config())
         '@PHP80Migration:risky' => true,
         'single_line_empty_body' => true,
         'ordered_imports' => true,
+        '@PhpCsFixer' => true,
+        'global_namespace_import' => [
+            'import_classes' => true,
+        ],
     ])
     ->setFinder($finder)
 ;

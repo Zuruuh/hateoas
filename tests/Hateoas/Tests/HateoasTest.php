@@ -4,10 +4,16 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests;
 
+use RuntimeException;
 use Zuruuh\Hateoas\HateoasBuilder;
 use Zuruuh\Hateoas\Tests\Fixtures\Will;
 use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class HateoasTest extends TestCase
 {
     private \Zuruuh\Hateoas\Hateoas $hateoas;
@@ -32,14 +38,15 @@ class HateoasTest extends TestCase
                     );
                 }
 
-                throw new \RuntimeException('Cannot generate URL');
+                throw new RuntimeException('Cannot generate URL');
             }))
-            ->build();
+            ->build()
+        ;
     }
 
     public function testGetLinkHrefUrlWithUnknownRelThrowsException(): void
     {
-        $this->expectException(\RuntimeException::class);
+        $this->expectException(RuntimeException::class);
         $this->expectExceptionMessage('Can not find the relation "unknown-rel" for the "Hateoas\Tests\Fixtures\Will" class');
         $this->assertNull($this->hateoas->getLinkHelper()->getLinkHref(new Will(123), 'unknown-rel'));
         $this->assertNull($this->hateoas->getLinkHelper()->getLinkHref(new Will(123), 'unknown-rel', true));

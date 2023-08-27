@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Zuruuh\Hateoas\Representation;
 
 use JMS\Serializer\Annotation as Serializer;
+use Traversable;
 use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\ExclusionPolicy("all")
+ *
  * @Serializer\XmlRoot("collection")
  *
  * @Hateoas\Relation(
@@ -24,15 +26,15 @@ class CollectionRepresentation
     private $resources;
 
     /**
-     * @param array|\Traversable $resources
+     * @param array|Traversable $resources
      */
     public function __construct($resources)
     {
-        if ($resources instanceof \Traversable) {
+        if ($resources instanceof Traversable) {
             $resources = iterator_to_array($resources);
         }
 
-        $this->resources      = $resources;
+        $this->resources = $resources;
     }
 
     /**

@@ -9,10 +9,8 @@ use Zuruuh\Hateoas\Expression\Expression;
 class Relation
 {
     /**
-     * @param $name The link "rel" attribute
-     * @param $href
-     * @param $embedded
-     * @param list<string|Expression> $attributes
+     * @param                         $name       The link "rel" attribute
+     * @param list<Expression|string> $attributes
      *
      * @throws InvalidArgumentException
      */

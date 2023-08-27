@@ -7,7 +7,7 @@ namespace Zuruuh\Hateoas\Tests\Fixtures;
 use JMS\Serializer\Annotation as Serializer;
 
 /**
- * Demonstrates how to override the xml root name of a PaginatedCollection
+ * Demonstrates how to override the xml root name of a PaginatedCollection.
  *
  * @Serializer\XmlRoot("users")
  */

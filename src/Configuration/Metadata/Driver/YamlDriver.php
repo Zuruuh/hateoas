@@ -10,6 +10,8 @@ use JMS\Serializer\Type\ParserInterface;
 use Metadata\ClassMetadata as JMSClassMetadata;
 use Metadata\Driver\AbstractFileDriver;
 use Metadata\Driver\FileLocatorInterface;
+use ReflectionClass;
+use RuntimeException;
 use Symfony\Component\Yaml\Yaml;
 use Zuruuh\Hateoas\Configuration\Embedded;
 use Zuruuh\Hateoas\Configuration\Exclusion;
@@ -26,19 +28,19 @@ class YamlDriver extends AbstractFileDriver
     public function __construct(
         FileLocatorInterface $locator,
         CompilableExpressionEvaluatorInterface $expressionLanguage,
-        private readonly \Zuruuh\Hateoas\Configuration\Provider\RelationProviderInterface $relationProvider,
-        private readonly \JMS\Serializer\Type\ParserInterface $typeParser
+        private readonly RelationProviderInterface $relationProvider,
+        private readonly ParserInterface $typeParser
     ) {
         parent::__construct($locator);
         $this->expressionLanguage = $expressionLanguage;
     }
 
-    protected function loadMetadataFromFile(\ReflectionClass $class, string $file): ?JMSClassMetadata
+    protected function loadMetadataFromFile(ReflectionClass $class, string $file): ?JMSClassMetadata
     {
         $config = Yaml::parse(file_get_contents($file));
 
         if (!isset($config[$name = $class->getName()])) {
-            throw new \RuntimeException(sprintf('Expected metadata for class %s to be defined in %s.', $name, $file));
+            throw new RuntimeException(sprintf('Expected metadata for class %s to be defined in %s.', $name, $file));
         }
 
         $config = $config[$name];
@@ -108,7 +110,8 @@ class YamlDriver extends AbstractFileDriver
                 $absolute,
                 $href['generator'] ?? null
             );
-        } elseif (isset($relation['href']) && is_string($relation['href'])) {
+        }
+        if (isset($relation['href']) && is_string($relation['href'])) {
             $href = $relation['href'];
         }
 
@@ -118,7 +121,7 @@ class YamlDriver extends AbstractFileDriver
     /**
      * @param mixed $relation
      *
-     * @return Embedded|Expression|mixed|null
+     * @return null|Embedded|Expression|mixed
      */
     private function createEmbedded(array $relation)
     {

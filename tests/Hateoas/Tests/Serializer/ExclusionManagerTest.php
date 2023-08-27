@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Serializer;
 
+use Closure;
 use JMS\Serializer\Exclusion\ExpressionLanguageExclusionStrategy;
 use JMS\Serializer\Expression\ExpressionEvaluator;
 use JMS\Serializer\Expression\ExpressionEvaluatorInterface;
@@ -13,12 +14,18 @@ use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Metadata\MetadataFactoryInterface;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use stdClass;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Zuruuh\Hateoas\Configuration\Exclusion;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Serializer\ExclusionManager;
 use Zuruuh\Hateoas\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class ExclusionManagerTest extends TestCase
 {
     use ProphecyTrait;
@@ -27,7 +34,7 @@ class ExclusionManagerTest extends TestCase
     {
         $exclusionManager = new ExclusionManager(new ExpressionLanguageExclusionStrategy(new ExpressionEvaluator(new ExpressionLanguage())));
 
-        $object = new \StdClass();
+        $object = new stdClass();
         $relation = new Relation('foo', 'foo', 'foo');
         $context = SerializationContext::create();
 
@@ -38,7 +45,7 @@ class ExclusionManagerTest extends TestCase
     {
         $exclusionManager = new ExclusionManager(new ExpressionLanguageExclusionStrategy(new ExpressionEvaluator(new ExpressionLanguage())));
 
-        $object = new \StdClass();
+        $object = new stdClass();
         $relation = new Relation('foo', 'foo');
         $context = SerializationContext::create();
 
@@ -49,7 +56,7 @@ class ExclusionManagerTest extends TestCase
     {
         $exclusionManager = new ExclusionManager(new ExpressionLanguageExclusionStrategy(new ExpressionEvaluator(new ExpressionLanguage())));
 
-        $object = new \StdClass();
+        $object = new stdClass();
         $relation = new Relation('foo', 'foo');
         $context = SerializationContext::create();
 
@@ -60,7 +67,7 @@ class ExclusionManagerTest extends TestCase
     {
         $exclusionManager = new ExclusionManager(new ExpressionLanguageExclusionStrategy(new ExpressionEvaluator(new ExpressionLanguage())));
 
-        $object = new \StdClass();
+        $object = new stdClass();
         $relation = new Relation('foo', null, 'foo');
         $context = SerializationContext::create();
 
@@ -80,7 +87,7 @@ class ExclusionManagerTest extends TestCase
         $exclusionManager = new ExclusionManager(new ExpressionLanguageExclusionStrategy(new ExpressionEvaluator(new ExpressionLanguage())));
         $exclusionStrategy = $this->mockExclusionStrategy(true, $exclusionStrategyCallback, 2);
 
-        $object = new \StdClass();
+        $object = new stdClass();
         $exclusion = new Exclusion(
             ['foo', 'bar'],
             '1.1',
@@ -89,7 +96,8 @@ class ExclusionManagerTest extends TestCase
         );
         $relation = new Relation('foo', 'foo', 'foo', [], $exclusion);
         $context = SerializationContext::create()
-            ->addExclusionStrategy($exclusionStrategy);
+            ->addExclusionStrategy($exclusionStrategy)
+        ;
 
         $this->assertTrue($exclusionManager->shouldSkipLink($object, $relation, $context));
         $this->assertTrue($exclusionManager->shouldSkipEmbedded($object, $relation, $context));
@@ -99,10 +107,11 @@ class ExclusionManagerTest extends TestCase
     {
         $exclusionManager = new ExclusionManager(new ExpressionLanguageExclusionStrategy(new ExpressionEvaluator(new ExpressionLanguage())));
 
-        $object = new \StdClass();
+        $object = new stdClass();
         $relation = new Relation('foo', 'foo', 'foo');
         $context = SerializationContext::create()
-            ->addExclusionStrategy($this->mockExclusionStrategy(true));
+            ->addExclusionStrategy($this->mockExclusionStrategy(true))
+        ;
 
         $this->assertTrue($exclusionManager->shouldSkipEmbedded($object, $relation, $context));
     }
@@ -129,7 +138,8 @@ class ExclusionManagerTest extends TestCase
         $expressionEvaluatorProphecy
             ->evaluate('stuff', Argument::any())
             ->shouldBeCalled()
-            ->willReturn($exclude);
+            ->willReturn($exclude)
+        ;
         $exclusionManager = new ExclusionManager(new ExpressionLanguageExclusionStrategy($expressionEvaluatorProphecy->reveal()));
 
         $this->assertSame($exclude, $exclusionManager->shouldSkipLink($object, $relation, $context));
@@ -145,8 +155,8 @@ class ExclusionManagerTest extends TestCase
     }
 
     /**
-     * @param \Closure $shouldSkipPropertyCallback
-     * @param int $calledTimes
+     * @param Closure $shouldSkipPropertyCallback
+     * @param int     $calledTimes
      */
     private function mockExclusionStrategy(bool $shouldSkipProperty = false, $shouldSkipPropertyCallback = null, $calledTimes = null)
     {
@@ -157,12 +167,13 @@ class ExclusionManagerTest extends TestCase
                 Argument::type('JMS\Serializer\SerializationContext')
             )
             ->will(function () use ($shouldSkipProperty, $shouldSkipPropertyCallback): bool {
-                if ($shouldSkipPropertyCallback instanceof \Closure) {
+                if ($shouldSkipPropertyCallback instanceof Closure) {
                     call_user_func_array($shouldSkipPropertyCallback, func_get_args());
                 }
 
                 return $shouldSkipProperty;
-            });
+            })
+        ;
 
         if (null !== $calledTimes) {
             $method->shouldBeCalledTimes($calledTimes);

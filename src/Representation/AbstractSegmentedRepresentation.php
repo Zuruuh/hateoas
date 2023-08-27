@@ -22,13 +22,17 @@ abstract class AbstractSegmentedRepresentation extends RouteAwareRepresentation
         array $parameters,
         /**
          * @Serializer\Expose
+         *
          * @Serializer\Type("integer")
+         *
          * @Serializer\XmlAttribute
          */
         private readonly int $limit,
         /**
          * @Serializer\Expose
+         *
          * @Serializer\Type("integer")
+         *
          * @Serializer\XmlAttribute
          */
         private readonly ?int $total = null,
@@ -36,7 +40,7 @@ abstract class AbstractSegmentedRepresentation extends RouteAwareRepresentation
         bool $absolute = false
     ) {
         parent::__construct($inline, $route, $parameters, $absolute);
-        $this->limitParameterName  = $limitParameterName ?: 'limit';
+        $this->limitParameterName = $limitParameterName ?: 'limit';
     }
 
     public function getLimit(): int
@@ -45,9 +49,7 @@ abstract class AbstractSegmentedRepresentation extends RouteAwareRepresentation
     }
 
     /**
-     * @param  null  $limit
-     *
-     * @return array
+     * @param null $limit
      */
     public function getParameters(?int $limit = null): array
     {
@@ -70,7 +72,7 @@ abstract class AbstractSegmentedRepresentation extends RouteAwareRepresentation
 
     protected function moveParameterToEnd(array &$parameters, string $key): void
     {
-        if (! array_key_exists($key, $parameters)) {
+        if (!array_key_exists($key, $parameters)) {
             return;
         }
 

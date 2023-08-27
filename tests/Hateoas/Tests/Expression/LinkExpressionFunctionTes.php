@@ -4,17 +4,23 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Expression;
 
+use stdClass;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Zuruuh\Hateoas\Expression\ExpressionEvaluator;
 use Zuruuh\Hateoas\Expression\LinkExpressionFunction;
 use Zuruuh\Hateoas\Helper\LinkHelper;
 use Zuruuh\Hateoas\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class LinkExpressionFunctionTest extends TestCase
 {
     public function testEvaluate(): void
     {
-        $object = new \StdClass();
+        $object = new stdClass();
 
         $linkHelperMock = $this->mockHelper('/foo', $object, 'self', false);
 
@@ -29,7 +35,7 @@ class LinkExpressionFunctionTest extends TestCase
 
     public function testCompile(): void
     {
-        $object = new \StdClass();
+        $object = new stdClass();
 
         $linkHelperMock = $this->mockHelper('/foo', $object, 'self', false);
 
@@ -47,25 +53,22 @@ class LinkExpressionFunctionTest extends TestCase
     }
 
     /**
-     * @param string $result
-     * @param \stdClass $expectedObject
-     * @param string $expectedRel
-     * @param bool $expectedAbsolute
-     *
      * @return LinkHelper
      */
-    private function mockHelper(string $result, \StdClass $expectedObject, string $expectedRel, bool $expectedAbsolute)
+    private function mockHelper(string $result, stdClass $expectedObject, string $expectedRel, bool $expectedAbsolute)
     {
         $linkHelperMock = $this
             ->getMockBuilder('Hateoas\Helper\LinkHelper')
             ->disableOriginalConstructor()
-            ->getMock();
+            ->getMock()
+        ;
 
         $linkHelperMock
             ->expects($this->once())
             ->method('getLinkHref')
             ->will($this->returnValue('/foo'))
-            ->with($expectedObject, $expectedRel, $expectedAbsolute);
+            ->with($expectedObject, $expectedRel, $expectedAbsolute)
+        ;
 
         return $linkHelperMock;
     }

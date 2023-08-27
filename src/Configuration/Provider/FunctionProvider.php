@@ -8,9 +8,6 @@ use Zuruuh\Hateoas\Configuration\RelationProvider;
 
 class FunctionProvider implements RelationProviderInterface
 {
-    /**
-     * {@inheritdoc}
-     */
     public function getRelations(RelationProvider $configuration, string $class): array
     {
         if (!preg_match('/func\((?P<function>.+)\)/i', (string) $configuration->getName(), $matches)) {

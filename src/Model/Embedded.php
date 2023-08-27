@@ -10,9 +10,8 @@ class Embedded
 {
     /**
      * @param mixed $data
-     * @param string|null $xmlElementName
      */
-    public function __construct(private readonly string $rel, private $data, private readonly \Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata $metadata, private readonly ?string $xmlElementName = null, private readonly ?array $type = null) {}
+    public function __construct(private readonly string $rel, private $data, private readonly RelationPropertyMetadata $metadata, private readonly ?string $xmlElementName = null, private readonly ?array $type = null) {}
 
     public function getType(): ?array
     {

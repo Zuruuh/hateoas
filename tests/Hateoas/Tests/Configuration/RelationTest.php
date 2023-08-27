@@ -7,6 +7,11 @@ namespace Zuruuh\Hateoas\Tests\Configuration;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class RelationTest extends TestCase
 {
     public function testConstructor(): void
@@ -25,7 +30,8 @@ class RelationTest extends TestCase
                 new Relation('', null, null);
             })
             ->isInstanceOf('InvalidArgumentException')
-            ->hasMessage('$href and $embedded cannot be both null.');
+            ->hasMessage('$href and $embedded cannot be both null.')
+        ;
     }
 
     public function canBeConstructedWithOnlyAnEmbed(): void

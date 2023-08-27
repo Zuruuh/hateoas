@@ -4,44 +4,17 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Configuration;
 
-use JMS\Serializer\Expression\Expression;
+use Zuruuh\Hateoas\Expression\Expression;
 
 class Route
 {
     /**
-     * @param string|Expression $name
-     * @param string|array $parameters
-     * @param bool|Expression $absolute
-     * @param string|null $generator
+     * @param array<string, string>|string      $parameters
      */
-    public function __construct(private $name, private $parameters = [], private $absolute = false, private readonly ?string $generator = null) {}
-
-    /**
-     * @return Expression|string|array|string[]|Expression[]
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * @return string|array
-     */
-    public function getParameters()
-    {
-        return $this->parameters;
-    }
-
-    /**
-     * @return bool|Expression
-     */
-    public function isAbsolute()
-    {
-        return $this->absolute;
-    }
-
-    public function getGenerator(): ?string
-    {
-        return $this->generator;
-    }
+    public function __construct(
+        public readonly Expression|string $name,
+        public readonly array|string $parameters = [],
+        public readonly bool $isAbsolute = false,
+        public readonly ?string $generator = null
+    ) {}
 }

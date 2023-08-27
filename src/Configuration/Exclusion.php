@@ -29,9 +29,6 @@ class Exclusion
         $this->maxDepth = $maxDepth ?? null;
     }
 
-    /**
-     * @return array|null
-     */
     public function getGroups(): ?array
     {
         return $this->groups;
@@ -53,7 +50,7 @@ class Exclusion
     }
 
     /**
-     * @return ExpressionEvaluator|mixed|string|null
+     * @return null|ExpressionEvaluator|mixed|string
      */
     public function getExcludeIf()
     {

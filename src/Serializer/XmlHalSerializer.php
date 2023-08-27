@@ -4,13 +4,11 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Serializer;
 
-use function is_bool;
-
 use JMS\Serializer\Exception\NotAcceptableException;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use JMS\Serializer\XmlSerializationVisitor;
-
+use Traversable;
 use Zuruuh\Hateoas\Model\Embedded;
 
 class XmlHalSerializer implements SerializerInterface
@@ -46,7 +44,7 @@ class XmlHalSerializer implements SerializerInterface
     public function serializeEmbeddeds(array $embeddeds, SerializationVisitorInterface $visitor, SerializationContext $context): void
     {
         foreach ($embeddeds as $embedded) {
-            if ($embedded->getData() instanceof \Traversable || is_array($embedded->getData())) {
+            if ($embedded->getData() instanceof Traversable || is_array($embedded->getData())) {
                 foreach ($embedded->getData() as $data) {
                     $entryNode = $visitor->getDocument()->createElement('resource');
 
@@ -81,6 +79,7 @@ class XmlHalSerializer implements SerializerInterface
     {
         $context->pushPropertyMetadata($embedded->getMetadata());
         $navigator = $context->getNavigator();
+
         try {
             if (null !== $node = $navigator->accept($data, $type, $context)) {
                 $visitor->getCurrentNode()->appendChild($node);
@@ -96,7 +95,7 @@ class XmlHalSerializer implements SerializerInterface
      */
     private function formatValue($attributeValue): string
     {
-        if (is_bool($attributeValue)) {
+        if (\is_bool($attributeValue)) {
             return $attributeValue ? 'true' : 'false';
         }
 

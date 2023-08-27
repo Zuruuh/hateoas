@@ -7,9 +7,14 @@ namespace Zuruuh\Hateoas\Tests\Configuration\Metadata\Driver;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Zuruuh\Hateoas\Configuration\Metadata\Driver\AttributesDriver;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class AnnotationDriverTest extends AbstractDriverTest
 {
-    public function createDriver(): \Zuruuh\Hateoas\Configuration\Metadata\Driver\AttributesDriver
+    public function createDriver(): AttributesDriver
     {
         return new AttributesDriver(
             new AnnotationReader(),

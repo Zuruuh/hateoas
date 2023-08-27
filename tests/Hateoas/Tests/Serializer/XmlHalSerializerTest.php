@@ -13,17 +13,23 @@ use Zuruuh\Hateoas\Tests\Fixtures\Gh236Foo;
 use Zuruuh\Hateoas\Tests\Fixtures\LinkAttributes;
 use Zuruuh\Hateoas\Tests\TestCase;
 
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
 class XmlHalSerializerTest extends TestCase
 {
     public function testSerializeAdrienBrault(): void
     {
         $hateoas = HateoasBuilder::create()
             ->setXmlSerializer(new XmlHalSerializer())
-            ->build();
+            ->build()
+        ;
         $adrienBrault = new AdrienBrault();
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result href="http://adrienbrault.fr">
                   <first_name><![CDATA[Adrien]]></first_name>
@@ -56,10 +62,11 @@ class XmlHalSerializerTest extends TestCase
 
         $hateoas = HateoasBuilder::create()
             ->setXmlSerializer(new XmlHalSerializer())
-            ->build();
+            ->build()
+        ;
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <collection>
                   <resource rel="items">
@@ -83,11 +90,12 @@ class XmlHalSerializerTest extends TestCase
 
         $hateoas = HateoasBuilder::create()
             ->setXmlSerializer(new XmlHalSerializer())
-            ->addMetadataDir(__DIR__ . '/../Fixtures/config/')
-            ->build();
+            ->addMetadataDir(__DIR__.'/../Fixtures/config/')
+            ->build()
+        ;
 
         $this->assertSame(
-            <<<XML
+            <<<'XML'
                 <?xml version="1.0" encoding="UTF-8"?>
                 <result templated="false" href="https://github.com/willdurand/Hateoas/issues/305">
                   <link rel="foo" href="http://foo{?bar}" templated="true"/>

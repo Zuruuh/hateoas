@@ -20,13 +20,16 @@ class Gh236Foo
 {
     /**
      * @Serializer\Expose()
+     *
      * @Serializer\MaxDepth(1)
+     *
      * @var \Zuruuh\Hateoas\Tests\Fixtures\Gh236Bar
      */
     public $a;
 
     /**
      * @Serializer\Exclude()
+     *
      * @var \Zuruuh\Hateoas\Tests\Fixtures\Gh236Bar
      */
     public $b;

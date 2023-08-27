@@ -26,6 +26,7 @@
     "doctrine/annotations": "2.0.x-dev",
     "jms/metadata": "^2.0@dev",
     "jms/serializer": "^3.0@dev",
+    "psr/simple-cache": "^3.0@dev",
     "symfony/expression-language": "^4.0|^5.0|^6.0|^7.0",
     "symfony/serializer": "^4.0|^5.0|^6.0|^7.0"
   },
@@ -39,6 +40,7 @@
     "phpstan/phpstan": "1.11.x-dev",
     "phpunit/phpunit": "^7 | ^9.5.10",
     "rector/rector": "dev-main",
+    "symfony/cache": "7.0.x-dev",
     "symfony/routing": "~3.0 || ~4.0 || ~5.0 || ~6.0",
     "symfony/yaml": "~3.0 || ~4.0 || ~5.0 || ~6.0",
     "twig/twig": "^1.43 || ^2.13 || ^3.0"

@@ -12,14 +12,14 @@ use Zuruuh\Hateoas\Configuration\Relation;
 
 final class ClassMetadataWithRelations implements ClassMetadataInterface
 {
+    /**
+     * @var list<Relation>
+     */
+    private array $relations;
+
     public function __construct(
         public readonly ClassMetadataInterface $decoratedClassMetadata
     ) {}
-
-    /**
-     * @var list<Relation> $relations
-     */
-    private array $relations;
 
     public function addRelation(Relation $relation): void
     {
@@ -34,61 +34,40 @@ final class ClassMetadataWithRelations implements ClassMetadataInterface
         return $this->relations;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getName(): string
     {
         return $this->decoratedClassMetadata->getName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function addAttributeMetadata(AttributeMetadataInterface $attributeMetadata): void
     {
         $this->decoratedClassMetadata->addAttributeMetadata($attributeMetadata);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getAttributesMetadata(): array
     {
         return $this->decoratedClassMetadata->getAttributesMetadata();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function merge(self $classMetadata): void
     {
         $this->decoratedClassMetadata->merge($classMetadata);
 
-        if ($classMetadata instanceof static) {
+        if ($classMetadata instanceof self) {
             $this->relations = array_unique([...$this->relations, ...$classMetadata->getRelations()]);
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getReflectionClass(): ReflectionClass
     {
         return $this->decoratedClassMetadata->getReflectionClass();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getClassDiscriminatorMapping(): ?ClassDiscriminatorMapping
     {
         return $this->decoratedClassMetadata->getClassDiscriminatorMapping();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function setClassDiscriminatorMapping(?ClassDiscriminatorMapping $mapping): void
     {
         $this->decoratedClassMetadata->setClassDiscriminatorMapping($mapping);

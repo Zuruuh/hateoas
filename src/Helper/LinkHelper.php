@@ -4,58 +4,60 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Helper;
 
-use JMS\Serializer\SerializationContext;
-use Metadata\MetadataFactoryInterface;
+use RuntimeException;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
+use Zuruuh\Hateoas\Configuration\Metadata\ClassAndRelationsMetadataFactoryInterface;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Configuration\Route;
 use Zuruuh\Hateoas\Factory\LinkFactory;
-use Zuruuh\Hateoas\Util\ClassUtils;
+use Zuruuh\Hateoas\Model\Link;
 
 class LinkHelper
 {
-    public function __construct(private readonly \Zuruuh\Hateoas\Factory\LinkFactory $linkFactory, private readonly \Metadata\MetadataFactoryInterface $metadataFactory) {}
+    public function __construct(
+        private readonly LinkFactory $linkFactory,
+        private readonly ClassAndRelationsMetadataFactoryInterface $metadataFactory
+    ) {}
 
-    public function getLinkHref(object $object, string $rel, bool $absolute = false, ?SerializationContext $context = null): string
+    public function getLinkHref(object $object, string $rel, bool $absolute = false): string
     {
-        $context ??= SerializationContext::create();
+        $classMetadata = $this->metadataFactory->getMetadataFor($object::class);
 
-        if (null !== ($classMetadata = $this->metadataFactory->getMetadataForClass(ClassUtils::getClass($object)))) {
+        if ($classMetadata !== null) {
             foreach ($classMetadata->getRelations() as $relation) {
-                if ($rel === $relation->getName()) {
+                if ($rel === $relation->name) {
                     $relation = $this->patchAbsolute($relation, $absolute);
+                    $link = $this->linkFactory->createLink($object, $relation);
 
-                    if (($link = $this->linkFactory->createLink($object, $relation, $context)) instanceof \Zuruuh\Hateoas\Model\Link) {
-                        return $link->getHref();
+                    if ($link instanceof Link) {
+                        return $link->href;
                     }
                 }
             }
         }
 
-        throw new \RuntimeException(sprintf('Can not find the relation "%s" for the "%s" class', $rel, ClassUtils::getClass($object)));
+        throw new RuntimeException(sprintf('Can not find the relation "%s" for the "%s" class', $rel, $object::class));
     }
 
-    /**
-     * @param mixed $absolute
-     */
     private function patchAbsolute(Relation $relation, bool $absolute): Relation
     {
-        $href = $relation->getHref();
+        $href = $relation->href;
 
         if ($href instanceof Route) {
             $href = new Route(
-                $href->getName(),
-                $href->getParameters(),
+                $href->name,
+                $href->parameters,
                 $absolute,
-                $href->getGenerator()
+                $href->generator,
             );
         }
 
         return new Relation(
-            $relation->getName(),
+            $relation->name,
             $href,
-            $relation->getEmbedded(),
-            $relation->getAttributes(),
-            $relation->getExclusion()
+            $relation->embedded,
+            $relation->attributes,
+            $relation->exclusion,
         );
     }
 }
