@@ -8,12 +8,14 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface as SymfonyUrlGener
 
 class SymfonyUrlGenerator implements UrlGeneratorInterface
 {
-    public function __construct(private readonly SymfonyUrlGeneratorInterface $urlGenerator) {}
+    public function __construct(
+        private readonly SymfonyUrlGeneratorInterface $urlGenerator
+    ) {}
 
     /**
-     * @param bool|int $absolute
+     * {@inheritDoc}
      */
-    public function generate(string $name, array $parameters, $absolute = false): string
+    public function generate(string $name, array $parameters, bool $absolute = false): string
     {
         // If is it at least Symfony 2.8 and $absolute is passed as boolean
         if (1 === SymfonyUrlGeneratorInterface::ABSOLUTE_PATH && is_bool($absolute)) {
