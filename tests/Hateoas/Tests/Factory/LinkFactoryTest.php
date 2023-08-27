@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Factory;
 
+use JMS\Serializer\Expression\ExpressionEvaluator;
+use JMS\Serializer\SerializationContext;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Configuration\Route;
 use Zuruuh\Hateoas\Factory\LinkFactory;
 use Zuruuh\Hateoas\Tests\TestCase;
 use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry;
-use JMS\Serializer\Expression\ExpressionEvaluator;
-use JMS\Serializer\SerializationContext;
-use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 class LinkFactoryTest extends TestCase
 {
@@ -143,9 +143,7 @@ class LinkFactoryTest extends TestCase
 
     private function createLinkFactory(): \Zuruuh\Hateoas\Factory\LinkFactory
     {
-        $defaultUrlGenerator = new CallableUrlGenerator(function (string $route, $parameters): string {
-            return $route . '?' . http_build_query($parameters);
-        });
+        $defaultUrlGenerator = new CallableUrlGenerator(fn (string $route, $parameters): string => $route . '?' . http_build_query($parameters));
         $expressionEvaluator = new ExpressionEvaluator(new ExpressionLanguage());
         $urlGeneratorRegistry = new UrlGeneratorRegistry($defaultUrlGenerator);
 

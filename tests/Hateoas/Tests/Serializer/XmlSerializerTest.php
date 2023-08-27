@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Serializer;
 
+use JMS\Serializer\SerializationContext;
+use JMS\Serializer\XmlSerializationVisitor;
+use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Zuruuh\Hateoas\HateoasBuilder;
 use Zuruuh\Hateoas\Model\Embedded;
 use Zuruuh\Hateoas\Model\Link;
@@ -14,10 +18,6 @@ use Zuruuh\Hateoas\Tests\Fixtures\AdrienBrault;
 use Zuruuh\Hateoas\Tests\Fixtures\Gh236Foo;
 use Zuruuh\Hateoas\Tests\Fixtures\LinkAttributes;
 use Zuruuh\Hateoas\Tests\TestCase;
-use JMS\Serializer\SerializationContext;
-use JMS\Serializer\XmlSerializationVisitor;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 class XmlSerializerTest extends TestCase
 {
@@ -43,14 +43,13 @@ class XmlSerializerTest extends TestCase
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<root>
-  <link rel="self" href="/users/42"/>
-  <link rel="foo" href="/bar" type="magic"/>
-</root>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <root>
+                  <link rel="self" href="/users/42"/>
+                  <link rel="foo" href="/bar" type="magic"/>
+                </root>
 
-XML
-            ,
+                XML,
             $xmlSerializationVisitor->getResult($xmlSerializationVisitor->getDocument())
         );
     }
@@ -82,15 +81,14 @@ XML
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<root>
-  <person rel="friend">
-    <entry/>
-  </person>
-</root>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <root>
+                  <person rel="friend">
+                    <entry/>
+                  </person>
+                </root>
 
-XML
-            ,
+                XML,
             $xmlSerializationVisitor->getResult($xmlSerializationVisitor->getCurrentNode())
         );
     }
@@ -102,32 +100,31 @@ XML
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<result>
-  <first_name><![CDATA[Adrien]]></first_name>
-  <last_name><![CDATA[Brault]]></last_name>
-  <link rel="self" href="http://adrienbrault.fr"/>
-  <link rel="computer" href="http://www.apple.com/macbook-pro/"/>
-  <link rel="dynamic-relation" href="awesome!!!"/>
-  <computer rel="computer">
-    <name><![CDATA[MacBook Pro]]></name>
-  </computer>
-  <computer rel="broken-computer">
-    <name><![CDATA[Windows Computer]]></name>
-  </computer>
-  <smartphone rel="smartphone">
-    <name><![CDATA[iPhone 6]]></name>
-  </smartphone>
-  <smartphone rel="smartphone">
-    <name><![CDATA[Nexus 5]]></name>
-  </smartphone>
-  <entry rel="dynamic-relation">
-    <entry><![CDATA[wowowow]]></entry>
-  </entry>
-</result>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <result>
+                  <first_name><![CDATA[Adrien]]></first_name>
+                  <last_name><![CDATA[Brault]]></last_name>
+                  <link rel="self" href="http://adrienbrault.fr"/>
+                  <link rel="computer" href="http://www.apple.com/macbook-pro/"/>
+                  <link rel="dynamic-relation" href="awesome!!!"/>
+                  <computer rel="computer">
+                    <name><![CDATA[MacBook Pro]]></name>
+                  </computer>
+                  <computer rel="broken-computer">
+                    <name><![CDATA[Windows Computer]]></name>
+                  </computer>
+                  <smartphone rel="smartphone">
+                    <name><![CDATA[iPhone 6]]></name>
+                  </smartphone>
+                  <smartphone rel="smartphone">
+                    <name><![CDATA[Nexus 5]]></name>
+                  </smartphone>
+                  <entry rel="dynamic-relation">
+                    <entry><![CDATA[wowowow]]></entry>
+                  </entry>
+                </result>
 
-XML
-            ,
+                XML,
             $hateoas->serialize($adrienBrault, 'xml')
         );
     }
@@ -140,22 +137,21 @@ XML
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<collection>
-  <entry rel="items">
-    <entry>
-      <a>
-        <xxx><![CDATA[yyy]]></xxx>
-      </a>
-      <entry rel="b_embed">
-        <xxx><![CDATA[zzz]]></xxx>
-      </entry>
-    </entry>
-  </entry>
-</collection>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <collection>
+                  <entry rel="items">
+                    <entry>
+                      <a>
+                        <xxx><![CDATA[yyy]]></xxx>
+                      </a>
+                      <entry rel="b_embed">
+                        <xxx><![CDATA[zzz]]></xxx>
+                      </entry>
+                    </entry>
+                  </entry>
+                </collection>
 
-XML
-            ,
+                XML,
             $hateoas->serialize($data, 'xml', SerializationContext::create()->enableMaxDepthChecks())
         );
     }
@@ -185,15 +181,14 @@ XML
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<result>
-  <link rel="self" href="https://github.com/willdurand/Hateoas/issues/305" templated="false"/>
-  <link rel="foo" href="http://foo{?bar}" templated="true"/>
-  <link rel="bar" href="http://foo/bar" templated="false" number="2"/>
-</result>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <result>
+                  <link rel="self" href="https://github.com/willdurand/Hateoas/issues/305" templated="false"/>
+                  <link rel="foo" href="http://foo{?bar}" templated="true"/>
+                  <link rel="bar" href="http://foo/bar" templated="false" number="2"/>
+                </result>
 
-XML
-            ,
+                XML,
             $hateoas->serialize($data, 'xml')
         );
     }

@@ -13,6 +13,4 @@ use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
  *     embedded = "foo3"
  * )
  */
-class Foo3
-{
-}
+class Foo3 {}

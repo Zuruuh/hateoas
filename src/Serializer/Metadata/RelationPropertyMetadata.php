@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Serializer\Metadata;
 
-use Zuruuh\Hateoas\Configuration\Exclusion;
-use Zuruuh\Hateoas\Configuration\Relation;
 use JMS\Serializer\Expression\Expression;
 use JMS\Serializer\Metadata\VirtualPropertyMetadata;
+use Zuruuh\Hateoas\Configuration\Exclusion;
+use Zuruuh\Hateoas\Configuration\Relation;
 
 class RelationPropertyMetadata extends VirtualPropertyMetadata
 {
@@ -17,7 +17,7 @@ class RelationPropertyMetadata extends VirtualPropertyMetadata
     {
         if ($relation instanceof \Zuruuh\Hateoas\Configuration\Relation) {
             $this->name = $relation->getName();
-            $this->class = get_class($relation);
+            $this->class = $relation::class;
 
             if (null !== $relation->getEmbedded()) {
                 $this->type = ['name' => 'Hateoas\Model\Embedded', 'params' => []];

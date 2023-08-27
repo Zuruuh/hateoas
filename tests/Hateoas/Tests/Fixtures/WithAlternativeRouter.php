@@ -18,6 +18,4 @@ use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
  *      )
  * )
  */
-class WithAlternativeRouter
-{
-}
+class WithAlternativeRouter {}

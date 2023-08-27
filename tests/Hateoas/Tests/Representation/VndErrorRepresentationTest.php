@@ -19,34 +19,32 @@ class VndErrorRepresentationTest extends RepresentationTestCase
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<resource logref="42">
-  <message><![CDATA[Validation failed]]></message>
-  <link rel="help" href="http://help/"/>
-  <link rel="describes" href="http://desc/"/>
-</resource>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <resource logref="42">
+                  <message><![CDATA[Validation failed]]></message>
+                  <link rel="help" href="http://help/"/>
+                  <link rel="describes" href="http://desc/"/>
+                </resource>
 
-XML
-            ,
+                XML,
             $this->hateoas->serialize($error, 'xml')
         );
 
         $this->assertSame(
             <<<JSON
-{
-    "message": "Validation failed",
-    "logref": 42,
-    "_links": {
-        "help": {
-            "href": "http:\/\/help\/"
-        },
-        "describes": {
-            "href": "http:\/\/desc\/"
-        }
-    }
-}
-JSON
-            ,
+                {
+                    "message": "Validation failed",
+                    "logref": 42,
+                    "_links": {
+                        "help": {
+                            "href": "http:\/\/help\/"
+                        },
+                        "describes": {
+                            "href": "http:\/\/desc\/"
+                        }
+                    }
+                }
+                JSON,
             $this->json($this->halHateoas->serialize($error, 'json'))
         );
     }

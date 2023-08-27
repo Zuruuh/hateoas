@@ -11,9 +11,7 @@ use JMS\Serializer\Annotation as Serializer;
  */
 class Computer
 {
-    public function __construct(private $name)
-    {
-    }
+    public function __construct(private $name) {}
 
     /**
      * @return mixed

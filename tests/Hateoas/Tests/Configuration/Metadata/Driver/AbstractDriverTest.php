@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Configuration\Metadata\Driver;
 
+use JMS\Serializer\Expression\ExpressionEvaluator;
+use JMS\Serializer\Type\Parser;
+use JMS\Serializer\Type\ParserInterface;
+use Metadata\Driver\DriverInterface;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Zuruuh\Hateoas\Configuration\Provider\ChainProvider;
 use Zuruuh\Hateoas\Configuration\Provider\FunctionProvider;
 use Zuruuh\Hateoas\Configuration\Provider\RelationProviderInterface;
@@ -12,11 +17,6 @@ use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Configuration\RelationProvider;
 use Zuruuh\Hateoas\Expression\LinkExpressionFunction;
 use Zuruuh\Hateoas\Tests\TestCase;
-use JMS\Serializer\Expression\ExpressionEvaluator;
-use JMS\Serializer\Type\Parser;
-use JMS\Serializer\Type\ParserInterface;
-use Metadata\Driver\DriverInterface;
-use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 abstract class AbstractDriverTest extends TestCase
 {
@@ -143,8 +143,8 @@ abstract class AbstractDriverTest extends TestCase
         $this->assertIsArray($relations);
         $this->assertCount(8, $relations);
 
-//        $relation = current($relations);
-//        $this->assertSame('getRelations', $relation->getName());
+        //        $relation = current($relations);
+        //        $this->assertSame('getRelations', $relation->getName());
     }
 
     public function testEmptyClass(): void

@@ -4,15 +4,16 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Serializer;
 
-use Zuruuh\Hateoas\Model\Embedded;
-use Zuruuh\Hateoas\Model\Link;
-use Zuruuh\Hateoas\Util\ClassUtils;
+use function is_bool;
+
 use JMS\Serializer\Exception\NotAcceptableException;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use JMS\Serializer\XmlSerializationVisitor;
+use Zuruuh\Hateoas\Model\Embedded;
+use Zuruuh\Hateoas\Model\Link;
 
-use function is_bool;
+use Zuruuh\Hateoas\Util\ClassUtils;
 
 class XmlSerializer implements SerializerInterface
 {

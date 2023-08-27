@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Helper;
 
+use Metadata\MetadataFactoryInterface;
 use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Configuration\Route;
@@ -14,7 +15,6 @@ use Zuruuh\Hateoas\Model\Link;
 use Zuruuh\Hateoas\Tests\Fixtures\Will;
 use Zuruuh\Hateoas\Tests\TestCase;
 use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
-use Metadata\MetadataFactoryInterface;
 
 class LinkHelperTest extends TestCase
 {
@@ -111,9 +111,7 @@ class LinkHelperTest extends TestCase
         $linkFactoryMock
             ->expects($expects)
             ->method('createLink')
-            ->will($this->returnCallback(function ($obj, Relation $relation): \Zuruuh\Hateoas\Model\Link {
-                return new Link($relation->getName(), 'http://example.com/' . $relation->getName());
-            }));
+            ->will($this->returnCallback(fn ($obj, Relation $relation): \Zuruuh\Hateoas\Model\Link => new Link($relation->getName(), 'http://example.com/' . $relation->getName())));
 
         return $linkFactoryMock;
     }

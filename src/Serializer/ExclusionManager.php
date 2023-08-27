@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Serializer;
 
+use JMS\Serializer\Exclusion\ExpressionLanguageExclusionStrategy;
+use JMS\Serializer\SerializationContext;
 use Zuruuh\Hateoas\Configuration\Exclusion;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
-use JMS\Serializer\Exclusion\ExpressionLanguageExclusionStrategy;
-use JMS\Serializer\SerializationContext;
 
 class ExclusionManager
 {
-    public function __construct(private readonly \JMS\Serializer\Exclusion\ExpressionLanguageExclusionStrategy $expressionExclusionStrategy)
-    {
-    }
+    public function __construct(private readonly \JMS\Serializer\Exclusion\ExpressionLanguageExclusionStrategy $expressionExclusionStrategy) {}
 
     public function shouldSkipLink(object $object, Relation $relation, SerializationContext $context): bool
     {

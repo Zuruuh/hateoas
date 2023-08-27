@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Factory;
 
-use Zuruuh\Hateoas\Model\Embedded;
-use Zuruuh\Hateoas\Serializer\ExclusionManager;
-use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
 use JMS\Serializer\Expression\Expression;
 use JMS\Serializer\Expression\ExpressionEvaluatorInterface;
 use JMS\Serializer\SerializationContext;
 use Metadata\MetadataFactoryInterface;
+use Zuruuh\Hateoas\Model\Embedded;
+use Zuruuh\Hateoas\Serializer\ExclusionManager;
+use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
 
 class EmbeddedsFactory
 {
-    public function __construct(private readonly \Metadata\MetadataFactoryInterface $metadataFactory, private readonly \JMS\Serializer\Expression\ExpressionEvaluatorInterface $expressionEvaluator, private readonly \Zuruuh\Hateoas\Serializer\ExclusionManager $exclusionManager)
-    {
-    }
+    public function __construct(private readonly \Metadata\MetadataFactoryInterface $metadataFactory, private readonly \JMS\Serializer\Expression\ExpressionEvaluatorInterface $expressionEvaluator, private readonly \Zuruuh\Hateoas\Serializer\ExclusionManager $exclusionManager) {}
 
     /**
      * @return Embedded[]
@@ -25,7 +23,7 @@ class EmbeddedsFactory
     {
         $embeddeds = [];
 
-        if (null !== ($classMetadata = $this->metadataFactory->getMetadataForClass(get_class($object)))) {
+        if (null !== ($classMetadata = $this->metadataFactory->getMetadataForClass($object::class))) {
             $langugeData = ['object' => $object, 'context' => $context];
             /**
              * @var $relation Relation

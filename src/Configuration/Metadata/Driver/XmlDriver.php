@@ -4,6 +4,12 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Configuration\Metadata\Driver;
 
+use JMS\Serializer\Exception\XmlErrorException;
+use JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface;
+use JMS\Serializer\Type\ParserInterface;
+use Metadata\ClassMetadata as JMSClassMetadata;
+use Metadata\Driver\AbstractFileDriver;
+use Metadata\Driver\FileLocatorInterface;
 use Zuruuh\Hateoas\Configuration\Embedded;
 use Zuruuh\Hateoas\Configuration\Exclusion;
 use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
@@ -11,12 +17,6 @@ use Zuruuh\Hateoas\Configuration\Provider\RelationProviderInterface;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Configuration\RelationProvider;
 use Zuruuh\Hateoas\Configuration\Route;
-use JMS\Serializer\Exception\XmlErrorException;
-use JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface;
-use JMS\Serializer\Type\ParserInterface;
-use Metadata\ClassMetadata as JMSClassMetadata;
-use Metadata\Driver\AbstractFileDriver;
-use Metadata\Driver\FileLocatorInterface;
 
 class XmlDriver extends AbstractFileDriver
 {

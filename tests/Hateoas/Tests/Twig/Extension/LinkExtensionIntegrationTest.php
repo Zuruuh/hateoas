@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Twig\Extension;
 
+use Twig\Test\IntegrationTestCase;
 use Zuruuh\Hateoas\HateoasBuilder;
 use Zuruuh\Hateoas\Twig\Extension\LinkExtension;
 use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
-use Twig\Test\IntegrationTestCase;
 
 class LinkExtensionIntegrationTest extends IntegrationTestCase
 {

@@ -4,14 +4,12 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Configuration\Provider;
 
-use Zuruuh\Hateoas\Configuration\RelationProvider;
 use JMS\Serializer\Expression\ExpressionEvaluatorInterface;
+use Zuruuh\Hateoas\Configuration\RelationProvider;
 
 class ExpressionEvaluatorProvider implements RelationProviderInterface
 {
-    public function __construct(private readonly \JMS\Serializer\Expression\ExpressionEvaluatorInterface $expressionEvaluator)
-    {
-    }
+    public function __construct(private readonly \JMS\Serializer\Expression\ExpressionEvaluatorInterface $expressionEvaluator) {}
 
     /**
      * {@inheritdoc}

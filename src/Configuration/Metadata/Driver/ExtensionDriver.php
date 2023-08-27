@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Configuration\Metadata\Driver;
 
-use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
-use Zuruuh\Hateoas\Configuration\Metadata\ConfigurationExtensionInterface;
 use Metadata\ClassMetadata as JMSClassMetadata;
 use Metadata\Driver\DriverInterface;
+use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
+use Zuruuh\Hateoas\Configuration\Metadata\ConfigurationExtensionInterface;
 
 class ExtensionDriver implements DriverInterface
 {
     /**
      * @param \Zuruuh\Hateoas\Configuration\Metadata\ConfigurationExtensionInterface[] $extensions
      */
-    public function __construct(private readonly \Metadata\Driver\DriverInterface $delegate, private array $extensions = [])
-    {
-    }
+    public function __construct(private readonly \Metadata\Driver\DriverInterface $delegate, private array $extensions = []) {}
 
     public function loadMetadataForClass(\ReflectionClass $class): ?JMSClassMetadata
     {

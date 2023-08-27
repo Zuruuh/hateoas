@@ -4,10 +4,6 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Serializer;
 
-use Zuruuh\Hateoas\Configuration\Exclusion;
-use Zuruuh\Hateoas\Configuration\Relation;
-use Zuruuh\Hateoas\Serializer\ExclusionManager;
-use Zuruuh\Hateoas\Tests\TestCase;
 use JMS\Serializer\Exclusion\ExpressionLanguageExclusionStrategy;
 use JMS\Serializer\Expression\ExpressionEvaluator;
 use JMS\Serializer\Expression\ExpressionEvaluatorInterface;
@@ -18,6 +14,10 @@ use Metadata\MetadataFactoryInterface;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use Zuruuh\Hateoas\Configuration\Exclusion;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Serializer\ExclusionManager;
+use Zuruuh\Hateoas\Tests\TestCase;
 
 class ExclusionManagerTest extends TestCase
 {

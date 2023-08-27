@@ -31,74 +31,70 @@ class OffsetRepresentationTest extends RepresentationTestCase
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<collection offset="44" limit="20" total="95">
-  <link rel="self" href="/authors?query=willdurand%2FHateoas&amp;offset=44&amp;limit=20"/>
-  <link rel="first" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
-  <link rel="last" href="/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
-  <link rel="next" href="/authors?query=willdurand%2FHateoas&amp;offset=64&amp;limit=20"/>
-  <link rel="previous" href="/authors?query=willdurand%2FHateoas&amp;offset=24&amp;limit=20"/>
-  <entry rel="items">
-    <entry><![CDATA[Adrien]]></entry>
-    <entry><![CDATA[William]]></entry>
-  </entry>
-</collection>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <collection offset="44" limit="20" total="95">
+                  <link rel="self" href="/authors?query=willdurand%2FHateoas&amp;offset=44&amp;limit=20"/>
+                  <link rel="first" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
+                  <link rel="last" href="/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
+                  <link rel="next" href="/authors?query=willdurand%2FHateoas&amp;offset=64&amp;limit=20"/>
+                  <link rel="previous" href="/authors?query=willdurand%2FHateoas&amp;offset=24&amp;limit=20"/>
+                  <entry rel="items">
+                    <entry><![CDATA[Adrien]]></entry>
+                    <entry><![CDATA[William]]></entry>
+                  </entry>
+                </collection>
 
-XML
-            ,
+                XML,
             $this->hateoas->serialize($collection, 'xml')
         );
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<collection offset="44" limit="20" total="95" href="/authors?query=willdurand%2FHateoas&amp;offset=44&amp;limit=20">
-  <link rel="first" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
-  <link rel="last" href="/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
-  <link rel="next" href="/authors?query=willdurand%2FHateoas&amp;offset=64&amp;limit=20"/>
-  <link rel="previous" href="/authors?query=willdurand%2FHateoas&amp;offset=24&amp;limit=20"/>
-  <resource rel="items"><![CDATA[Adrien]]></resource>
-  <resource rel="items"><![CDATA[William]]></resource>
-</collection>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <collection offset="44" limit="20" total="95" href="/authors?query=willdurand%2FHateoas&amp;offset=44&amp;limit=20">
+                  <link rel="first" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
+                  <link rel="last" href="/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
+                  <link rel="next" href="/authors?query=willdurand%2FHateoas&amp;offset=64&amp;limit=20"/>
+                  <link rel="previous" href="/authors?query=willdurand%2FHateoas&amp;offset=24&amp;limit=20"/>
+                  <resource rel="items"><![CDATA[Adrien]]></resource>
+                  <resource rel="items"><![CDATA[William]]></resource>
+                </collection>
 
-XML
-            ,
+                XML,
             $this->halHateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<users offset="44" limit="20" total="95">
-  <link rel="self" href="/authors?query=willdurand%2FHateoas&amp;offset=44&amp;limit=20"/>
-  <link rel="first" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
-  <link rel="last" href="/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
-  <link rel="next" href="/authors?query=willdurand%2FHateoas&amp;offset=64&amp;limit=20"/>
-  <link rel="previous" href="/authors?query=willdurand%2FHateoas&amp;offset=24&amp;limit=20"/>
-  <entry rel="items">
-    <entry><![CDATA[Adrien]]></entry>
-    <entry><![CDATA[William]]></entry>
-  </entry>
-</users>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <users offset="44" limit="20" total="95">
+                  <link rel="self" href="/authors?query=willdurand%2FHateoas&amp;offset=44&amp;limit=20"/>
+                  <link rel="first" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
+                  <link rel="last" href="/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
+                  <link rel="next" href="/authors?query=willdurand%2FHateoas&amp;offset=64&amp;limit=20"/>
+                  <link rel="previous" href="/authors?query=willdurand%2FHateoas&amp;offset=24&amp;limit=20"/>
+                  <entry rel="items">
+                    <entry><![CDATA[Adrien]]></entry>
+                    <entry><![CDATA[William]]></entry>
+                  </entry>
+                </users>
 
-XML
-            ,
+                XML,
             $this->hateoas->serialize(new UsersRepresentation($collection), 'xml')
         );
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<users offset="44" limit="20" total="95" href="/authors?query=willdurand%2FHateoas&amp;offset=44&amp;limit=20">
-  <link rel="first" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
-  <link rel="last" href="/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
-  <link rel="next" href="/authors?query=willdurand%2FHateoas&amp;offset=64&amp;limit=20"/>
-  <link rel="previous" href="/authors?query=willdurand%2FHateoas&amp;offset=24&amp;limit=20"/>
-  <resource rel="items"><![CDATA[Adrien]]></resource>
-  <resource rel="items"><![CDATA[William]]></resource>
-</users>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <users offset="44" limit="20" total="95" href="/authors?query=willdurand%2FHateoas&amp;offset=44&amp;limit=20">
+                  <link rel="first" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
+                  <link rel="last" href="/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
+                  <link rel="next" href="/authors?query=willdurand%2FHateoas&amp;offset=64&amp;limit=20"/>
+                  <link rel="previous" href="/authors?query=willdurand%2FHateoas&amp;offset=24&amp;limit=20"/>
+                  <resource rel="items"><![CDATA[Adrien]]></resource>
+                  <resource rel="items"><![CDATA[William]]></resource>
+                </users>
 
-XML
-            ,
+                XML,
             $this->halHateoas->serialize(new UsersRepresentation($collection), 'xml')
         );
 
@@ -151,37 +147,35 @@ XML
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<collection offset="44" limit="20" total="95">
-  <link rel="self" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=44&amp;limit=20"/>
-  <link rel="first" href="http://example.com/authors?query=willdurand%2FHateoas&amp;limit=20"/>
-  <link rel="last" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
-  <link rel="next" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=64&amp;limit=20"/>
-  <link rel="previous" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=24&amp;limit=20"/>
-  <entry rel="items">
-    <entry><![CDATA[Adrien]]></entry>
-    <entry><![CDATA[William]]></entry>
-  </entry>
-</collection>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <collection offset="44" limit="20" total="95">
+                  <link rel="self" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=44&amp;limit=20"/>
+                  <link rel="first" href="http://example.com/authors?query=willdurand%2FHateoas&amp;limit=20"/>
+                  <link rel="last" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
+                  <link rel="next" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=64&amp;limit=20"/>
+                  <link rel="previous" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=24&amp;limit=20"/>
+                  <entry rel="items">
+                    <entry><![CDATA[Adrien]]></entry>
+                    <entry><![CDATA[William]]></entry>
+                  </entry>
+                </collection>
 
-XML
-            ,
+                XML,
             $this->hateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<collection offset="44" limit="20" total="95" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=44&amp;limit=20">
-  <link rel="first" href="http://example.com/authors?query=willdurand%2FHateoas&amp;limit=20"/>
-  <link rel="last" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
-  <link rel="next" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=64&amp;limit=20"/>
-  <link rel="previous" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=24&amp;limit=20"/>
-  <resource rel="items"><![CDATA[Adrien]]></resource>
-  <resource rel="items"><![CDATA[William]]></resource>
-</collection>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <collection offset="44" limit="20" total="95" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=44&amp;limit=20">
+                  <link rel="first" href="http://example.com/authors?query=willdurand%2FHateoas&amp;limit=20"/>
+                  <link rel="last" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
+                  <link rel="next" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=64&amp;limit=20"/>
+                  <link rel="previous" href="http://example.com/authors?query=willdurand%2FHateoas&amp;offset=24&amp;limit=20"/>
+                  <resource rel="items"><![CDATA[Adrien]]></resource>
+                  <resource rel="items"><![CDATA[William]]></resource>
+                </collection>
 
-XML
-            ,
+                XML,
             $this->halHateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
@@ -237,19 +231,18 @@ XML
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<collection limit="20">
-  <link rel="self" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
-  <link rel="first" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
-  <link rel="next" href="/authors?query=willdurand%2FHateoas&amp;offset=20&amp;limit=20"/>
-  <entry rel="items">
-    <entry><![CDATA[Adrien]]></entry>
-    <entry><![CDATA[William]]></entry>
-  </entry>
-</collection>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <collection limit="20">
+                  <link rel="self" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
+                  <link rel="first" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
+                  <link rel="next" href="/authors?query=willdurand%2FHateoas&amp;offset=20&amp;limit=20"/>
+                  <entry rel="items">
+                    <entry><![CDATA[Adrien]]></entry>
+                    <entry><![CDATA[William]]></entry>
+                  </entry>
+                </collection>
 
-XML
-            ,
+                XML,
             $this->hateoas->serialize($collection, 'xml')
         );
 
@@ -267,20 +260,19 @@ XML
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<collection offset="80" limit="20" total="100">
-  <link rel="self" href="/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
-  <link rel="first" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
-  <link rel="last" href="/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
-  <link rel="previous" href="/authors?query=willdurand%2FHateoas&amp;offset=60&amp;limit=20"/>
-  <entry rel="items">
-    <entry><![CDATA[Adrien]]></entry>
-    <entry><![CDATA[William]]></entry>
-  </entry>
-</collection>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <collection offset="80" limit="20" total="100">
+                  <link rel="self" href="/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
+                  <link rel="first" href="/authors?query=willdurand%2FHateoas&amp;limit=20"/>
+                  <link rel="last" href="/authors?query=willdurand%2FHateoas&amp;offset=80&amp;limit=20"/>
+                  <link rel="previous" href="/authors?query=willdurand%2FHateoas&amp;offset=60&amp;limit=20"/>
+                  <entry rel="items">
+                    <entry><![CDATA[Adrien]]></entry>
+                    <entry><![CDATA[William]]></entry>
+                  </entry>
+                </collection>
 
-XML
-            ,
+                XML,
             $this->hateoas->serialize($collection, 'xml')
         );
     }

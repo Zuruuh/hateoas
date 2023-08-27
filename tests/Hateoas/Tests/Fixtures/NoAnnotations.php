@@ -8,9 +8,7 @@ class NoAnnotations
 {
     private string $unused = 'N/A';
 
-    public function __construct(private readonly string $id, private readonly int $number)
-    {
-    }
+    public function __construct(private readonly string $id, private readonly int $number) {}
 
     public function id(): string
     {

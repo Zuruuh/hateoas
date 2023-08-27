@@ -10,7 +10,7 @@ class ClassUtils
 {
     public static function getClass(object $object): string
     {
-        $class = get_class($object);
+        $class = $object::class;
 
         if (!interface_exists(Proxy::class, false)) {
             return $class;

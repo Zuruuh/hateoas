@@ -24,49 +24,46 @@ class RouteAwareRepresentationTest extends RepresentationTestCase
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<result>
-  <link rel="self" href="/authors?query=willdurand%2FHateoas"/>
-  <entry rel="items">
-    <entry><![CDATA[Adrien]]></entry>
-    <entry><![CDATA[William]]></entry>
-  </entry>
-</result>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <result>
+                  <link rel="self" href="/authors?query=willdurand%2FHateoas"/>
+                  <entry rel="items">
+                    <entry><![CDATA[Adrien]]></entry>
+                    <entry><![CDATA[William]]></entry>
+                  </entry>
+                </result>
 
-XML
-            ,
+                XML,
             $this->hateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<result href="/authors?query=willdurand%2FHateoas">
-  <resource rel="items"><![CDATA[Adrien]]></resource>
-  <resource rel="items"><![CDATA[William]]></resource>
-</result>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <result href="/authors?query=willdurand%2FHateoas">
+                  <resource rel="items"><![CDATA[Adrien]]></resource>
+                  <resource rel="items"><![CDATA[William]]></resource>
+                </result>
 
-XML
-            ,
+                XML,
             $this->halHateoas->serialize($collection, 'xml')
         );
 
         $this->assertSame(
             <<<JSON
-{
-    "_links": {
-        "self": {
-            "href": "\/authors?query=willdurand%2FHateoas"
-        }
-    },
-    "_embedded": {
-        "items": [
-            "Adrien",
-            "William"
-        ]
-    }
-}
-JSON
-            ,
+                {
+                    "_links": {
+                        "self": {
+                            "href": "\/authors?query=willdurand%2FHateoas"
+                        }
+                    },
+                    "_embedded": {
+                        "items": [
+                            "Adrien",
+                            "William"
+                        ]
+                    }
+                }
+                JSON,
             $this->json($this->halHateoas->serialize($collection, 'json'))
         );
     }
@@ -89,49 +86,46 @@ JSON
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<result>
-  <link rel="self" href="http://example.com/authors?query=willdurand%2FHateoas"/>
-  <entry rel="items">
-    <entry><![CDATA[Adrien]]></entry>
-    <entry><![CDATA[William]]></entry>
-  </entry>
-</result>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <result>
+                  <link rel="self" href="http://example.com/authors?query=willdurand%2FHateoas"/>
+                  <entry rel="items">
+                    <entry><![CDATA[Adrien]]></entry>
+                    <entry><![CDATA[William]]></entry>
+                  </entry>
+                </result>
 
-XML
-            ,
+                XML,
             $this->hateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<result href="http://example.com/authors?query=willdurand%2FHateoas">
-  <resource rel="items"><![CDATA[Adrien]]></resource>
-  <resource rel="items"><![CDATA[William]]></resource>
-</result>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <result href="http://example.com/authors?query=willdurand%2FHateoas">
+                  <resource rel="items"><![CDATA[Adrien]]></resource>
+                  <resource rel="items"><![CDATA[William]]></resource>
+                </result>
 
-XML
-            ,
+                XML,
             $this->halHateoas->serialize($collection, 'xml')
         );
 
         $this->assertSame(
             <<<JSON
-{
-    "_links": {
-        "self": {
-            "href": "http:\/\/example.com\/authors?query=willdurand%2FHateoas"
-        }
-    },
-    "_embedded": {
-        "items": [
-            "Adrien",
-            "William"
-        ]
-    }
-}
-JSON
-            ,
+                {
+                    "_links": {
+                        "self": {
+                            "href": "http:\/\/example.com\/authors?query=willdurand%2FHateoas"
+                        }
+                    },
+                    "_embedded": {
+                        "items": [
+                            "Adrien",
+                            "William"
+                        ]
+                    }
+                }
+                JSON,
             $this->json($this->halHateoas->serialize($collection, 'json'))
         );
     }

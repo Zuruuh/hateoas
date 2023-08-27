@@ -17,11 +17,7 @@ class LinkExpressionFunction implements ExpressionFunctionProviderInterface
     public function getFunctions(): array
     {
         return [
-            new ExpressionFunction('link', static function ($object, $rel, $absolute = false): string {
-                return sprintf('$link_helper->getLinkHref(%s, %s, %s)', $object, $rel, $absolute);
-            }, static function (array $context, $object, $rel, $absolute = false) {
-                return $context['link_helper']->getLinkHref($object, $rel, $absolute);
-            }),
+            new ExpressionFunction('link', static fn ($object, $rel, $absolute = false): string => sprintf('$link_helper->getLinkHref(%s, %s, %s)', $object, $rel, $absolute), static fn (array $context, $object, $rel, $absolute = false) => $context['link_helper']->getLinkHref($object, $rel, $absolute)),
         ];
     }
 }

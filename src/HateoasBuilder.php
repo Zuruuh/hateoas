@@ -6,6 +6,18 @@ namespace Zuruuh\Hateoas;
 
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\FileCacheReader;
+use JMS\Serializer\EventDispatcher\EventDispatcherInterface;
+use JMS\Serializer\EventDispatcher\Events;
+use JMS\Serializer\Exclusion\ExpressionLanguageExclusionStrategy;
+use JMS\Serializer\Expression\ExpressionEvaluator;
+use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\Type\Parser;
+use Metadata\Cache\FileCache;
+use Metadata\Driver\DriverChain;
+use Metadata\Driver\FileLocator;
+use Metadata\MetadataFactory;
+use Metadata\MetadataFactoryInterface;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Zuruuh\Hateoas\Configuration\Metadata\ConfigurationExtensionInterface;
 use Zuruuh\Hateoas\Configuration\Metadata\Driver\AttributesDriver;
 use Zuruuh\Hateoas\Configuration\Metadata\Driver\ExtensionDriver;
@@ -28,18 +40,6 @@ use Zuruuh\Hateoas\Serializer\SerializerInterface;
 use Zuruuh\Hateoas\Serializer\XmlSerializer;
 use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorInterface;
 use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry;
-use JMS\Serializer\EventDispatcher\EventDispatcherInterface;
-use JMS\Serializer\EventDispatcher\Events;
-use JMS\Serializer\Exclusion\ExpressionLanguageExclusionStrategy;
-use JMS\Serializer\Expression\ExpressionEvaluator;
-use JMS\Serializer\SerializerBuilder;
-use JMS\Serializer\Type\Parser;
-use Metadata\Cache\FileCache;
-use Metadata\Driver\DriverChain;
-use Metadata\Driver\FileLocator;
-use Metadata\MetadataFactory;
-use Metadata\MetadataFactoryInterface;
-use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 class HateoasBuilder
 {
@@ -400,7 +400,7 @@ class HateoasBuilder
             return;
         }
 
-        if (!@mkdir($dir, 0777, true) && !is_dir($dir)) {
+        if (!@mkdir($dir, 0o777, true) && !is_dir($dir)) {
             throw new \RuntimeException(sprintf('Could not create directory "%s".', $dir));
         }
     }

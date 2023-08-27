@@ -14,9 +14,7 @@ class Route
      * @param bool|Expression $absolute
      * @param string|null $generator
      */
-    public function __construct(private $name, private $parameters = [], private $absolute = false, private readonly ?string $generator = null)
-    {
-    }
+    public function __construct(private $name, private $parameters = [], private $absolute = false, private readonly ?string $generator = null) {}
 
     /**
      * @return Expression|string|array|string[]|Expression[]

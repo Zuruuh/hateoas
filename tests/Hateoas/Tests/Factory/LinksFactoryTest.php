@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Factory;
 
+use JMS\Serializer\SerializationContext;
+use Metadata\MetadataFactoryInterface;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Factory\LinksFactory;
 use Zuruuh\Hateoas\Model\Link;
 use Zuruuh\Hateoas\Tests\TestCase;
-use JMS\Serializer\SerializationContext;
-use Metadata\MetadataFactoryInterface;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 class LinksFactoryTest extends TestCase
 {
@@ -36,7 +36,7 @@ class LinksFactoryTest extends TestCase
 
         $metadataFactory = $this->prophesize(MetadataFactoryInterface::class);
         $metadataFactory
-            ->getMetadataForClass(get_class($object))
+            ->getMetadataForClass($object::class)
             ->willReturn($metadata)
             ->shouldBeCalledTimes(1);
         $linkFactoryProphecy = $this->prophesize('Hateoas\Factory\LinkFactory');

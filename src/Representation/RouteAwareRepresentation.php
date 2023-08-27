@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Representation;
 
-use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
+use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\ExclusionPolicy("all")
@@ -25,9 +25,7 @@ class RouteAwareRepresentation
      * @param mixed $inline
      * @param array $parameters
      */
-    public function __construct(private $inline, private readonly string $route, private readonly array $parameters = [], private readonly bool $absolute = false)
-    {
-    }
+    public function __construct(private $inline, private readonly string $route, private readonly array $parameters = [], private readonly bool $absolute = false) {}
 
     /**
      * @return mixed

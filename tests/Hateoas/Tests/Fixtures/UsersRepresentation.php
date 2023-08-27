@@ -18,7 +18,5 @@ class UsersRepresentation
          * @Serializer\Inline
          */
         private $inline
-    )
-    {
-    }
+    ) {}
 }

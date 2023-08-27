@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Representation;
 
-use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
+use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\ExclusionPolicy("all")
@@ -50,9 +50,7 @@ class VndErrorRepresentation
         private readonly ?string $help = null,
         private readonly ?string $describes = null,
         private readonly ?string $about = null
-    )
-    {
-    }
+    ) {}
 
     public function getHelp(): ?string
     {

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Configuration\Metadata\Driver;
 
+use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
 use Zuruuh\Hateoas\Configuration\Metadata\Driver\ExtensionDriver;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Tests\TestCase;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 class ExtensionDriverTest extends TestCase
 {

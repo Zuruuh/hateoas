@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Expression;
 
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Zuruuh\Hateoas\Expression\ExpressionEvaluator;
 use Zuruuh\Hateoas\Expression\LinkExpressionFunction;
 use Zuruuh\Hateoas\Helper\LinkHelper;
 use Zuruuh\Hateoas\Tests\TestCase;
-use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 
 class LinkExpressionFunctionTest extends TestCase
 {

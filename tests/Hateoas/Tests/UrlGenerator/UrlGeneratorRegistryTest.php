@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\UrlGenerator;
 
+use Prophecy\PhpUnit\ProphecyTrait;
 use Zuruuh\Hateoas\Tests\TestCase;
 use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 class UrlGeneratorRegistryTest extends TestCase
 {

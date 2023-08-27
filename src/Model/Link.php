@@ -9,9 +9,7 @@ class Link
     /**
      * @param array  $attributes
      */
-    public function __construct(private readonly string $rel, private readonly string $href, private readonly array $attributes = [])
-    {
-    }
+    public function __construct(private readonly string $rel, private readonly string $href, private readonly array $attributes = []) {}
 
     /**
      * @return array

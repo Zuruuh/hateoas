@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Representation;
 
-use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 use JMS\Serializer\Annotation as Serializer;
+use Zuruuh\Hateoas\Configuration\Annotation as Hateoas;
 
 /**
  * @Serializer\ExclusionPolicy("all")
@@ -74,7 +74,7 @@ class OffsetRepresentation extends AbstractSegmentedRepresentation
         bool $absolute = false
     ) {
         parent::__construct($inline, $route, $parameters, $limit, $total, $limitParameterName, $absolute);
-        $this->offsetParameterName = $offsetParameterName  ?: 'offset';
+        $this->offsetParameterName = $offsetParameterName ?: 'offset';
     }
 
     public function getOffset(): ?int

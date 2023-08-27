@@ -122,7 +122,5 @@ final class AttributesDriver implements ClassMetadataFactoryInterface
         return $exclusion;
     }
 
-    public function hasMetadataFor(mixed $value): bool
-    {
-    }
+    public function hasMetadataFor(mixed $value): bool {}
 }

@@ -12,9 +12,7 @@ class Embedded
      * @param string|mixed $content
      * @param string|Expression|null  $xmlElementName
      */
-    public function __construct(private $content, private $xmlElementName = null, private readonly ?\Zuruuh\Hateoas\Configuration\Exclusion $exclusion = null, private readonly ?array $type = null)
-    {
-    }
+    public function __construct(private $content, private $xmlElementName = null, private readonly ?\Zuruuh\Hateoas\Configuration\Exclusion $exclusion = null, private readonly ?array $type = null) {}
 
     public function getType(): ?array
     {

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests;
 
+use JMS\Serializer\SerializationContext;
+use JMS\Serializer\SerializerInterface;
 use Zuruuh\Hateoas\HateoasBuilder;
 use Zuruuh\Hateoas\Tests\Fixtures\AdrienBrault;
 use Zuruuh\Hateoas\Tests\Fixtures\CircularReference1;
@@ -11,8 +13,6 @@ use Zuruuh\Hateoas\Tests\Fixtures\CircularReference2;
 use Zuruuh\Hateoas\Tests\Fixtures\NoAnnotations;
 use Zuruuh\Hateoas\Tests\Fixtures\WithAlternativeRouter;
 use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
-use JMS\Serializer\SerializationContext;
-use JMS\Serializer\SerializerInterface;
 
 /**
  * Contains functional tests
@@ -41,38 +41,34 @@ class HateoasBuilderTest extends TestCase
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<result>
-  <first_name><![CDATA[Adrien]]></first_name>
-  <last_name><![CDATA[Brault]]></last_name>
-  <link rel="self" href="http://adrienbrault.fr"/>
-  <link rel="computer" href="http://www.apple.com/macbook-pro/"/>
-</result>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <result>
+                  <first_name><![CDATA[Adrien]]></first_name>
+                  <last_name><![CDATA[Brault]]></last_name>
+                  <link rel="self" href="http://adrienbrault.fr"/>
+                  <link rel="computer" href="http://www.apple.com/macbook-pro/"/>
+                </result>
 
-XML
-            ,
+                XML,
             $hateoas->serialize($adrienBrault, 'xml', $context)
         );
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<result>
-  <first_name><![CDATA[John]]></first_name>
-  <last_name><![CDATA[Smith]]></last_name>
-  <link rel="computer" href="http://www.apple.com/macbook-pro/"/>
-</result>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <result>
+                  <first_name><![CDATA[John]]></first_name>
+                  <last_name><![CDATA[Smith]]></last_name>
+                  <link rel="computer" href="http://www.apple.com/macbook-pro/"/>
+                </result>
 
-XML
-            ,
+                XML,
             $hateoas->serialize($fakeAdrienBrault, 'xml', $context2)
         );
     }
 
     public function testAlternativeUrlGenerator(): void
     {
-        $brokenUrlGenerator = new CallableUrlGenerator(function (string $name, $parameters): string {
-            return $name . '?' . http_build_query($parameters);
-        });
+        $brokenUrlGenerator = new CallableUrlGenerator(fn (string $name, $parameters): string => $name . '?' . http_build_query($parameters));
 
         $hateoas = HateoasBuilder::create()
             ->setUrlGenerator('my_generator', $brokenUrlGenerator)
@@ -80,13 +76,12 @@ XML
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<result>
-  <link rel="search" href="/search?query=hello"/>
-</result>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <result>
+                  <link rel="search" href="/search?query=hello"/>
+                </result>
 
-XML
-            ,
+                XML,
             $hateoas->serialize(new WithAlternativeRouter(), 'xml')
         );
     }
@@ -102,17 +97,16 @@ XML
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<result>
-  <name><![CDATA[reference1]]></name>
-  <entry rel="reference2">
-    <name><![CDATA[reference2]]></name>
-    <entry rel="reference1"/>
-  </entry>
-</result>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <result>
+                  <name><![CDATA[reference1]]></name>
+                  <entry rel="reference2">
+                    <name><![CDATA[reference2]]></name>
+                    <entry rel="reference1"/>
+                  </entry>
+                </result>
 
-XML
-            ,
+                XML,
             $hateoas->serialize($reference1, 'xml')
         );
 
@@ -130,14 +124,13 @@ XML
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<result xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <name><![CDATA[reference1]]></name>
-  <entry rel="reference2" xsi:nil="true"/>
-</result>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <result xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+                  <name><![CDATA[reference1]]></name>
+                  <entry rel="reference2" xsi:nil="true"/>
+                </result>
 
-XML
-            ,
+                XML,
             $hateoas->serialize($reference1, 'xml', SerializationContext::create()->setSerializeNull(true))
         );
 
@@ -157,15 +150,14 @@ XML
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<resource>
-  <id><![CDATA[id-#303]]></id>
-  <number>303</number>
-  <link rel="self" href="https://github.com/willdurand/Hateoas/issues/303"/>
-</resource>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <resource>
+                  <id><![CDATA[id-#303]]></id>
+                  <number>303</number>
+                  <link rel="self" href="https://github.com/willdurand/Hateoas/issues/303"/>
+                </resource>
 
-XML
-            ,
+                XML,
             $hateoas->serialize($resource, 'xml')
         );
     }

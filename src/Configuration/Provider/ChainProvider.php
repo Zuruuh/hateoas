@@ -11,9 +11,7 @@ class ChainProvider implements RelationProviderInterface
     /**
      * @param \Zuruuh\Hateoas\Configuration\Provider\RelationProviderInterface[] $resolvers
      */
-    public function __construct(private array $resolvers)
-    {
-    }
+    public function __construct(private array $resolvers) {}
 
     public function addProvider(RelationProviderInterface $resolver): void
     {

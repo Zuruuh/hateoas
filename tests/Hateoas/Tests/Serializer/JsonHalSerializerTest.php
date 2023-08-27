@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Serializer;
 
+use JMS\Serializer\Metadata\StaticPropertyMetadata;
+use JMS\Serializer\SerializationContext;
+use JMS\Serializer\Visitor\SerializationVisitorInterface;
+use Prophecy\Argument;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Zuruuh\Hateoas\HateoasBuilder;
 use Zuruuh\Hateoas\Model\Embedded;
 use Zuruuh\Hateoas\Model\Link;
@@ -17,11 +22,6 @@ use Zuruuh\Hateoas\Tests\Fixtures\Foo3;
 use Zuruuh\Hateoas\Tests\Fixtures\Gh236Foo;
 use Zuruuh\Hateoas\Tests\Fixtures\LinkAttributes;
 use Zuruuh\Hateoas\Tests\TestCase;
-use JMS\Serializer\Metadata\StaticPropertyMetadata;
-use JMS\Serializer\SerializationContext;
-use JMS\Serializer\Visitor\SerializationVisitorInterface;
-use Prophecy\Argument;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 class JsonHalSerializerTest extends TestCase
 {
@@ -206,42 +206,41 @@ class JsonHalSerializerTest extends TestCase
 
         $this->assertSame(
             <<<JSON
-{
-    "first_name": "Adrien",
-    "last_name": "Brault",
-    "_links": {
-        "self": {
-            "href": "http:\/\/adrienbrault.fr"
-        },
-        "computer": {
-            "href": "http:\/\/www.apple.com\/macbook-pro\/"
-        },
-        "dynamic-relation": {
-            "href": "awesome!!!"
-        }
-    },
-    "_embedded": {
-        "computer": {
-            "name": "MacBook Pro"
-        },
-        "broken-computer": {
-            "name": "Windows Computer"
-        },
-        "smartphone": [
-            {
-                "name": "iPhone 6"
-            },
-            {
-                "name": "Nexus 5"
-            }
-        ],
-        "dynamic-relation": [
-            "wowowow"
-        ]
-    }
-}
-JSON
-            ,
+                {
+                    "first_name": "Adrien",
+                    "last_name": "Brault",
+                    "_links": {
+                        "self": {
+                            "href": "http:\/\/adrienbrault.fr"
+                        },
+                        "computer": {
+                            "href": "http:\/\/www.apple.com\/macbook-pro\/"
+                        },
+                        "dynamic-relation": {
+                            "href": "awesome!!!"
+                        }
+                    },
+                    "_embedded": {
+                        "computer": {
+                            "name": "MacBook Pro"
+                        },
+                        "broken-computer": {
+                            "name": "Windows Computer"
+                        },
+                        "smartphone": [
+                            {
+                                "name": "iPhone 6"
+                            },
+                            {
+                                "name": "Nexus 5"
+                            }
+                        ],
+                        "dynamic-relation": [
+                            "wowowow"
+                        ]
+                    }
+                }
+                JSON,
             $this->json($hateoas->serialize($adrienBrault, 'json'))
         );
     }
@@ -258,26 +257,25 @@ JSON
 
         $this->assertSame(
             <<<JSON
-{
-    "_links": {
-        "self3": {
-            "href": "foo3"
-        },
-        "self2": {
-            "href": "foo2"
-        },
-        "self1": {
-            "href": "foo1"
-        }
-    },
-    "_embedded": {
-        "self3": "foo3",
-        "self2": "foo2",
-        "self1": "foo1"
-    }
-}
-JSON
-            ,
+                {
+                    "_links": {
+                        "self3": {
+                            "href": "foo3"
+                        },
+                        "self2": {
+                            "href": "foo2"
+                        },
+                        "self1": {
+                            "href": "foo1"
+                        }
+                    },
+                    "_embedded": {
+                        "self3": "foo3",
+                        "self2": "foo2",
+                        "self1": "foo1"
+                    }
+                }
+                JSON,
             $this->json($hateoas->serialize($foo1, 'json'))
         );
     }
@@ -290,24 +288,23 @@ JSON
 
         $this->assertSame(
             <<<JSON
-{
-    "_embedded": {
-        "items": [
-            {
-                "a": {
-                    "xxx": "yyy"
-                },
-                "_embedded": {
-                    "b_embed": {
-                        "xxx": "zzz"
+                {
+                    "_embedded": {
+                        "items": [
+                            {
+                                "a": {
+                                    "xxx": "yyy"
+                                },
+                                "_embedded": {
+                                    "b_embed": {
+                                        "xxx": "zzz"
+                                    }
+                                }
+                            }
+                        ]
                     }
                 }
-            }
-        ]
-    }
-}
-JSON
-            ,
+                JSON,
             $this->json(
                 $hateoas->serialize($data, 'json', SerializationContext::create()->enableMaxDepthChecks())
             )
@@ -324,25 +321,24 @@ JSON
 
         $this->assertSame(
             <<<JSON
-{
-    "_links": {
-        "self": {
-            "href": "https:\/\/github.com\/willdurand\/Hateoas\/issues\/305",
-            "templated": false
-        },
-        "foo": {
-            "href": "http:\/\/foo{?bar}",
-            "templated": true
-        },
-        "bar": {
-            "href": "http:\/\/foo\/bar",
-            "templated": false,
-            "number": 2
-        }
-    }
-}
-JSON
-            ,
+                {
+                    "_links": {
+                        "self": {
+                            "href": "https:\/\/github.com\/willdurand\/Hateoas\/issues\/305",
+                            "templated": false
+                        },
+                        "foo": {
+                            "href": "http:\/\/foo{?bar}",
+                            "templated": true
+                        },
+                        "bar": {
+                            "href": "http:\/\/foo\/bar",
+                            "templated": false,
+                            "number": 2
+                        }
+                    }
+                }
+                JSON,
             $this->json(
                 $hateoas->serialize($data, 'json')
             )

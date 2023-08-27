@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Serializer;
 
-use Zuruuh\Hateoas\Model\Embedded;
-use Zuruuh\Hateoas\Model\Link;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
+use Zuruuh\Hateoas\Model\Embedded;
+use Zuruuh\Hateoas\Model\Link;
 
 interface SerializerInterface
 {

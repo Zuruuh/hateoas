@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Serializer;
 
-use Zuruuh\Hateoas\Model\Embedded;
 use JMS\Serializer\Exception\NotAcceptableException;
 use JMS\Serializer\Metadata\StaticPropertyMetadata;
 use JMS\Serializer\SerializationContext;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
+use Zuruuh\Hateoas\Model\Embedded;
 
 class JsonHalSerializer implements SerializerInterface
 {

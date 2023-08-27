@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Serializer;
 
-use Zuruuh\Hateoas\Serializer\AddRelationsListener;
-use Zuruuh\Hateoas\Tests\TestCase;
 use JMS\Serializer\Visitor\SerializationVisitorInterface;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
+use Zuruuh\Hateoas\Serializer\AddRelationsListener;
+use Zuruuh\Hateoas\Tests\TestCase;
 
 class AddRelationsListenerTest extends TestCase
 {
@@ -19,9 +19,7 @@ class AddRelationsListenerTest extends TestCase
         $inlineDeferrerProphecy = $this->prophesize('Hateoas\Serializer\Metadata\InlineDeferrer');
         $inlineDeferrerProphecy
             ->handleItems(Argument::cetera())
-            ->will(function (array $args) {
-                return $args[1];
-            });
+            ->will(fn (array $args) => $args[1]);
 
         return new AddRelationsListener(
             $serializer,

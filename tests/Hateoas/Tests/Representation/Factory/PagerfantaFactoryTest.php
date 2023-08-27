@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Representation\Factory;
 
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Zuruuh\Hateoas\Configuration\Route;
 use Zuruuh\Hateoas\Representation\CollectionRepresentation;
 use Zuruuh\Hateoas\Representation\Factory\PagerfantaFactory;
 use Zuruuh\Hateoas\Tests\Representation\RepresentationTestCase;
-use Pagerfanta\Adapter\ArrayAdapter;
-use Pagerfanta\Pagerfanta;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 class PagerfantaFactoryTest extends RepresentationTestCase
 {
@@ -82,50 +82,48 @@ class PagerfantaFactoryTest extends RepresentationTestCase
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<collection page="1" limit="10" pages="1" total="3">
-  <link rel="self" href="my_route?page=1&amp;limit=10"/>
-  <link rel="first" href="my_route?page=1&amp;limit=10"/>
-  <link rel="last" href="my_route?page=1&amp;limit=10"/>
-  <entry rel="items">
-    <entry><![CDATA[bim]]></entry>
-    <entry><![CDATA[bam]]></entry>
-    <entry><![CDATA[boom]]></entry>
-  </entry>
-</collection>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <collection page="1" limit="10" pages="1" total="3">
+                  <link rel="self" href="my_route?page=1&amp;limit=10"/>
+                  <link rel="first" href="my_route?page=1&amp;limit=10"/>
+                  <link rel="last" href="my_route?page=1&amp;limit=10"/>
+                  <entry rel="items">
+                    <entry><![CDATA[bim]]></entry>
+                    <entry><![CDATA[bam]]></entry>
+                    <entry><![CDATA[boom]]></entry>
+                  </entry>
+                </collection>
 
-XML
-            ,
+                XML,
             $this->hateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
             <<<JSON
-{
-    "page": 1,
-    "limit": 10,
-    "pages": 1,
-    "total": 3,
-    "_links": {
-        "self": {
-            "href": "my_route?page=1&limit=10"
-        },
-        "first": {
-            "href": "my_route?page=1&limit=10"
-        },
-        "last": {
-            "href": "my_route?page=1&limit=10"
-        }
-    },
-    "_embedded": {
-        "items": [
-            "bim",
-            "bam",
-            "boom"
-        ]
-    }
-}
-JSON
-            ,
+                {
+                    "page": 1,
+                    "limit": 10,
+                    "pages": 1,
+                    "total": 3,
+                    "_links": {
+                        "self": {
+                            "href": "my_route?page=1&limit=10"
+                        },
+                        "first": {
+                            "href": "my_route?page=1&limit=10"
+                        },
+                        "last": {
+                            "href": "my_route?page=1&limit=10"
+                        }
+                    },
+                    "_embedded": {
+                        "items": [
+                            "bim",
+                            "bam",
+                            "boom"
+                        ]
+                    }
+                }
+                JSON,
             $this->json($this->hateoas->serialize($collection, 'json'))
         );
     }
@@ -150,20 +148,19 @@ JSON
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<collection page="1" limit="10" pages="1" total="3">
-  <link rel="self" href="http://example.com/my_route?page=1&amp;limit=10"/>
-  <link rel="first" href="http://example.com/my_route?page=1&amp;limit=10"/>
-  <link rel="last" href="http://example.com/my_route?page=1&amp;limit=10"/>
-  <entry rel="items">
-    <entry><![CDATA[bim]]></entry>
-    <entry><![CDATA[bam]]></entry>
-    <entry><![CDATA[boom]]></entry>
-  </entry>
-</collection>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <collection page="1" limit="10" pages="1" total="3">
+                  <link rel="self" href="http://example.com/my_route?page=1&amp;limit=10"/>
+                  <link rel="first" href="http://example.com/my_route?page=1&amp;limit=10"/>
+                  <link rel="last" href="http://example.com/my_route?page=1&amp;limit=10"/>
+                  <entry rel="items">
+                    <entry><![CDATA[bim]]></entry>
+                    <entry><![CDATA[bam]]></entry>
+                    <entry><![CDATA[boom]]></entry>
+                  </entry>
+                </collection>
 
-XML
-            ,
+                XML,
             $this->hateoas->serialize($collection, 'xml')
         );
     }

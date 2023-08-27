@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\UrlGenerator;
 
-use Zuruuh\Hateoas\Tests\TestCase;
-use Zuruuh\Hateoas\UrlGenerator\SymfonyUrlGenerator;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Zuruuh\Hateoas\Tests\TestCase;
+use Zuruuh\Hateoas\UrlGenerator\SymfonyUrlGenerator;
 
 class SymfonyUrlGeneratorTest extends TestCase
 {

@@ -4,11 +4,6 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Factory;
 
-use Zuruuh\Hateoas\Configuration\Embedded;
-use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
-use Zuruuh\Hateoas\Configuration\Relation;
-use Zuruuh\Hateoas\Factory\EmbeddedsFactory;
-use Zuruuh\Hateoas\Tests\TestCase;
 use JMS\Serializer\Expression\ExpressionEvaluator;
 use JMS\Serializer\Expression\ExpressionEvaluatorInterface;
 use JMS\Serializer\SerializationContext;
@@ -16,6 +11,11 @@ use Metadata\MetadataFactoryInterface;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
+use Zuruuh\Hateoas\Configuration\Embedded;
+use Zuruuh\Hateoas\Configuration\Metadata\ClassMetadata;
+use Zuruuh\Hateoas\Configuration\Relation;
+use Zuruuh\Hateoas\Factory\EmbeddedsFactory;
+use Zuruuh\Hateoas\Tests\TestCase;
 
 class EmbeddedsFactoryTest extends TestCase
 {
@@ -50,7 +50,7 @@ class EmbeddedsFactoryTest extends TestCase
 
         $metadataFactory = $this->prophesize(MetadataFactoryInterface::class);
         $metadataFactory
-            ->getMetadataForClass(get_class($object))
+            ->getMetadataForClass($object::class)
             ->willReturn($metadata)
             ->shouldBeCalledTimes(1);
 

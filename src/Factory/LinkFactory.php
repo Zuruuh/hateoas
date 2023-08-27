@@ -4,19 +4,17 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Factory;
 
+use JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface;
+use JMS\Serializer\Expression\Expression;
+use JMS\Serializer\SerializationContext;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Configuration\Route;
 use Zuruuh\Hateoas\Model\Link;
 use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry;
-use JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface;
-use JMS\Serializer\Expression\Expression;
-use JMS\Serializer\SerializationContext;
 
 class LinkFactory
 {
-    public function __construct(private readonly \Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry $urlGeneratorRegistry, private ?\JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface $expressionEvaluator = null)
-    {
-    }
+    public function __construct(private readonly \Zuruuh\Hateoas\UrlGenerator\UrlGeneratorRegistry $urlGeneratorRegistry, private ?\JMS\Serializer\Expression\CompilableExpressionEvaluatorInterface $expressionEvaluator = null) {}
 
     public function setExpressionEvaluator(CompilableExpressionEvaluatorInterface $expressionEvaluator): void
     {

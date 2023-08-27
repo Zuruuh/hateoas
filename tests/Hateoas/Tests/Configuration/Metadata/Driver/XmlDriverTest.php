@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Configuration\Metadata\Driver;
 
-use Zuruuh\Hateoas\Configuration\Metadata\Driver\XmlDriver;
 use Metadata\Driver\FileLocator;
+use Zuruuh\Hateoas\Configuration\Metadata\Driver\XmlDriver;
 
 class XmlDriverTest extends AbstractDriverTest
 {

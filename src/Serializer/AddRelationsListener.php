@@ -4,16 +4,14 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Serializer;
 
+use JMS\Serializer\EventDispatcher\ObjectEvent;
 use Zuruuh\Hateoas\Factory\EmbeddedsFactory;
 use Zuruuh\Hateoas\Factory\LinksFactory;
 use Zuruuh\Hateoas\Serializer\Metadata\InlineDeferrer;
-use JMS\Serializer\EventDispatcher\ObjectEvent;
 
 class AddRelationsListener
 {
-    public function __construct(private readonly \Zuruuh\Hateoas\Serializer\SerializerInterface $serializer, private readonly \Zuruuh\Hateoas\Factory\LinksFactory $linksFactory, private readonly \Zuruuh\Hateoas\Factory\EmbeddedsFactory $embeddedsFactory, private readonly \Zuruuh\Hateoas\Serializer\Metadata\InlineDeferrer $embeddedsInlineDeferrer, private readonly \Zuruuh\Hateoas\Serializer\Metadata\InlineDeferrer $linksInlineDeferrer)
-    {
-    }
+    public function __construct(private readonly \Zuruuh\Hateoas\Serializer\SerializerInterface $serializer, private readonly \Zuruuh\Hateoas\Factory\LinksFactory $linksFactory, private readonly \Zuruuh\Hateoas\Factory\EmbeddedsFactory $embeddedsFactory, private readonly \Zuruuh\Hateoas\Serializer\Metadata\InlineDeferrer $embeddedsInlineDeferrer, private readonly \Zuruuh\Hateoas\Serializer\Metadata\InlineDeferrer $linksInlineDeferrer) {}
 
     public function onPostSerialize(ObjectEvent $event): void
     {

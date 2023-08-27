@@ -53,7 +53,7 @@ class InlineDeferrer
 
         if (
             $metadataStack->count() > 0 && isset($metadataStack[0]->inline) && $metadataStack[0]->inline
-            && $context->getMetadataFactory()->getMetadataForClass(get_class($parentObject)) === $metadataStack[1]
+            && $context->getMetadataFactory()->getMetadataForClass($parentObject::class) === $metadataStack[1]
         ) {
             return $parentObject;
         }

@@ -17,43 +17,40 @@ class CollectionRepresentationTest extends RepresentationTestCase
 
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<collection>
-  <entry rel="items">
-    <entry><![CDATA[Adrien]]></entry>
-    <entry><![CDATA[William]]></entry>
-  </entry>
-</collection>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <collection>
+                  <entry rel="items">
+                    <entry><![CDATA[Adrien]]></entry>
+                    <entry><![CDATA[William]]></entry>
+                  </entry>
+                </collection>
 
-XML
-            ,
+                XML,
             $this->hateoas->serialize($collection, 'xml')
         );
         $this->assertSame(
             <<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<collection>
-  <resource rel="items"><![CDATA[Adrien]]></resource>
-  <resource rel="items"><![CDATA[William]]></resource>
-</collection>
+                <?xml version="1.0" encoding="UTF-8"?>
+                <collection>
+                  <resource rel="items"><![CDATA[Adrien]]></resource>
+                  <resource rel="items"><![CDATA[William]]></resource>
+                </collection>
 
-XML
-            ,
+                XML,
             $this->halHateoas->serialize($collection, 'xml')
         );
 
         $this->assertSame(
             <<<JSON
-{
-    "_embedded": {
-        "items": [
-            "Adrien",
-            "William"
-        ]
-    }
-}
-JSON
-            ,
+                {
+                    "_embedded": {
+                        "items": [
+                            "Adrien",
+                            "William"
+                        ]
+                    }
+                }
+                JSON,
             $this->json($this->halHateoas->serialize($collection, 'json'))
         );
     }

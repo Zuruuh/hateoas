@@ -4,22 +4,20 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Helper;
 
+use JMS\Serializer\SerializationContext;
+use Metadata\MetadataFactoryInterface;
 use Zuruuh\Hateoas\Configuration\Relation;
 use Zuruuh\Hateoas\Configuration\Route;
 use Zuruuh\Hateoas\Factory\LinkFactory;
 use Zuruuh\Hateoas\Util\ClassUtils;
-use JMS\Serializer\SerializationContext;
-use Metadata\MetadataFactoryInterface;
 
 class LinkHelper
 {
-    public function __construct(private readonly \Zuruuh\Hateoas\Factory\LinkFactory $linkFactory, private readonly \Metadata\MetadataFactoryInterface $metadataFactory)
-    {
-    }
+    public function __construct(private readonly \Zuruuh\Hateoas\Factory\LinkFactory $linkFactory, private readonly \Metadata\MetadataFactoryInterface $metadataFactory) {}
 
     public function getLinkHref(object $object, string $rel, bool $absolute = false, ?SerializationContext $context = null): string
     {
-        $context = $context ?? SerializationContext::create();
+        $context ??= SerializationContext::create();
 
         if (null !== ($classMetadata = $this->metadataFactory->getMetadataForClass(ClassUtils::getClass($object)))) {
             foreach ($classMetadata->getRelations() as $relation) {
