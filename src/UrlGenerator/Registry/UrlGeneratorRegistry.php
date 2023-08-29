@@ -16,25 +16,19 @@ final class UrlGeneratorRegistry implements UrlGeneratorRegistryInterface
      */
     private array $urlGenerators = [];
 
-    public function __construct(?UrlGeneratorInterface $defaultUrlGenerator = null)
+    public function __construct(UrlGeneratorInterface $defaultUrlGenerator = null)
     {
         if ($defaultUrlGenerator instanceof UrlGeneratorInterface) {
             $this->urlGenerators = [self::DEFAULT_URL_GENERATOR_KEY => $defaultUrlGenerator];
         }
     }
 
-    public function get(?string $name = null): UrlGeneratorInterface
+    public function get(string $name = null): UrlGeneratorInterface
     {
         $name ??= self::DEFAULT_URL_GENERATOR_KEY;
 
         if (!array_key_exists($name, $this->urlGenerators)) {
-            throw new InvalidArgumentException(
-                sprintf(
-                    'The "%s" url generator is not set. Available url generators are: %s.',
-                    $name,
-                    implode(', ', array_keys($this->urlGenerators))
-                )
-            );
+            throw new InvalidArgumentException(sprintf('The "%s" url generator is not set. Available url generators are: %s.', $name, implode(', ', array_keys($this->urlGenerators))));
         }
 
         return $this->urlGenerators[$name];

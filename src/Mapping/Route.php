@@ -10,7 +10,7 @@ class Route
      * @param non-emptry-string       $name
      * @param array<array-key, mixed> $parameters
      * @param bool|non-empty-string   $absolute
-     * @param null|non-empty-string   $generator
+     * @param non-empty-string|null   $generator
      */
     public function __construct(
         public readonly string $name,

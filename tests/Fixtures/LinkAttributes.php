@@ -4,4 +4,4 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Fixtures;
 
-class EmptyClass {}
+final class LinkAttributes {}

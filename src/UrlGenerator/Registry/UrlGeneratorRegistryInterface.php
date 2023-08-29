@@ -14,7 +14,7 @@ interface UrlGeneratorRegistryInterface
      *
      * @throws InvalidArgumentException
      */
-    public function get(?string $name = null): UrlGeneratorInterface;
+    public function get(string $name = null): UrlGeneratorInterface;
 
     public function set(string $name, UrlGeneratorInterface $urlGenerator): void;
 

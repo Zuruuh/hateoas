@@ -10,7 +10,10 @@ use Attribute;
 class RelationProvider
 {
     /**
-     * @param null|non-empty-string $name
+     * @param class-string $class If null, will default to targeted class
      */
-    public function __construct(public readonly ?string $name = null) {}
+    public function __construct(
+        public readonly ?string $class = null,
+        public readonly string $method = '__invoke',
+    ) {}
 }

@@ -58,7 +58,7 @@ final class SymfonyUrlGeneratorTest extends TestCase
                 'name' => 'user_get',
                 'parameters' => ['id' => 42],
                 'absolute' => true,
-                'expected' => 'https://foo.bar/users/42',
+                'expected' => 'https://hateoas.web/users/42',
             ],
         ];
     }

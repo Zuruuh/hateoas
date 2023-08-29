@@ -17,10 +17,11 @@ return (new PhpCsFixer\Config())
         '@PSR12:risky' => true,
         '@PHP81Migration' => true,
         '@PHP80Migration:risky' => true,
+        '@PhpCsFixer' => true,
+        '@Symfony' => true,
         'single_line_empty_body' => true,
         'declare_strict_types' => true,
         'ordered_imports' => true,
-        '@PhpCsFixer' => true,
         'global_namespace_import' => [
             'import_classes' => true,
         ],

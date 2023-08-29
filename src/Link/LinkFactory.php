@@ -40,12 +40,7 @@ final class LinkFactory implements LinkFactoryInterface
             $isAbsolute = (bool) $this->tryToEvaluateExpression($href->absolute, $data);
 
             if (!is_array($parameters)) {
-                throw new RuntimeException(
-                    sprintf(
-                        'The route parameters should be an array, %s given. Maybe you forgot to wrap the expression in expr(...).',
-                        gettype($parameters)
-                    )
-                );
+                throw new RuntimeException(sprintf('The route parameters should be an array, %s given. Maybe you forgot to wrap the expression in expr(...).', gettype($parameters)));
             }
 
             $href = $this->urlGeneratorRegistry
