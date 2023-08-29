@@ -9,6 +9,7 @@ $finder = PhpCsFixer\Finder::create()
 ;
 
 return (new PhpCsFixer\Config())
+    ->setCacheFile(__DIR__ . '/.cache/php-cs-fixer.cache')
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR2' => true,
@@ -26,10 +27,8 @@ return (new PhpCsFixer\Config())
         'concat_space' => [
             'spacing' => 'one',
         ],
-        'phpunit' => [
-            'php_unit_test_class_requires_covers' => false,
-            'php_unit_internal_class' => false,
-        ],
+        'php_unit_test_class_requires_covers' => false,
+        'php_unit_internal_class' => false,
     ])
     ->setFinder($finder)
 ;
