@@ -7,11 +7,11 @@ namespace Zuruuh\Hateoas\Mapping;
 class Exclusion
 {
     /**
-     * @param list<string> $groups
-     * @param non-empty-string|null $sinceVersion
-     * @param non-empty-until|null $untilVersion
-     * @param positive-int|null $maxDepth
-     * @param non-empty-string|null $excludeIf
+     * @param list<string>          $groups
+     * @param null|non-empty-string $sinceVersion
+     * @param null|non-empty-until  $untilVersion
+     * @param null|positive-int     $maxDepth
+     * @param null|non-empty-string $excludeIf
      */
     public function __construct(
         public readonly array $groups = [],

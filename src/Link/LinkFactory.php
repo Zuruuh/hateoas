@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Link;
 
+use RuntimeException;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Zuruuh\Hateoas\Mapping\Relation;
@@ -27,7 +28,7 @@ final class LinkFactory implements LinkFactoryInterface
 
         if ($href instanceof Route) {
             if (!$this->urlGeneratorRegistry->hasGenerators()) {
-                throw new \RuntimeException('You cannot use a route without an url generator.');
+                throw new RuntimeException('You cannot use a route without an url generator.');
             }
 
             $name = (string) $this->tryToEvaluateExpression($href->name, $data);
@@ -39,7 +40,7 @@ final class LinkFactory implements LinkFactoryInterface
             $isAbsolute = (bool) $this->tryToEvaluateExpression($href->absolute, $data);
 
             if (!is_array($parameters)) {
-                throw new \RuntimeException(
+                throw new RuntimeException(
                     sprintf(
                         'The route parameters should be an array, %s given. Maybe you forgot to wrap the expression in expr(...).',
                         gettype($parameters)
@@ -49,7 +50,8 @@ final class LinkFactory implements LinkFactoryInterface
 
             $href = $this->urlGeneratorRegistry
                 ->get($href->generator)
-                ->generate($name, $parameters, $isAbsolute);
+                ->generate($name, $parameters, $isAbsolute)
+            ;
         } else {
             $href = (string) $this->tryToEvaluateExpression($href, $data);
         }
@@ -73,7 +75,7 @@ final class LinkFactory implements LinkFactoryInterface
 
     /**
      * @param array<array-key, mixed> $array
-     * @param array<string, mixed> $data
+     * @param array<string, mixed>    $data
      *
      * @return array<array-key, mixed>
      */

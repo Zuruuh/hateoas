@@ -12,9 +12,6 @@ final class HateoasLinkExtension extends AbstractExtension
 {
     public function __construct(private readonly HrefFactoryInterface $hrefFactory) {}
 
-    /**
-     * {@inheritDoc}
-     */
     public function getFunctions(): array
     {
         return [
@@ -22,9 +19,6 @@ final class HateoasLinkExtension extends AbstractExtension
         ];
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getName(): string
     {
         return 'hateoas_link';

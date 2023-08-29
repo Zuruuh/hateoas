@@ -12,7 +12,7 @@ final class UrlGeneratorRegistry implements UrlGeneratorRegistryInterface
     final public const DEFAULT_URL_GENERATOR_KEY = 'default';
 
     /**
-     * @var array<string, UrlGeneratorInterface> $urlGenerators
+     * @var array<string, UrlGeneratorInterface>
      */
     private array $urlGenerators = [];
 
@@ -23,9 +23,6 @@ final class UrlGeneratorRegistry implements UrlGeneratorRegistryInterface
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function get(?string $name = null): UrlGeneratorInterface
     {
         $name ??= self::DEFAULT_URL_GENERATOR_KEY;

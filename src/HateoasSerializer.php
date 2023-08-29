@@ -12,17 +12,11 @@ final class HateoasSerializer implements HateoasSerializerInterface
         public readonly SerializerInterface $decoratedSerializer
     ) {}
 
-    /**
-     * {@inheritDoc}
-     */
     public function serialize(mixed $data, string $format, array $context = []): string
     {
         return $this->decoratedSerializer->serialize($data, $format, $context);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function deserialize(mixed $data, string $type, string $format, array $context = []): mixed
     {
         return $this->decoratedSerializer->deserialize($data, $type, $format, $context);

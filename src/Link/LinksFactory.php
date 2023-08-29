@@ -42,7 +42,7 @@ class LinksFactory
     public function create(object $object, SerializationContext $context): array
     {
         $links = [];
-        if (null !== ($classMetadata = $this->metadataFactory->getMetadataForClass(get_class($object)))) {
+        if (null !== ($classMetadata = $this->metadataFactory->getMetadataForClass($object::class))) {
             foreach ($classMetadata->getRelations() as $relation) {
                 if ($this->exclusionManager->shouldSkipLink($object, $relation, $context)) {
                     continue;

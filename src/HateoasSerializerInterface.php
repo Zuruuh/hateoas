@@ -6,6 +6,4 @@ namespace Zuruuh\Hateoas;
 
 use Symfony\Component\Serializer\SerializerInterface;
 
-interface HateoasSerializerInterface extends SerializerInterface
-{
-}
+interface HateoasSerializerInterface extends SerializerInterface {}

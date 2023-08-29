@@ -7,8 +7,8 @@ namespace Zuruuh\Hateoas\Mapping;
 class Embedded
 {
     /**
-     * @param non-empty-string|null $type
-     * @param non-empty-string|null $nodeName
+     * @param null|non-empty-string $type
+     * @param null|non-empty-string $nodeName
      */
     public function __construct(
         public readonly mixed $content,

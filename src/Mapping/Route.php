@@ -7,10 +7,10 @@ namespace Zuruuh\Hateoas\Mapping;
 class Route
 {
     /**
-     * @param non-emptry-string $name
+     * @param non-emptry-string       $name
      * @param array<array-key, mixed> $parameters
-     * @param non-empty-string|bool $absolute
-     * @param non-empty-string|null $generator
+     * @param bool|non-empty-string   $absolute
+     * @param null|non-empty-string   $generator
      */
     public function __construct(
         public readonly string $name,

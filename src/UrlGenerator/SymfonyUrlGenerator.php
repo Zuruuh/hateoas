@@ -12,15 +12,11 @@ class SymfonyUrlGenerator implements UrlGeneratorInterface
         private readonly SymfonyUrlGeneratorInterface $urlGenerator
     ) {}
 
-    /**
-     * {@inheritDoc}
-     */
     public function generate(string $name, array $parameters, bool $absolute = false): string
     {
         $absolute = $absolute
             ? SymfonyUrlGeneratorInterface::ABSOLUTE_URL
-            : SymfonyUrlGeneratorInterface::ABSOLUTE_PATH
-        ;
+            : SymfonyUrlGeneratorInterface::ABSOLUTE_PATH;
 
         return $this->urlGenerator->generate($name, $parameters, $absolute);
     }

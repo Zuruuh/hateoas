@@ -29,9 +29,6 @@ final class HateoasClassMetadata implements ClassMetadataInterface, HateoasClass
         $this->decoratedClassMetadata->addAttributeMetadata($attributeMetadata);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getAttributesMetadata(): array
     {
         return $this->decoratedClassMetadata->getAttributesMetadata();
@@ -41,7 +38,7 @@ final class HateoasClassMetadata implements ClassMetadataInterface, HateoasClass
     {
         $this->decoratedClassMetadata->merge($classMetadata);
 
-        if ($classMetadata instanceof static) {
+        if ($classMetadata instanceof self) {
             foreach ($classMetadata->getRelations() as $relation) {
                 $this->addRelation($relation);
             }
@@ -63,9 +60,6 @@ final class HateoasClassMetadata implements ClassMetadataInterface, HateoasClass
         $this->decoratedClassMetadata->setClassDiscriminatorMapping($mapping);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getRelations(): array
     {
         return $this->relations;

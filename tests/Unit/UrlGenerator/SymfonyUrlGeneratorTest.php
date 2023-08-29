@@ -15,7 +15,7 @@ use Zuruuh\Hateoas\UrlGenerator\SymfonyUrlGenerator;
 final class SymfonyUrlGeneratorTest extends TestCase
 {
     /**
-     * @param non-empty-string $name
+     * @param non-empty-string     $name
      * @param array<string, mixed> $parameters
      */
     #[DataProvider('provideCases')]

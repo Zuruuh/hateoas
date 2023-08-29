@@ -10,7 +10,7 @@ use Attribute;
 class RelationProvider
 {
     /**
-     * @param non-empty-string|null $name
+     * @param null|non-empty-string $name
      */
     public function __construct(public readonly ?string $name = null) {}
 }
