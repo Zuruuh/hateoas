@@ -23,6 +23,13 @@ return (new PhpCsFixer\Config())
         'global_namespace_import' => [
             'import_classes' => true,
         ],
+        'concat_space' => [
+            'spacing' => 'one',
+        ],
+        'phpunit' => [
+            'php_unit_test_class_requires_covers' => false,
+            'php_unit_internal_class' => false,
+        ],
     ])
     ->setFinder($finder)
 ;

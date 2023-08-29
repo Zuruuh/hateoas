@@ -17,12 +17,10 @@ class SymfonyUrlGenerator implements UrlGeneratorInterface
      */
     public function generate(string $name, array $parameters, bool $absolute = false): string
     {
-        // If is it at least Symfony 2.8 and $absolute is passed as boolean
-        if (1 === SymfonyUrlGeneratorInterface::ABSOLUTE_PATH && is_bool($absolute)) {
-            $absolute = $absolute
-                ? SymfonyUrlGeneratorInterface::ABSOLUTE_URL
-                : SymfonyUrlGeneratorInterface::ABSOLUTE_PATH;
-        }
+        $absolute = $absolute
+            ? SymfonyUrlGeneratorInterface::ABSOLUTE_URL
+            : SymfonyUrlGeneratorInterface::ABSOLUTE_PATH
+        ;
 
         return $this->urlGenerator->generate($name, $parameters, $absolute);
     }
