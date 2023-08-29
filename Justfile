@@ -16,7 +16,7 @@ lint: cache_dir
 phpstan: cache_dir
     {{phpstan_bin}} analyse
 
-phpunit: cache_dir
-    {{phpunit_bin}} --configuration phpunit.dist.xml --coverage-html .cache/coverage --testdox
+phpunit *args: cache_dir
+    {{phpunit_bin}} --configuration phpunit.dist.xml --coverage-html .cache/coverage --testdox {{args}}
 
 test: phpunit

@@ -16,7 +16,7 @@ class Embedded
     public function __construct(
         public readonly string $rel,
         public readonly mixed $data,
-        public readonly mixed /* RelationPropertyMetadata */ $metadata,
+        /* public readonly mixed /* RelationPropertyMetadata $metadata, */
         public readonly ?string $xmlElementName = null,
         public readonly ?string $type = null
     ) {}
