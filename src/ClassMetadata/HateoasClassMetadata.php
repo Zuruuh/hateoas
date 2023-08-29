@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\ClassMetadata;
 
-use Hateoas\Configuration\Relation;
 use ReflectionClass;
 use Symfony\Component\Serializer\Mapping\AttributeMetadataInterface;
 use Symfony\Component\Serializer\Mapping\ClassDiscriminatorMapping;
 use Symfony\Component\Serializer\Mapping\ClassMetadataInterface;
+use Zuruuh\Hateoas\Mapping\Relation;
 
-final class HateoasClassMetadata implements ClassMetadataInterface, HateoasClassMetadataInterface
+final class HateoasClassMetadata implements HateoasClassMetadataInterface
 {
     /**
      * @var list<Relation>
@@ -34,7 +34,7 @@ final class HateoasClassMetadata implements ClassMetadataInterface, HateoasClass
         return $this->decoratedClassMetadata->getAttributesMetadata();
     }
 
-    public function merge(self $classMetadata): void
+    public function merge(ClassMetadataInterface $classMetadata): void
     {
         $this->decoratedClassMetadata->merge($classMetadata);
 
@@ -45,6 +45,9 @@ final class HateoasClassMetadata implements ClassMetadataInterface, HateoasClass
         }
     }
 
+    /**
+     * @return ReflectionClass<object>
+     */
     public function getReflectionClass(): ReflectionClass
     {
         return $this->decoratedClassMetadata->getReflectionClass();

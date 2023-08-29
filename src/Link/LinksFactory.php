@@ -2,54 +2,34 @@
 
 declare(strict_types=1);
 
-namespace Hateoas\Factory;
+namespace Zuruuh\Hateoas\Link;
 
-use Hateoas\Model\Link;
-use Hateoas\Serializer\ExclusionManager;
-use JMS\Serializer\SerializationContext;
-use Metadata\MetadataFactoryInterface;
+use Symfony\Component\Serializer\Mapping\Factory\ClassResolverTrait;
+use Zuruuh\Hateoas\ClassMetadata\Factory\HateoasClassMetadataFactoryInterface;
+use Zuruuh\Hateoas\Exclusion\ExclusionManagerInterface;
 
-class LinksFactory
+final class LinksFactory implements LinksFactoryInterface
 {
-    /**
-     * @var LinkFactory
-     */
-    private $linkFactory;
-
-    /**
-     * @var ExclusionManager
-     */
-    private $exclusionManager;
-
-    /**
-     * @var MetadataFactoryInterface
-     */
-    private $metadataFactory;
+    use ClassResolverTrait;
 
     public function __construct(
-        MetadataFactoryInterface $metadataFactory,
-        LinkFactory $linkFactory,
-        ExclusionManager $exclusionManager
-    ) {
-        $this->linkFactory = $linkFactory;
-        $this->exclusionManager = $exclusionManager;
-        $this->metadataFactory = $metadataFactory;
-    }
+        private readonly HateoasClassMetadataFactoryInterface $classMetadataFactory,
+        private readonly LinkFactoryInterface $linkFactory,
+        private readonly ExclusionManagerInterface $exclusionManager,
+    ) {}
 
-    /**
-     * @return Link[]
-     */
-    public function create(object $object, SerializationContext $context): array
+    public function create(object $object): array
     {
+        $class = $this->getClass($object);
+        $classMetadata = $this->classMetadataFactory->getMetadataFor($class);
         $links = [];
-        if (null !== ($classMetadata = $this->metadataFactory->getMetadataForClass($object::class))) {
-            foreach ($classMetadata->getRelations() as $relation) {
-                if ($this->exclusionManager->shouldSkipLink($object, $relation, $context)) {
-                    continue;
-                }
 
-                $links[] = $this->linkFactory->createLink($object, $relation, $context);
+        foreach ($classMetadata->getRelations() as $relation) {
+            if ($this->exclusionManager->shouldSkipLink($object, $relation)) {
+                continue;
             }
+
+            $links[] = $this->linkFactory->createLink($object, $relation);
         }
 
         return $links;

@@ -41,6 +41,6 @@ final class UrlGeneratorRegistry implements UrlGeneratorRegistryInterface
 
     public function hasGenerators(): bool
     {
-        return [] !== $this->urlGenerators;
+        return $this->urlGenerators !== [];
     }
 }

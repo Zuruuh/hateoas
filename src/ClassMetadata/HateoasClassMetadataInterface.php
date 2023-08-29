@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\ClassMetadata;
 
-use Hateoas\Configuration\Relation;
+use Symfony\Component\Serializer\Mapping\ClassMetadataInterface;
+use Zuruuh\Hateoas\Mapping\Relation;
 
-interface HateoasClassMetadataInterface
+interface HateoasClassMetadataInterface extends ClassMetadataInterface
 {
     /**
      * @return list<Relation>

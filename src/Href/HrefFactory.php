@@ -17,31 +17,27 @@ final class HrefFactory implements HrefFactoryInterface
 
     public function __construct(
         private readonly LinkFactoryInterface $linkFactory,
-        private readonly HateoasClassMetadataFactoryInterface $hateoasClassMetadataFactory,
+        private readonly HateoasClassMetadataFactoryInterface $classMetadataFactory,
     ) {}
 
     public function getLinkHref(object $object, string $rel, bool $absolute = false): string
     {
         $class = $this->getClass($object);
-        $classMetadata = $classMetadata = $this->metadataFactory->getMetadataForClass($class);
+        $classMetadata = $this->classMetadataFactory->getMetadataFor($class);
 
-        if (null !== $classMetadata) {
-            foreach ($classMetadata->relations as $relation) {
-                if ($rel === $relation->name) {
-                    $relation = $this->patchAbsolute($relation, $absolute);
-                    $link = $this->linkFactory->createLink($object, $relation);
+        foreach ($classMetadata->getRelations() as $relation) {
+            if ($rel === $relation->name) {
+                $relation = $this->patchAbsolute($relation, $absolute);
+                $link = $this->linkFactory->createLink($object, $relation);
 
-                    if (null !== $link) {
-                        return $link->href;
-                    }
-                }
+                return $link->href;
             }
         }
 
         throw new RuntimeException(sprintf('Can not find the relation "%s" for the "%s" class', $rel, $class));
     }
 
-    private function patchAbsolute(Relation $relation, true $absolute): Relation
+    private function patchAbsolute(Relation $relation, bool $absolute): Relation
     {
         $href = $relation->href;
 

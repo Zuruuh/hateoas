@@ -5,6 +5,7 @@ parameters:
   tmpDir: ./.cache/phpstan
   phpVersion: 80100
   level: 9
+  treatPhpDocTypesAsCertain: false
   paths:
     - src
     - tests

@@ -15,9 +15,6 @@ final class CallableUrlGenerator implements UrlGeneratorInterface
         private readonly Closure $callback
     ) {}
 
-    /**
-     * {@inheritDoc}
-     */
     public function generate(string $name, array $parameters, bool $absolute = false): string
     {
         return ($this->callback)($name, $parameters, $absolute);
