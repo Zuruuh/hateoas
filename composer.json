@@ -39,7 +39,6 @@
     "phpspec/prophecy-phpunit": "^2.0.1",
     "phpstan/phpstan": "^1.10",
     "phpunit/phpunit": "^7 | ^9.5.10",
-    "rector/rector": "^0.18.1",
     "symfony/cache": ">=3.0",
     "symfony/routing": ">=3.0",
     "symfony/yaml": ">=3.0",

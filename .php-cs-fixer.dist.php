@@ -17,6 +17,7 @@ return (new PhpCsFixer\Config())
         '@PHP81Migration' => true,
         '@PHP80Migration:risky' => true,
         'single_line_empty_body' => true,
+        'declare_strict_types' => true,
         'ordered_imports' => true,
         '@PhpCsFixer' => true,
         'global_namespace_import' => [
