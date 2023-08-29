@@ -10,6 +10,8 @@ use Attribute;
 class Relation
 {
     /**
+     * @param non-empty-string $name
+     * @param non-empty-string|null $href
      * @param array<array-key, mixed> $attributes
      */
     public function __construct(

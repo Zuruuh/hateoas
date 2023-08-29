@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\UrlGenerator;
+namespace Zuruuh\Hateoas\UrlGenerator\Registry;
 
 use InvalidArgumentException;
+use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorInterface;
 
-class UrlGeneratorRegistry
+final class UrlGeneratorRegistry implements UrlGeneratorRegistryInterface
 {
     final public const DEFAULT_URL_GENERATOR_KEY = 'default';
 
@@ -23,8 +24,7 @@ class UrlGeneratorRegistry
     }
 
     /**
-     * @param $name If null it will return the default url generator
-     * @throws InvalidArgumentException
+     * {@inheritDoc}
      */
     public function get(?string $name = null): UrlGeneratorInterface
     {

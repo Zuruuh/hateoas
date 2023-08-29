@@ -9,5 +9,8 @@ use Attribute;
 #[Attribute(Attribute::TARGET_CLASS)]
 class RelationProvider
 {
+    /**
+     * @param non-empty-string|null $name
+     */
     public function __construct(public readonly ?string $name = null) {}
 }

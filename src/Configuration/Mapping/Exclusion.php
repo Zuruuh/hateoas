@@ -8,6 +8,10 @@ class Exclusion
 {
     /**
      * @param list<string> $groups
+     * @param non-empty-string|null $sinceVersion
+     * @param non-empty-until|null $untilVersion
+     * @param positive-int|null $maxDepth
+     * @param non-empty-string|null $excludeIf
      */
     public function __construct(
         public readonly array $groups = [],

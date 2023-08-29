@@ -25,6 +25,6 @@ final class HateoasSerializer implements HateoasSerializerInterface
      */
     public function deserialize(mixed $data, string $type, string $format, array $context = []): mixed
     {
-        return $this->decoratedSerializer->serialize($data, $format, $context);
+        return $this->decoratedSerializer->deserialize($data, $type, $format, $context);
     }
 }

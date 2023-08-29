@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Zuruuh\Hateoas\Model;
 
 // use Zuruuh\Hateoas\Serializer\Metadata\RelationPropertyMetadata;
+// TODO: Re-implement
 
 class Embedded
 {
