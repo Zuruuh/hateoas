@@ -9,8 +9,6 @@ use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorInterface;
 
 final class UrlGeneratorRegistry implements UrlGeneratorRegistryInterface
 {
-    final public const DEFAULT_URL_GENERATOR_KEY = 'default';
-
     /**
      * @var array<string, UrlGeneratorInterface>
      */

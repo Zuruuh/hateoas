@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Throwable;
 use Zuruuh\Hateoas\UrlGenerator\Registry\UrlGeneratorRegistry;
+use Zuruuh\Hateoas\UrlGenerator\Registry\UrlGeneratorRegistryInterface;
 use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorInterface;
 
 #[CoversClass(UrlGeneratorRegistry::class)]
@@ -19,7 +20,7 @@ final class UrlGeneratorRegistryTest extends TestCase
         $defaultUrlGenerator = $this->mockUrlGenerator();
         $registry = new UrlGeneratorRegistry($defaultUrlGenerator);
 
-        self::assertEquals($defaultUrlGenerator, $registry->get(UrlGeneratorRegistry::DEFAULT_URL_GENERATOR_KEY));
+        self::assertEquals($defaultUrlGenerator, $registry->get(UrlGeneratorRegistryInterface::DEFAULT_URL_GENERATOR_KEY));
         self::assertEquals($defaultUrlGenerator, $registry->get());
 
         $exception = null;
@@ -39,6 +40,18 @@ final class UrlGeneratorRegistryTest extends TestCase
         $fooUrlGenerator = self::mockUrlGenerator();
         $registry->set('foo', $fooUrlGenerator);
         self::assertEquals($fooUrlGenerator, $registry->get('foo'));
+    }
+
+    public function testHasGenerators(): void
+    {
+        $urlGenerator = $this->mockUrlGenerator();
+        $registry = new UrlGeneratorRegistry();
+
+        self::assertFalse($registry->hasGenerators());
+
+        $registry->set(UrlGeneratorRegistryInterface::DEFAULT_URL_GENERATOR_KEY, $urlGenerator);
+
+        self::assertTrue($registry->hasGenerators());
     }
 
     private function mockUrlGenerator(): UrlGeneratorInterface

@@ -9,6 +9,8 @@ use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorInterface;
 
 interface UrlGeneratorRegistryInterface
 {
+    public const DEFAULT_URL_GENERATOR_KEY = 'default';
+
     /**
      * @param $name If null it will return the default url generator
      *
