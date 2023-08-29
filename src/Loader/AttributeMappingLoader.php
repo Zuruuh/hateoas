@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Configuration\Metadata\Loader;
+namespace Zuruuh\Hateoas\Loader;
 
 use Symfony\Component\Serializer\Mapping\ClassMetadataInterface;
 use Symfony\Component\Serializer\Mapping\Loader\LoaderInterface;

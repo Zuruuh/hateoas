@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Zuruuh\Hateoas\Href;
 
 use Symfony\Component\Serializer\Mapping\Factory\ClassResolverTrait;
-use Zuruuh\Hateoas\Configuration\Mapping\Relation;
-use Zuruuh\Hateoas\Configuration\Mapping\Route;
-use Zuruuh\Hateoas\Configuration\Metadata\HateoasClassMetadataFactory;
+use Zuruuh\Hateoas\Mapping\Relation;
+use Zuruuh\Hateoas\Mapping\Route;
+use Zuruuh\Hateoas\ClassMetadata\Factory\HateoasClassMetadataFactoryInterface;
 use Zuruuh\Hateoas\Link\LinkFactoryInterface;
 
 final class HrefFactory implements HrefFactoryInterface
@@ -16,7 +16,7 @@ final class HrefFactory implements HrefFactoryInterface
 
     public function __construct(
         private readonly LinkFactoryInterface $linkFactory,
-        private readonly HateoasClassMetadataFactory $hateoasClassMetadataFactory,
+        private readonly HateoasClassMetadataFactoryInterface $hateoasClassMetadataFactory,
     ) {}
 
     public function getLinkHref(object $object, string $rel, bool $absolute = false): string
@@ -25,12 +25,13 @@ final class HrefFactory implements HrefFactoryInterface
         $classMetadata = $classMetadata = $this->metadataFactory->getMetadataForClass($class);
 
         if ($classMetadata !== null) {
-            foreach ($classMetadata->getRelations() as $relation) {
-                if ($rel === $relation->getName()) {
+            foreach ($classMetadata->relations as $relation) {
+                if ($rel === $relation->name) {
                     $relation = $this->patchAbsolute($relation, $absolute);
+                    $link = $this->linkFactory->createLink($object, $relation);
 
-                    if (null !== $link = $this->linkFactory->createLink($object, $relation)) {
-                        return $link->getHref();
+                    if ($link !== null) {
+                        return $link->href;
                     }
                 }
             }

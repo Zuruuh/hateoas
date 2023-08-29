@@ -1,16 +1,16 @@
 <?php
 
-namespace Zuruuh\Hateoas\Configuration\Metadata;
+namespace Zuruuh\Hateoas\ClassMetadata\Factory;
 
-use Symfony\Component\Serializer\Mapping\ClassMetadataInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
-use Zuruuh\Hateoas\Configuration\Metadata\HateoasClassMetadata;
+use Zuruuh\Hateoas\ClassMetadata\HateoasClassMetadata;
+use Zuruuh\Hateoas\Configuration\Metadata\HateoasClassMetadataInterface;
 
-final class HateoasClassMetadataFactory implements ClassMetadataFactoryInterface
+final class HateoasClassMetadataFactory implements HateoasClassMetadataFactoryInterface
 {
     public function __construct(private readonly ClassMetadataFactoryInterface $classMetadataFactory) {}
 
-    public function getMetadataFor(string|object $value): ClassMetadataInterface
+    public function getMetadataFor(string|object $value): HateoasClassMetadataInterface
     {
         return new HateoasClassMetadata($this->classMetadataFactory->getMetadataFor($value));
     }

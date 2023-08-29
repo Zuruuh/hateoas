@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Configuration\Metadata;
+namespace Zuruuh\Hateoas\ClassMetadata;
 
 use Hateoas\Configuration\Relation;
 

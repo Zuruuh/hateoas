@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Configuration\Mapping;
+namespace Zuruuh\Hateoas\Mapping;
 
 class Embedded
 {

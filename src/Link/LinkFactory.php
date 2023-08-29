@@ -6,8 +6,8 @@ namespace Zuruuh\Hateoas\Link;
 
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
-use Zuruuh\Hateoas\Configuration\Mapping\Relation;
-use Zuruuh\Hateoas\Configuration\Mapping\Route;
+use Zuruuh\Hateoas\Mapping\Relation;
+use Zuruuh\Hateoas\Mapping\Route;
 use Zuruuh\Hateoas\Model\Link;
 use Zuruuh\Hateoas\UrlGenerator\Registry\UrlGeneratorRegistryInterface;
 

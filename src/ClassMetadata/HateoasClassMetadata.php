@@ -2,13 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Zuruuh\Hateoas\Configuration\Metadata;
+namespace Zuruuh\Hateoas\ClassMetadata;
 
 use Hateoas\Configuration\Relation;
 use ReflectionClass;
 use Symfony\Component\Serializer\Mapping\AttributeMetadataInterface;
 use Symfony\Component\Serializer\Mapping\ClassDiscriminatorMapping;
-use Symfony\Component\Serializer\Mapping\ClassMetadata;
 use Symfony\Component\Serializer\Mapping\ClassMetadataInterface;
 
 final class HateoasClassMetadata implements ClassMetadataInterface, HateoasClassMetadataInterface
