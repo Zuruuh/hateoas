@@ -15,9 +15,6 @@ final class ChainNormalizer implements NormalizerInterface
      */
     public function __construct(private readonly iterable $normalizers) {}
 
-    /**
-     * {@inheritDoc}
-     */
     public function normalize(mixed $object, string $format = null, array $context = []): array|string|int|float|bool|ArrayObject|null
     {
         foreach ($this->normalizers as $normalizer) {
@@ -29,9 +26,6 @@ final class ChainNormalizer implements NormalizerInterface
         throw new UnsupportedException("This normalizer does not support normalization for format {$format}");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function supportsNormalization(mixed $data, string $format = null): bool
     {
         foreach ($this->normalizers as $normalizer) {

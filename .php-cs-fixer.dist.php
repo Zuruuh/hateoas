@@ -31,9 +31,9 @@ return (new PhpCsFixer\Config())
         'php_unit_test_class_requires_covers' => false,
         'php_unit_internal_class' => false,
         'yoda_style' => [
-            'equal' => false,
-            'identical' => false,
-            'less_and_greater' => false,
+            'equal' => null,
+            'identical' => null,
+            'less_and_greater' => null,
             'always_move_variable' => false,
         ],
     ])

@@ -9,7 +9,7 @@ use Zuruuh\Hateoas\Mapping\Relation;
 interface RelationsProviderInterface
 {
     /**
-     * @return list<Relation>
+     * @return list<Relation> list of Relations for specified object
      */
     public static function getRelations(): array;
 }

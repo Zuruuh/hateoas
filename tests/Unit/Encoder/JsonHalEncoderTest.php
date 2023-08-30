@@ -7,6 +7,7 @@ namespace Zuruuh\Hateoas\Tests\Unit\Encoder;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\ExpressionLanguage\ExpressionLanguage;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
@@ -16,17 +17,21 @@ use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 use Zuruuh\Hateoas\ClassMetadata\Factory\HateoasClassMetadataFactory;
 use Zuruuh\Hateoas\Encoder\JsonHalEncoder;
-use Zuruuh\Hateoas\Model\Link;
+use Zuruuh\Hateoas\Expression\ExpressionEvaluator;
+use Zuruuh\Hateoas\Loader\AttributeMappingLoader;
+// use Zuruuh\Hateoas\Model\Link;
 use Zuruuh\Hateoas\Normalizer\ChainNormalizer;
 use Zuruuh\Hateoas\Tests\Fixtures\AdrienBrault;
 
 #[CoversClass(JsonHalEncoder::class)]
 #[Group('debug')]
-final class JsonHalSerializerTest extends TestCase
+final class JsonHalEncoderTest extends TestCase
 {
     public function test(): void
     {
-        $classMetadataFactory = new HateoasClassMetadataFactory(new ClassMetadataFactory(new AnnotationLoader()));
+        // $expressionEvaluator = new ExpressionEvaluator(new ExpressionLanguage());
+        // $metadataLoader = new AttributeMappingLoader($expressionEvaluator, new AnnotationLoader());
+        $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader());
         $objectNormalizer = new ObjectNormalizer($classMetadataFactory);
         $objectNormalizer->setSerializer(new Serializer([new GetSetMethodNormalizer(), $objectNormalizer], [new JsonEncoder()]));
 

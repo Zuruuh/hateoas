@@ -7,8 +7,8 @@ namespace Zuruuh\Hateoas\Encoder;
 use Symfony\Component\Serializer\Encoder\EncoderInterface;
 use Symfony\Component\Serializer\Encoder\JsonEncode;
 use Symfony\Component\Serializer\Exception\UnsupportedException;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
-use Zuruuh\Hateoas\ClassMetadata\Factory\HateoasClassMetadataFactoryInterface;
 
 final class JsonHalEncoder implements EncoderInterface
 {
@@ -22,7 +22,7 @@ final class JsonHalEncoder implements EncoderInterface
     public function __construct(
         private readonly NormalizerInterface $normalizer,
         private readonly JsonEncode $jsonEncoder,
-        private readonly HateoasClassMetadataFactoryInterface $classMetadataFactory,
+        private readonly ClassMetadataFactoryInterface $classMetadataFactory,
     ) {}
 
     public function encode(mixed $data, string $format, array $context = []): string
@@ -39,7 +39,9 @@ final class JsonHalEncoder implements EncoderInterface
 
         $metadata = $this->classMetadataFactory->getMetadataFor($data);
 
-        dd($metadata->getRelations());
+        dump($metadata);
+
+        return $this->jsonEncoder->encode($normalized, 'json');
     }
 
     public function supportsEncoding(string $format): bool
