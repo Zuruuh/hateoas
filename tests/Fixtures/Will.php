@@ -6,18 +6,13 @@ namespace Zuruuh\Hateoas\Tests\Fixtures;
 
 use Zuruuh\Hateoas\Mapping as Hateoas;
 
-#[Hateoas\Relation(
-    name: 'self',
+#[Hateoas\SelfRelation(
     href: new Hateoas\Route(
         name: 'user_get',
         parameters: [
             'id' => 'expr(object.getId())',
         ],
     )
-)]
-#[Hateoas\Relation(
-    name: 'post',
-    href: 'expr(link(object.getPost(), \'self\', true))',
 )]
 final class Will
 {
@@ -28,6 +23,10 @@ final class Will
         return $this->id;
     }
 
+    #[Hateoas\Relation(
+        name: 'post',
+        href: 'expr(link(object.getPost(), \'self\', true))',
+    )]
     public function getPost(): ?Post
     {
         return $this->post;

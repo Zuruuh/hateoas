@@ -7,15 +7,6 @@ namespace Zuruuh\Hateoas\Tests\Fixtures;
 use Symfony\Component\Serializer\Annotation as Serializer;
 use Zuruuh\Hateoas\Mapping as Hateoas;
 
-#[Hateoas\Relation(
-    name: 'b_embed',
-    embedded: new Hateoas\Embedded(
-        content: 'expr(object.b)',
-        exclusion: new Hateoas\Exclusion(
-            maxDepth: 1,
-        ),
-    ),
-)]
 final class Gh236Foo
 {
     #[Serializer\MaxDepth(1)]
@@ -23,6 +14,14 @@ final class Gh236Foo
 
     #[Serializer\Ignore]
     #[Serializer\MaxDepth(1)]
+    #[Hateoas\Relation(
+        name: 'b_embed',
+        embedded: new Hateoas\Embedded(
+            exclusion: new Hateoas\Exclusion(
+                maxDepth: 1,
+            )
+        )
+    )]
     public readonly Gh236Bar $b;
 
     public function __construct()

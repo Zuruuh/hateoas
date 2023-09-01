@@ -6,8 +6,7 @@ namespace Zuruuh\Hateoas\Tests\Fixtures;
 
 use Zuruuh\Hateoas\Mapping as Hateoas;
 
-#[Hateoas\Relation(
-    name: 'self',
+#[Hateoas\SelfRelation(
     href: new Hateoas\Route(
         name: 'post_get',
         parameters: [

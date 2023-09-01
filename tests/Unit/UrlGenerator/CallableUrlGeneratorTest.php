@@ -11,7 +11,7 @@ use Zuruuh\Hateoas\UrlGenerator\CallableUrlGenerator;
 #[CoversClass(CallableUrlGenerator::class)]
 final class CallableUrlGeneratorTest extends TestCase
 {
-    public function test(): void
+    public function testCallableUrlGenerator(): void
     {
         $expectedName = 'user_get';
         $expectedParameters = ['id' => 42];

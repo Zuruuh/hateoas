@@ -7,13 +7,6 @@ namespace Zuruuh\Hateoas\Tests\Fixtures;
 use Symfony\Component\Serializer\Annotation as Serializer;
 use Zuruuh\Hateoas\Mapping as Hateoas;
 
-/**
- * @Hateoas\Relation("reference2", embedded="expr(object.getReference2())")
- */
-#[Hateoas\Relation(
-    name: 'reference2',
-    embedded: 'expr(object.getReference2())'
-)]
 final class CircularReference1
 {
     public string $name = 'reference1';
@@ -21,6 +14,7 @@ final class CircularReference1
     #[Serializer\Ignore]
     private mixed $reference2;
 
+    #[Hateoas\Relation(name: 'reference2')]
     public function setReference2(mixed $reference2): void
     {
         $this->reference2 = $reference2;

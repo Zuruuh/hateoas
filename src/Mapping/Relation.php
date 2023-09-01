@@ -6,13 +6,13 @@ namespace Zuruuh\Hateoas\Mapping;
 
 use Attribute;
 
-#[Attribute(Attribute::TARGET_CLASS | Attribute::IS_REPEATABLE)]
+#[Attribute(Attribute::TARGET_METHOD | Attribute::TARGET_PROPERTY | Attribute::TARGET_PARAMETER)]
 class Relation
 {
     /**
-     * @param non-empty-string      $name
-     * @param non-empty-string|null $href
-     * @param array<string, mixed>  $attributes
+     * @param non-empty-string            $name
+     * @param non-empty-string|Route|null $href
+     * @param array<string, mixed>        $attributes
      */
     public function __construct(
         public readonly string $name,

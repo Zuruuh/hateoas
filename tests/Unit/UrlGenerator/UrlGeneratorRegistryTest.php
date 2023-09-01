@@ -15,7 +15,7 @@ use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorInterface;
 #[CoversClass(UrlGeneratorRegistry::class)]
 final class UrlGeneratorRegistryTest extends TestCase
 {
-    public function test(): void
+    public function testUrlRegistry(): void
     {
         $defaultUrlGenerator = $this->mockUrlGenerator();
         $registry = new UrlGeneratorRegistry($defaultUrlGenerator);
@@ -42,7 +42,7 @@ final class UrlGeneratorRegistryTest extends TestCase
         self::assertEquals($fooUrlGenerator, $registry->get('foo'));
     }
 
-    public function testHasGenerators(): void
+    public function testRegistryHasGenerators(): void
     {
         $urlGenerator = $this->mockUrlGenerator();
         $registry = new UrlGeneratorRegistry();
