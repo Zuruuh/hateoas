@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Tests\Fixtures;
 
-use Zuruuh\Hateoas\Relation\RelationsProviderInterface;
 use Zuruuh\Hateoas\Mapping as Hateoas;
+use Zuruuh\Hateoas\Relation\RelationsProviderInterface;
 
-final class WithAlternativeRouter implements RelationsProviderInterface {
-    /**
-     * {@inheritDoc}
-     */
+final class WithAlternativeRouter implements RelationsProviderInterface
+{
     #[Hateoas\RelationProvider]
-    public static function getRelations(): array
+    public static function provideHypermediaRelations(): array
     {
         return [
             new Hateoas\Relation(
@@ -24,7 +22,7 @@ final class WithAlternativeRouter implements RelationsProviderInterface {
                     ],
                     generator: 'my_generator',
                 ),
-            )
+            ),
         ];
     }
 }

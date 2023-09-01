@@ -13,25 +13,20 @@ final class ExpressionEvaluator implements ExpressionEvaluatorInterface
 {
     public function __construct(private readonly ExpressionLanguage $expressionLanguage) {}
 
-    /**
-     * {@inheritDoc}
-     */
     public function evaluateExpressionIfNeeded(mixed $expression, array $names = []): mixed
     {
         $names[] = 'object';
 
         if (is_string($expression) && preg_match('/expr\((?P<expression>.+)\)/', $expression, $matches)) {
             return $this->expressionLanguage->parse($matches['expression'], $names);
-        } else if ($expression instanceof Expression) {
+        }
+        if ($expression instanceof Expression) {
             return $this->expressionLanguage->parse($expression);
         }
 
         return $expression;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function evaluateArrayOfExpressionsIfNeeded(array $expressions, array $names = []): array
     {
         $evaluatedExpressions = [];
@@ -52,9 +47,6 @@ final class ExpressionEvaluator implements ExpressionEvaluatorInterface
         return $expression;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function tryToEvaluateExpressionIntoNonEmptyString(string $expression, object $object, string $path): string
     {
         try {
@@ -72,9 +64,6 @@ final class ExpressionEvaluator implements ExpressionEvaluatorInterface
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function tryToEvaluateExpressionArray(array $array, object $object): array
     {
         $newArray = [];

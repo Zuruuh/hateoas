@@ -7,6 +7,4 @@ namespace Zuruuh\Hateoas\Mapping;
 use Attribute;
 
 #[Attribute(Attribute::TARGET_METHOD)]
-final class RelationProvider
-{
-}
+final class RelationProvider {}

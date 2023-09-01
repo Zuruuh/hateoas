@@ -14,9 +14,9 @@ class SelfRelation extends Relation
      * @param array<string, mixed>        $attributes
      */
     public function __construct(
-        null|string|Route $href = null,
+        string|Route $href = null,
         array $attributes = [],
-        ?Exclusion $exclusion = null,
+        Exclusion $exclusion = null,
     ) {
         parent::__construct('self', $href, null, $attributes, $exclusion);
     }

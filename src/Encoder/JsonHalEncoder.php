@@ -20,28 +20,22 @@ final class JsonHalEncoder implements EncoderInterface
     ];
 
     public function __construct(
-        private readonly NormalizerInterface $normalizer,
         private readonly JsonEncode $jsonEncoder,
         private readonly ClassMetadataFactoryInterface $classMetadataFactory,
     ) {}
 
     public function encode(mixed $data, string $format, array $context = []): string
     {
-        if (!$this->normalizer->supportsNormalization($data)) {
-            throw new UnsupportedException('TODO: recheck if that can happen and add error message');
-        }
-
-        $normalized = $this->normalizer->normalize($data);
-        if (!is_array($normalized)) {
+        if (!is_array($data)) {
             // Maybe throw here ?
-            return $this->jsonEncoder->encode($normalized, 'json');
+            return $this->jsonEncoder->encode($data, 'json');
         }
 
         $metadata = $this->classMetadataFactory->getMetadataFor($data);
 
-        dump($metadata);
+        /* dump($metadata->getAttributesMetadata()); */
 
-        return $this->jsonEncoder->encode($normalized, 'json');
+        return $this->jsonEncoder->encode($data, 'json');
     }
 
     public function supportsEncoding(string $format): bool

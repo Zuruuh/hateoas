@@ -13,11 +13,8 @@ use Zuruuh\Hateoas\Relation\RelationsProviderInterface;
 )]
 final class User implements RelationsProviderInterface
 {
-    /**
-     * {@inheritDoc}
-     */
     #[Hateoas\RelationProvider]
-    public static function getRelations(): array
+    public static function provideHypermediaRelations(): array
     {
         return [
             new Hateoas\Relation(
@@ -74,7 +71,7 @@ final class User implements RelationsProviderInterface
                 name: 'attribute_with_expression',
                 href: 'baz',
                 attributes: ['baz' => 'expr(object.getId())']
-            )
+            ),
         ];
     }
 }

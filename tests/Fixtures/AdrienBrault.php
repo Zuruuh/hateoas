@@ -57,7 +57,7 @@ final class AdrienBrault implements RelationsProviderInterface
     }
 
     #[Hateoas\RelationProvider]
-    public static function getRelations(): array
+    public static function provideHypermediaRelations(): array
     {
         return [
             new Hateoas\Relation('dynamic-relation', 'awesome!!!', ['wowowow']),

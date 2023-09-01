@@ -11,5 +11,5 @@ interface RelationsProviderInterface
     /**
      * @return list<Relation> list of Relations for specified object
      */
-    public static function getRelations(): array;
+    public static function provideHypermediaRelations(): array;
 }

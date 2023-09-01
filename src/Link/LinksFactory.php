@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Link;
 
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\Mapping\Factory\ClassResolverTrait;
-use Zuruuh\Hateoas\ClassMetadata\Factory\HateoasClassMetadataFactoryInterface;
 use Zuruuh\Hateoas\Exclusion\ExclusionManagerInterface;
 
 final class LinksFactory implements LinksFactoryInterface
@@ -13,7 +13,7 @@ final class LinksFactory implements LinksFactoryInterface
     use ClassResolverTrait;
 
     public function __construct(
-        private readonly HateoasClassMetadataFactoryInterface $classMetadataFactory,
+        private readonly ClassMetadataFactoryInterface $classMetadataFactory,
         private readonly LinkFactoryInterface $linkFactory,
         private readonly ExclusionManagerInterface $exclusionManager,
     ) {}
@@ -24,7 +24,9 @@ final class LinksFactory implements LinksFactoryInterface
         $classMetadata = $this->classMetadataFactory->getMetadataFor($class);
         $links = [];
 
-        foreach ($classMetadata->getRelations() as $relation) {
+        $relations = $classMetadata->getAttributesMetadata()['_links'] ?? null;
+
+        foreach ($classMetadata->getAttributesMetadata() as $relation) {
             if ($this->exclusionManager->shouldSkipLink($object, $relation)) {
                 continue;
             }
