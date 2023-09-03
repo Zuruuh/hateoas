@@ -6,7 +6,10 @@ namespace Zuruuh\Hateoas\UrlGenerator;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface as SymfonyUrlGeneratorInterface;
 
-class SymfonyUrlGenerator implements UrlGeneratorInterface
+/**
+ * @api
+ */
+final class SymfonyUrlGenerator implements UrlGeneratorInterface
 {
     public function __construct(
         private readonly SymfonyUrlGeneratorInterface $urlGenerator

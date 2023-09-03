@@ -6,6 +6,9 @@ namespace Zuruuh\Hateoas\Relation;
 
 use Zuruuh\Hateoas\Mapping\Relation;
 
+/**
+ * @api
+ */
 interface RelationsProviderInterface
 {
     /**

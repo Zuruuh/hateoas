@@ -6,6 +6,9 @@ namespace Zuruuh\Hateoas\UrlGenerator;
 
 use Closure;
 
+/**
+ * @api
+ */
 final class CallableUrlGenerator implements UrlGeneratorInterface
 {
     /**

@@ -21,11 +21,17 @@ final class RelationMetadata implements AttributeMetadataInterface
         public readonly array $relations
     ) {}
 
+    /**
+     * @api
+     */
     public function __set(string $name, mixed $value): void
     {
         $this->inner->{$name} = $value;
     }
 
+    /**
+     * @api
+     */
     public function __get(string $name): mixed
     {
         return $this->inner->{$name};
@@ -49,6 +55,8 @@ final class RelationMetadata implements AttributeMetadataInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @return list<string>
      */
     public function getGroups(): array
     {
@@ -129,6 +137,8 @@ final class RelationMetadata implements AttributeMetadataInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @return array<array-key, mixed>
      */
     public function getNormalizationContexts(): array
     {
@@ -137,6 +147,10 @@ final class RelationMetadata implements AttributeMetadataInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @param array<array-key, mixed> $groups
+     *
+     * @return array<array-key, mixed>
      */
     public function getNormalizationContextForGroups(array $groups): array
     {
@@ -145,6 +159,9 @@ final class RelationMetadata implements AttributeMetadataInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @param array<array-key, mixed> $context
+     * @param array<array-key, mixed> $groups
      */
     public function setNormalizationContextForGroups(array $context, array $groups = []): void
     {
@@ -153,6 +170,8 @@ final class RelationMetadata implements AttributeMetadataInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @return array<array-key, mixed>
      */
     public function getDenormalizationContexts(): array
     {
@@ -161,6 +180,10 @@ final class RelationMetadata implements AttributeMetadataInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @param array<array-key, mixed> $groups
+     *
+     * @return array<array-key, mixed>
      */
     public function getDenormalizationContextForGroups(array $groups): array
     {
@@ -169,6 +192,11 @@ final class RelationMetadata implements AttributeMetadataInterface
 
     /**
      * {@inheritDoc}
+     *
+     * @param array<array-key, mixed> $context
+     * @param array<array-key, mixed> $groups
+     *
+     * @return array<array-key, mixed>
      */
     public function setDenormalizationContextForGroups(array $context, array $groups = []): void
     {

@@ -21,7 +21,7 @@ final class ExpressionEvaluator implements ExpressionEvaluatorInterface
             return $this->expressionLanguage->parse($matches['expression'], $names);
         }
         if ($expression instanceof Expression) {
-            return $this->expressionLanguage->parse($expression);
+            return $this->expressionLanguage->parse($expression, $names);
         }
 
         return $expression;

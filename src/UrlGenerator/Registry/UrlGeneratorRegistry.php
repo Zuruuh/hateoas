@@ -7,6 +7,9 @@ namespace Zuruuh\Hateoas\UrlGenerator\Registry;
 use InvalidArgumentException;
 use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorInterface;
 
+/**
+ * @api
+ */
 final class UrlGeneratorRegistry implements UrlGeneratorRegistryInterface
 {
     /**

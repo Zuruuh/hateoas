@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Mapping;
 
+/**
+ * @api
+ */
 class Exclusion
 {
     /**

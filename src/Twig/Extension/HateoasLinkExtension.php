@@ -8,6 +8,9 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 use Zuruuh\Hateoas\Href\HrefFactoryInterface;
 
+/**
+ * @api
+ */
 final class HateoasLinkExtension extends AbstractExtension
 {
     public function __construct(private readonly HrefFactoryInterface $hrefFactory) {}

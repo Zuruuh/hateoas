@@ -6,6 +6,9 @@ namespace Zuruuh\Hateoas\Mapping;
 
 use Attribute;
 
+/**
+ * @api
+ */
 #[Attribute(Attribute::TARGET_CLASS)]
 class SelfRelation extends Relation
 {

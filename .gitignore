@@ -3,4 +3,5 @@
 /php-cs-fixer.php
 /phpunit.xml
 /phpstan.neon
+/psalm.xml
 /.cache/

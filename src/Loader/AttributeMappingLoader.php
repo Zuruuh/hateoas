@@ -11,6 +11,9 @@ use Zuruuh\Hateoas\Mapping\Relation;
 use Zuruuh\Hateoas\Mapping\RelationProvider;
 use Zuruuh\Hateoas\Relation\RelationMetadata;
 
+/**
+ * @api
+ */
 final class AttributeMappingLoader implements LoaderInterface
 {
     /**
@@ -70,79 +73,4 @@ final class AttributeMappingLoader implements LoaderInterface
 
         return $relations !== [];
     }
-    /*  */
-    /* private function expandRelationAttribute(Relation $relation): Relation */
-    /* { */
-    /*     return new Relation( */
-    /*         $relation->name, */
-    /*         $this->createHref($relation->href), */
-    /*         $this->createEmbedded($relation->embedded), */
-    /*         $this->expressionEvaluator->tryToEvaluateExpressionArray($relation->attributes) ?: [], */
-    /*         $this->createExclusion($relation->exclusion) */
-    /*     ); */
-    /* } */
-    /*  */
-    /* private function parseExclusion(Exclusion $exclusion): Exclusion */
-    /* { */
-    /*     return new Exclusion( */
-    /*         $exclusion->groups, */
-    /*         null !== $exclusion->sinceVersion ? (string) $exclusion->sinceVersion : null, */
-    /*         null !== $exclusion->untilVersion ? (string) $exclusion->untilVersion : null, */
-    /*         null !== $exclusion->maxDepth ? (int) $exclusion->maxDepth : null, */
-    /*         $this->expressionEvaluator->evaluateExpressionIfNeeded($exclusion->excludeIf) */
-    /*     ); */
-    /* } */
-
-    /**
-     * @return Route|mixed
-     */
-    /* private function createHref(mixed $href): mixed */
-    /* { */
-    /*     if ($href instanceof Route) { */
-    /*         return new Route( */
-    /*             $this->expressionEvaluator->evaluateExpressionIfNeeded($href->name), */
-    /*             is_array($href->parameters) */
-    /*                 ? $this->expressionEvaluator->evaluateArrayOfExpressionsIfNeeded($href->parameters) */
-    /*                 : $this->expressionEvaluator->evaluateExpressionIfNeeded($href->parameters), */
-    /*             $this->expressionEvaluator->evaluateExpressionIfNeeded($href->absolute), */
-    /*             $href->generator */
-    /*         ); */
-    /*     } */
-
-        /* return $this->expressionEvaluator->evaluateExpressionIfNeeded($href); */
-    /* } */
-
-    /**
-     * @param Annotation\Embedded|mixed $embedded
-     *
-     * @return Expression|mixed
-     */
-    /* private function createEmbedded($embedded) */
-    /* { */
-    /*     if ($embedded instanceof Embedded) { */
-    /*         $embeddedExclusion = $embedded->exclusion; */
-            /*  */
-            /* if (null !== $embeddedExclusion) { */
-            /*     $embeddedExclusion = $this->parseExclusion($embeddedExclusion); */
-            /* } */
-        /*  */
-        /*     return new Embedded( */
-        /*         $this->expressionEvaluator->evaluateExpressionIfNeeded($embedded->content), */
-        /*         $this->expressionEvaluator->evaluateExpressionIfNeeded($embedded->xmlElementName), */
-        /*         $embeddedExclusion, */
-        /*         null !== $embedded->type ? $this->typeParser->parse($embedded->type) : null */
-        /*     ); */
-        /* } */
-
-    /*     return $this->expressionEvaluator->evaluateExpressionIfNeeded($embedded); */
-    /* } */
-    /*  */
-    /* private function createExclusion(Exclusion $exclusion = null): ?Exclusion */
-    /* { */
-    /*     if (null !== $exclusion) { */
-    /*         $exclusion = $this->parseExclusion($exclusion); */
-    /*     } */
-/*  */
-/*         return $exclusion; */
-/*     } */
 }

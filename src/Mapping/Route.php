@@ -6,6 +6,9 @@ namespace Zuruuh\Hateoas\Mapping;
 
 use Symfony\Component\ExpressionLanguage\Expression;
 
+/**
+ * @api
+ */
 class Route
 {
     /**

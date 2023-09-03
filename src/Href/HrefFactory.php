@@ -11,6 +11,9 @@ use Zuruuh\Hateoas\Link\LinkFactoryInterface;
 use Zuruuh\Hateoas\Mapping\Relation;
 use Zuruuh\Hateoas\Mapping\Route;
 
+/**
+ * @TODO refactor to work with {@link HypermediaNormalizer}
+ */
 final class HrefFactory implements HrefFactoryInterface
 {
     use ClassResolverTrait;
