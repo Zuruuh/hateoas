@@ -1,30 +1,34 @@
 set shell := ["bash", "-uc"]
 
-vendor_bin := "./vendor/bin/"
-phpunit_bin := vendor_bin + "phpunit"
-phpstan_bin := vendor_bin + "phpstan"
-psalm_bin := vendor_bin + "psalm"
-phpcsfixer_bin := vendor_bin + "php-cs-fixer"
+tools := "./tools/vendor/bin/"
+phpunit_bin := "./vendor/bin/phpunit --configuration phpunit.dist.xml"
+phpstan_bin := tools + "phpstan analyse --configure ./tools/phpstan.dist.neon"
+psalm_bin := tools + "psalm --config ./tools/psalm.dist.xml"
+phpcsfixer_bin := tools + "php-cs-fixer fix --config ./tools/.php-cs-fixer.dist.php"
+
+install: cache_dir
+    composer install
+    composer install --working-dir tools
 
 cache_dir:
     @-mkdir .cache 2> /dev/null
 
-fix: cache_dir
-    {{phpcsfixer_bin}} fix
+fix:
+    {{phpcsfixer_bin}}
 
-lint: cache_dir
-    {{phpcsfixer_bin}} fix --dry-run
+lint:
+    {{phpcsfixer_bin}} --dry-run
 
-phpstan: cache_dir
-    {{phpstan_bin}} analyse
+phpstan:
+    {{phpstan_bin}}
 
-psalm: cache_dir
-    {{psalm_bin}} --config psalm.dist.xml
+psalm:
+    {{psalm_bin}}
 
 analyze: analyse
 analyse: phpstan psalm
 
-phpunit *args: cache_dir
-    {{phpunit_bin}} --configuration phpunit.dist.xml --coverage-html .cache/coverage --testdox {{args}}
+phpunit *args:
+    {{phpunit_bin}} --coverage-html .cache/coverage --testdox {{args}}
 
 test: phpunit

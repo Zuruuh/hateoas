@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Zuruuh\Hateoas\UrlGenerator\Registry;
 
 use InvalidArgumentException;
+use RuntimeException;
 use Zuruuh\Hateoas\UrlGenerator\UrlGeneratorInterface;
 
 /**
@@ -17,22 +18,30 @@ final class UrlGeneratorRegistry implements UrlGeneratorRegistryInterface
      */
     private array $urlGenerators = [];
 
-    public function __construct(UrlGeneratorInterface $defaultUrlGenerator = null)
+    public function __construct(private ?UrlGeneratorInterface $defaultUrlGenerator = null)
     {
-        if ($defaultUrlGenerator instanceof UrlGeneratorInterface) {
-            $this->urlGenerators = [self::DEFAULT_URL_GENERATOR_KEY => $defaultUrlGenerator];
-        }
     }
 
     public function get(string $name = null): UrlGeneratorInterface
     {
-        $name ??= self::DEFAULT_URL_GENERATOR_KEY;
+        if ($name === null) {
+            if ($this->defaultUrlGenerator === null) {
+                throw new InvalidArgumentException('Tried to provide the default url generator but none was provided in the first place!');
+            }
+
+            return $this->defaultUrlGenerator;
+        }
 
         if (!array_key_exists($name, $this->urlGenerators)) {
             throw new InvalidArgumentException(sprintf('The "%s" url generator is not set. Available url generators are: %s.', $name, implode(', ', array_keys($this->urlGenerators))));
         }
 
         return $this->urlGenerators[$name];
+    }
+
+    public function setDefault(UrlGeneratorInterface $urlGenerator): void
+    {
+        $this->defaultUrlGenerator = $urlGenerator;
     }
 
     public function set(string $name, UrlGeneratorInterface $urlGenerator): void
@@ -42,6 +51,6 @@ final class UrlGeneratorRegistry implements UrlGeneratorRegistryInterface
 
     public function hasGenerators(): bool
     {
-        return $this->urlGenerators !== [];
+        return $this->urlGenerators !== [] || $this->defaultUrlGenerator !== null;
     }
 }

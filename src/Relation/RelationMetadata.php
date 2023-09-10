@@ -37,25 +37,17 @@ final class RelationMetadata implements AttributeMetadataInterface
         return $this->inner->{$name};
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getName(): string
     {
         return $this->inner->getName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function addGroup(string $group): void
     {
         $this->inner->addGroup($group);
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @return list<string>
      */
     public function getGroups(): array
@@ -63,81 +55,52 @@ final class RelationMetadata implements AttributeMetadataInterface
         return $this->inner->getGroups();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function setMaxDepth(?int $maxDepth): void
     {
         $this->inner->setMaxDepth($maxDepth);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getMaxDepth(): ?int
     {
         return $this->inner->getMaxDepth();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public function setSerializedName(?string $serializedName): void
+    public function setSerializedName(?string $serializedName = null): void
     {
         $this->inner->setSerializedName($serializedName);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getSerializedName(): ?string
     {
         return $this->inner->getSerializedName();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function setSerializedPath(?PropertyPath $serializedPath): void
     {
         $this->inner->setSerializedPath($serializedPath);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getSerializedPath(): ?PropertyPath
     {
         return $this->inner->getSerializedPath();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function setIgnore(bool $ignore): void
     {
         $this->inner->setIgnore($ignore);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function isIgnored(): bool
     {
         return $this->inner->isIgnored();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function merge(AttributeMetadataInterface $attributeMetadata): void
     {
         $this->inner->merge($attributeMetadata);
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @return array<array-key, mixed>
      */
     public function getNormalizationContexts(): array
@@ -146,8 +109,6 @@ final class RelationMetadata implements AttributeMetadataInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @param array<array-key, mixed> $groups
      *
      * @return array<array-key, mixed>
@@ -158,8 +119,6 @@ final class RelationMetadata implements AttributeMetadataInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @param array<array-key, mixed> $context
      * @param array<array-key, mixed> $groups
      */
@@ -169,8 +128,6 @@ final class RelationMetadata implements AttributeMetadataInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @return array<array-key, mixed>
      */
     public function getDenormalizationContexts(): array
@@ -179,8 +136,6 @@ final class RelationMetadata implements AttributeMetadataInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @param array<array-key, mixed> $groups
      *
      * @return array<array-key, mixed>
@@ -191,8 +146,6 @@ final class RelationMetadata implements AttributeMetadataInterface
     }
 
     /**
-     * {@inheritDoc}
-     *
      * @param array<array-key, mixed> $context
      * @param array<array-key, mixed> $groups
      *

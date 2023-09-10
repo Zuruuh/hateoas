@@ -9,6 +9,7 @@ use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\TestCase;
 use Zuruuh\Hateoas\Normalizer\HypermediaNormalizer;
 use Zuruuh\Hateoas\Tests\Fixtures\AdrienBrault;
+use Zuruuh\Hateoas\Tests\Fixtures\User;
 use Zuruuh\Hateoas\Tests\Helper\HypermediaNormalizerAware;
 
 #[CoversClass(HypermediaNormalizer::class)]
@@ -19,6 +20,7 @@ final class HypermediaNormalizerTest extends TestCase
 
     public function testHypermediaNormalization(): void
     {
-        dump($this->provideHypermediaNormalizer()->normalize(new AdrienBrault()));
+        dump($this->provideHypermediaNormalizer()->normalize(new User()));
+        /* dump($this->provideHypermediaNormalizer()->normalize(new AdrienBrault())); */
     }
 }

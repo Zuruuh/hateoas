@@ -3,9 +3,9 @@ includes:
 
 parameters:
   level: 9
-  tmpDir: ./.cache/phpstan
+  tmpDir: ../.cache/phpstan
   phpVersion: 80100
   treatPhpDocTypesAsCertain: false
   paths:
-    - src
-    - tests
+    - ../src
+    - ../tests

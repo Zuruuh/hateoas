@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 $finder = PhpCsFixer\Finder::create()
-    ->in(__DIR__ . '/src')
-    ->in(__DIR__ . '/tests')
+    ->in(dirname(__DIR__) . '/src')
+    ->in(dirname(__DIR__) . '/tests')
     ->ignoreVCSIgnored(true)
 ;
 
 return (new PhpCsFixer\Config())
-    ->setCacheFile(__DIR__ . '/.cache/php-cs-fixer.cache')
+    ->setCacheFile(dirname(__DIR__) . '/.cache/php-cs-fixer.cache')
     ->setRiskyAllowed(true)
     ->setRules([
         '@PSR2' => true,

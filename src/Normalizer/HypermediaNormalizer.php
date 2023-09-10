@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Zuruuh\Hateoas\Normalizer;
 
+use ArrayObject;
 use Symfony\Component\ExpressionLanguage\Expression;
 use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactoryInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
@@ -23,14 +24,11 @@ final class HypermediaNormalizer implements NormalizerInterface
         private readonly ExpressionEvaluatorInterface $expressionEvaluator,
     ) {}
 
-    /**
-     * {@inheritDoc}
-     */
     public function normalize(
         mixed $object,
         string $format = null,
         array $context = []
-    ): array|string|int|float|bool|\ArrayObject|null {
+    ): array|string|int|float|bool|ArrayObject|null {
         $normalized = $this->normalizer->normalize($object, $format, $context);
 
         if (

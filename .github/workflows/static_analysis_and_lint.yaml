@@ -1,0 +1,57 @@
+name: "Static analysis & lint"
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  coding-standards:
+    name: "Coding Standards"
+    runs-on: "ubuntu-20.04"
+
+    strategy:
+      matrix:
+        dependencies:
+          - "highest"
+          - "lowest"
+
+    steps:
+      - name: "Checkout branch 🛎️"
+        uses: actions/checkout@3
+
+      - name: "Install php 📦"
+        uses: "shivammathur/setup-php@2.25.5"
+        with:
+          php-version: "8.1"
+          tools: "cs2pr"
+
+      - name: "Get composer cache directory 🏎️"
+        id: "composer-cache"
+        run: |
+          echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: "Cache dependencies 🏎️ "
+        uses: "actions/cache@v3"
+        with:
+          path: "${{ steps.composer-cache.outputs.dir }}"
+          key: '${{ runner.os }}-composer-${{ hashFiles("/composer.json") }}-deps-${{ matrix.dependencies }}'
+          restore-keys: "${{ runner.os }}-composer-"
+
+      - name: "Install dependencies 📦"
+        run: |
+          composer install --prefer-dist --no-progress
+          composer update ${{ matrix.dependencies == 'lowest' && '--prefer-lowest' }}
+          composer install --prefer-dist --no-progress --working-dir tools
+
+      - name: "Run PHP-CS-Fixer ✅"
+        run: |
+          ./vendor/bin/php-cs-fixer fix --dry-run --config .php-cs-fixer.dist.php
+
+      - name: "Run phpstan ✅"
+        run: |
+          ./vendor/bin/phpstan analyse --configuration phpstan.dist.neon
+
+      - name: "Run psalm ✅"
+        run: |
+          ./vendor/bin/psalm --config psalm.dist.xml
